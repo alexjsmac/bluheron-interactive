@@ -1,17 +1,19 @@
 /* ---------------------------------------------------------------------------
    BluHeron Interactive — design tokens & base styles
-   "Progressive Immersion": warm paper base, dark luminous bands,
+   "Pixel Dissolve": warm pale grounds, heron-mist bands, living pixels,
    heron cyan accent drawn from the logo (#0097B2).
 --------------------------------------------------------------------------- */
 
 :root {
   /* Ground & ink (light theme) */
-  --paper: #faf7f2;
-  --paper-2: #f3ede3;
+  --paper: #fdfcf6;
+  --paper-2: #f5f1e4;
+  --mist: #e9f4f3; /* heron-pale band ground, kin to beacbeac's #fffbe5 */
+  --mist-line: #cde5e3;
   --ink: #140f11;
   --ink-2: #4a4345;
-  --muted: #8a8184;
-  --line: #e2d8c8;
+  --muted: #837b7e;
+  --line: #e5ddcc;
 
   /* Immersive band palette (always dark, both themes) */
   --band: #0a1016;
@@ -28,12 +30,13 @@
   --clay: #a4531f; /* 4.5:1 on paper */
 
   --link: var(--cyan-deep);
+  --cyan-text: var(--cyan-deep); /* readable cyan for small text on theme grounds */
   --btn-bg: var(--cyan);
   --btn-ink: #06131a;
   --focus: var(--cyan-deep);
 
-  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
-  --font-body: 'Space Grotesk Variable', system-ui, 'Helvetica Neue', sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Avenir Next', 'Helvetica Neue', sans-serif;
+  --font-body: 'DM Sans Variable', system-ui, 'Helvetica Neue', sans-serif;
 
   --content: 1200px;
   --gutter: clamp(20px, 4.5vw, 64px);
@@ -42,11 +45,14 @@
 [data-theme='dark'] {
   --paper: #0a1016;
   --paper-2: #101a22;
+  --mist: #0e1a20;
+  --mist-line: #223238;
   --ink: #eaf4f4;
   --ink-2: #b8cccf;
   --muted: #9db4b8;
   --line: #223238;
   --link: var(--cyan-bright);
+  --cyan-text: var(--cyan-bright);
   --clay: #d98d55;
   --focus: var(--cyan-bright);
 }
@@ -55,11 +61,14 @@
   :root:not([data-theme='light']) {
     --paper: #0a1016;
     --paper-2: #101a22;
+    --mist: #0e1a20;
+    --mist-line: #223238;
     --ink: #eaf4f4;
     --ink-2: #b8cccf;
     --muted: #9db4b8;
     --line: #223238;
     --link: var(--cyan-bright);
+    --cyan-text: var(--cyan-bright);
     --clay: #d98d55;
     --focus: var(--cyan-bright);
   }
@@ -96,8 +105,8 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 500;
-  line-height: 1.12;
+  font-weight: 600;
+  line-height: 1.1;
   margin: 0;
   text-wrap: balance;
 }
@@ -167,48 +176,28 @@ video {
   color: var(--clay);
 }
 
-.band .kicker,
 .kicker.on-dark {
   color: var(--cyan-bright);
 }
 
 .display {
   font-family: var(--font-display);
-  font-weight: 400;
-  line-height: 1.06;
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
   font-size: clamp(2.6rem, 6.8vw, 5.5rem);
 }
 
 .display em,
 h1 em,
 h2 em {
-  font-style: italic;
-  color: var(--mint);
+  font-style: normal;
+  color: var(--cyan);
 }
 
 .band {
-  background-color: var(--band);
-  color: var(--band-ink);
-}
-
-.band a {
-  color: var(--cyan-bright);
-}
-
-.band a:hover {
-  color: var(--mint);
-}
-
-.band a.btn {
-  color: var(--btn-ink);
-}
-
-.band a.btn:hover {
-  color: #06131a;
-}
-
-.band :focus-visible {
-  outline-color: var(--cyan-bright);
+  background-color: var(--mist);
+  color: var(--ink);
 }
 
 .btn {

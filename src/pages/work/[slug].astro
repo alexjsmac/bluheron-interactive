@@ -93,7 +93,7 @@ const next = all[(idx + 1) % all.length];
     d.howItWorks.length > 0 && (
       <section class="band how">
         <div class="wrap inner">
-          <p class="kicker on-dark">How it works</p>
+          <p class="kicker">How it works</p>
           <ol role="list" class="stagger">
             {d.howItWorks.map((step, i) => (
               <li class="reveal">
@@ -152,8 +152,12 @@ const next = all[(idx + 1) % all.length];
 </Base>
 
 <style>
+  /* Photography treatment: this band stays dark regardless of theme —
+     the image needs the scrim, and the scrim needs the dark ground. */
   .hero {
     position: relative;
+    background-color: var(--band);
+    color: var(--band-ink);
   }
 
   .hero img {
@@ -192,9 +196,9 @@ const next = all[(idx + 1) % all.length];
   }
 
   .tagline {
-    font-family: var(--font-display);
+    font-family: var(--font-body);
     font-style: italic;
-    font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
     color: var(--mint);
     max-width: 44ch;
   }
@@ -256,7 +260,7 @@ const next = all[(idx + 1) % all.length];
   .how {
     background-image: radial-gradient(
       ellipse 600px 300px at 20% 0%,
-      rgba(0, 151, 178, 0.16),
+      rgba(0, 151, 178, 0.07),
       transparent 70%
     );
   }
@@ -285,9 +289,9 @@ const next = all[(idx + 1) % all.length];
 
   .num {
     font-family: var(--font-display);
-    font-style: italic;
+    font-weight: 700;
     font-size: 2.8rem;
-    color: var(--mint);
+    color: var(--cyan);
   }
 
   .how h2 {
@@ -298,7 +302,7 @@ const next = all[(idx + 1) % all.length];
 
   .how p {
     font-size: 0.95rem;
-    color: var(--band-ink-2);
+    color: var(--ink-2);
   }
 
   .gallery {

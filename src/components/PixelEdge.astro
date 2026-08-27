@@ -50,14 +50,15 @@ const H = ROWS * CELL;
   aria-hidden="true"
 >
   {
-    cells.map((c) => (
+    cells.map((c, i) => (
       <rect
+        class={c.accent ? 'px accent' : 'px'}
         x={c.x}
         y={c.y}
         width={SQ}
         height={SQ}
         fill={c.accent ? 'var(--cyan)' : 'var(--paper)'}
-        opacity={c.accent ? 0.8 : c.o}
+        style={`--o: ${c.accent ? 0.8 : c.o}; --d: ${(i % 23) * 0.35}s`}
       />
     ))
   }
@@ -68,5 +69,53 @@ const H = ROWS * CELL;
     display: block;
     width: 100%;
     height: 36px;
+  }
+
+  .px {
+    opacity: var(--o);
+  }
+
+  /* The seam breathes: squares twinkle, accents hop one grid cell sideways —
+     grid-locked movement, like the logo's wing dissolving in slow motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    .px {
+      animation: px-twinkle 5.5s ease-in-out infinite;
+      animation-delay: var(--d);
+    }
+
+    .px.accent {
+      animation:
+        px-twinkle 5.5s ease-in-out infinite,
+        px-hop 9s infinite;
+      animation-delay: var(--d), calc(var(--d) * 2);
+    }
+  }
+
+  @keyframes px-twinkle {
+    0%,
+    100% {
+      opacity: var(--o);
+    }
+
+    50% {
+      opacity: calc(var(--o) * 0.25);
+    }
+  }
+
+  @keyframes px-hop {
+    0%,
+    44% {
+      transform: none;
+    }
+
+    45%,
+    94% {
+      transform: translateX(12px);
+    }
+
+    95%,
+    100% {
+      transform: none;
+    }
   }
 </style>

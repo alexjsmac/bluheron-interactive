@@ -11,7 +11,7 @@ const { project } = Astro.props;
 const { title, kicker, summary, hero, heroAlt } = project.data;
 ---
 
-<a class="card band" href={withBase(`/work/${project.id}/`)}>
+<a class="card" href={withBase(`/work/${project.id}/`)}>
   <Image
     src={hero}
     alt={heroAlt}
@@ -34,7 +34,9 @@ const { title, kicker, summary, hero, heroAlt } = project.data;
     border-radius: 20px;
     overflow: hidden;
     text-decoration: none;
-    color: var(--band-ink);
+    color: var(--ink);
+    background: var(--mist);
+    border: 1px solid var(--mist-line);
   }
 
   .card img {
@@ -65,7 +67,7 @@ const { title, kicker, summary, hero, heroAlt } = project.data;
     font-size: 0.7rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--cyan-bright);
+    color: var(--cyan-text);
   }
 
   h3 {
@@ -73,12 +75,12 @@ const { title, kicker, summary, hero, heroAlt } = project.data;
   }
 
   .card:hover h3 {
-    color: var(--mint);
+    color: var(--cyan-text);
   }
 
   .summary {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: var(--band-ink-2);
+    color: var(--ink-2);
   }
 </style>

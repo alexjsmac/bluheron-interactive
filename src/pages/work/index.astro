@@ -69,12 +69,13 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
     align-items: center;
     gap: 48px;
     border-radius: 20px;
+    border: 1px solid var(--mist-line);
     padding: clamp(32px, 5vw, 56px);
     text-decoration: none;
-    color: var(--band-ink);
+    color: var(--ink);
     background-image: radial-gradient(
       ellipse 500px 300px at 85% 30%,
-      rgba(0, 151, 178, 0.25),
+      rgba(0, 151, 178, 0.08),
       transparent 70%
     );
   }
@@ -92,13 +93,13 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
   }
 
   .tags span {
-    border: 1px solid var(--band-line);
+    border: 1px solid var(--mist-line);
     border-radius: 999px;
     padding: 6px 14px;
     font-size: 0.7rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--cyan-bright);
+    color: var(--cyan-text);
   }
 
   .flagship h2 {
@@ -106,11 +107,11 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
   }
 
   .flagship:hover h2 {
-    color: var(--mint);
+    color: var(--cyan-text);
   }
 
   .flagship p {
-    color: var(--band-ink-2);
+    color: var(--ink-2);
     max-width: 52ch;
   }
 

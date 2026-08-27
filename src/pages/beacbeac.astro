@@ -42,12 +42,11 @@ const tour = [
 <Base
   title="beacbeac — art that finds you | BluHeron Interactive"
   description="beacbeac delivers accessible, place-based stories — audio, descriptions, images — straight to visitors' phones as they approach. No QR codes. Nothing to hunt for."
-  darkHeader
 >
   <HeroCanvas>
     <div class="hero">
       <div class="copy">
-        <p class="kicker on-dark">Flagship platform</p>
+        <p class="kicker">Flagship platform</p>
         <h1 class="display">Art that <em>finds you</em>.</h1>
         <p class="lede">
           beacbeac delivers place-based stories — audio, descriptions, images — straight to
@@ -84,14 +83,14 @@ const tour = [
   <section class="band access">
     <div class="wrap inner">
       <div class="lead">
-        <p class="kicker on-dark">Built access-first</p>
+        <p class="kicker">Built access-first</p>
         <h2>
           Co-designed with Blind, Low Vision, Deaf, Deafblind, and disabled community members.
         </h2>
       </div>
       <ul class="features stagger" role="list">
         <li class="reveal">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-bright)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
             <circle cx="12" cy="12" r="9"></circle>
             <circle cx="12" cy="10" r="3"></circle>
             <path d="M6.5 18.5 A7 7 0 0 1 17.5 18.5"></path>
@@ -100,7 +99,7 @@ const tour = [
           <p>Optimized for VoiceOver and TalkBack from the first line of code.</p>
         </li>
         <li class="reveal">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-bright)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
             <path d="M4 9 L8 9 L13 4 L13 20 L8 15 L4 15 Z"></path>
             <path d="M17 8 A5 5 0 0 1 17 16"></path>
           </svg>
@@ -108,7 +107,7 @@ const tour = [
           <p>Text-to-speech audio for every story, with human recordings where you have them.</p>
         </li>
         <li class="reveal">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-bright)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
             <circle cx="12" cy="12" r="9"></circle>
             <path d="M3 12 L21 12"></path>
             <path d="M12 3 A14 14 0 0 1 12 21 A14 14 0 0 1 12 3"></path>
@@ -117,7 +116,7 @@ const tour = [
           <p>English, Français, and Español — the same story, welcoming more people.</p>
         </li>
         <li class="reveal">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-bright)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
             <path d="M12 3 L20 7 L20 12 C20 17 16.5 20.5 12 21 C7.5 20.5 4 17 4 12 L4 7 Z"></path>
             <path d="M8.5 12 L11 14.5 L15.5 9.5"></path>
           </svg>
@@ -148,7 +147,7 @@ const tour = [
 
   <section class="band origin">
     <div class="wrap inner">
-      <p class="kicker on-dark">Born in galleries, built for everywhere</p>
+      <p class="kicker">Born in galleries, built for everywhere</p>
       <h2>Every place has stories. Make them <em>accessible to everyone</em>.</h2>
       <div class="actions">
         <a class="btn" href="https://beacbeac.com" rel="noopener">Visit beacbeac.com &rarr;</a>
@@ -176,7 +175,7 @@ const tour = [
 
   .lede {
     font-size: 1.15rem;
-    color: var(--band-ink-2);
+    color: var(--ink-2);
     max-width: 52ch;
   }
 
@@ -222,7 +221,7 @@ const tour = [
 
   .num {
     font-family: var(--font-display);
-    font-style: italic;
+    font-weight: 700;
     font-size: 2.8rem;
     color: var(--cyan);
   }
@@ -278,7 +277,8 @@ const tour = [
     display: flex;
     flex-direction: column;
     gap: 12px;
-    border: 1px solid var(--band-line);
+    background: var(--paper);
+    border: 1px solid var(--mist-line);
     border-radius: 16px;
     padding: 28px;
   }
@@ -291,7 +291,7 @@ const tour = [
 
   .features p {
     font-size: 0.9rem;
-    color: var(--band-ink-2);
+    color: var(--ink-2);
   }
 
   .tour {

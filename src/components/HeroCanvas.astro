@@ -1,8 +1,10 @@
 ---
 /**
- * The signature moment: a generative heron-blue particle field.
- * Motion is a progressive enhancement — the static gradient underneath is the
- * designed reduced-motion (and no-JS) experience, not a degraded one.
+ * The signature moment: the logo's pixel-dissolve wing as a living field.
+ * Grid-locked pixels twinkle and drift across a pale heron mist; the pointer
+ * warms them and a tap sends a beacon ripple lighting pixels as it passes.
+ * Motion is a progressive enhancement — the static pixel scatter underneath
+ * is the designed reduced-motion (and no-JS) experience, not a degraded one.
  */
 interface Props {
   /** Landing-page mode: the band claims most of the viewport. */
@@ -11,9 +13,51 @@ interface Props {
 
 const { tall = false } = Astro.props;
 import PixelEdge from './PixelEdge.astro';
+
+// The designed still: a deterministic sparse pixel scatter (no Math.random,
+// so builds are reproducible). Shown whenever the canvas isn't animating.
+const CELL = 18;
+const SQ = 11;
+const COLS = 80;
+const ROWS = 42;
+
+const hash = (n: number) => {
+  let x = (n ^ 61) ^ (n >>> 16);
+  x = (x + (x << 3)) | 0;
+  x = x ^ (x >>> 4);
+  x = Math.imul(x, 0x27d4eb2d);
+  x = x ^ (x >>> 15);
+  return (x >>> 0) % 1000;
+};
+
+const STILL_COLORS = ['#0097b2', '#0097b2', '#4fc9dc', '#b4652f', '#c85981'];
+
+type Cell = { x: number; y: number; c: string; o: number };
+const cells: Cell[] = [];
+for (let row = 0; row < ROWS; row++) {
+  for (let col = 0; col < COLS; col++) {
+    const h = hash(col * 137 + row * 613 + 11);
+    if (h < 52) {
+      cells.push({
+        x: col * CELL,
+        y: row * CELL,
+        c: STILL_COLORS[h % STILL_COLORS.length],
+        o: 0.14 + (h % 37) / 100,
+      });
+    }
+  }
+}
 ---
 
 <div class:list={['hero-band', 'band', { 'is-tall': tall }]}>
+  <svg
+    class="pixel-still"
+    viewBox={`0 0 ${COLS * CELL} ${ROWS * CELL}`}
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+  >
+    {cells.map((c) => <rect x={c.x} y={c.y} width={SQ} height={SQ} fill={c.c} opacity={c.o} />)}
+  </svg>
   <canvas class="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-content wrap">
     <slot />
@@ -53,19 +97,24 @@ import PixelEdge from './PixelEdge.astro';
   .hero-band {
     position: relative;
     overflow: hidden;
-    /* The designed still: soft aurora glows + a scatter of fixed particles. */
-    background-image:
-      radial-gradient(ellipse 620px 400px at 78% 18%, rgba(0, 151, 178, 0.22), transparent 70%),
-      radial-gradient(ellipse 500px 360px at 12% 82%, rgba(169, 232, 220, 0.1), transparent 70%),
-      radial-gradient(circle 2.5px at 15% 32%, rgba(169, 232, 220, 0.9), transparent 100%),
-      radial-gradient(circle 2px at 33% 58%, rgba(79, 201, 220, 0.8), transparent 100%),
-      radial-gradient(circle 3px at 65% 24%, rgba(169, 232, 220, 0.7), transparent 100%),
-      radial-gradient(circle 2px at 82% 74%, rgba(79, 201, 220, 0.85), transparent 100%),
-      radial-gradient(circle 2.5px at 50% 88%, rgba(169, 232, 220, 0.6), transparent 100%),
-      radial-gradient(circle 1.5px at 24% 82%, rgba(234, 244, 244, 0.6), transparent 100%),
-      radial-gradient(circle 2px at 92% 44%, rgba(234, 244, 244, 0.5), transparent 100%),
-      radial-gradient(circle 1.5px at 73% 92%, rgba(169, 232, 220, 0.7), transparent 100%),
-      radial-gradient(circle 2px at 9% 60%, rgba(79, 201, 220, 0.6), transparent 100%);
+    background-color: var(--mist);
+    background-image: radial-gradient(
+      ellipse 900px 500px at 75% 20%,
+      rgba(0, 151, 178, 0.07),
+      transparent 70%
+    );
+  }
+
+  .pixel-still {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1.2s ease;
+  }
+
+  .hero-band.is-animating .pixel-still {
+    opacity: 0;
   }
 
   .hero-canvas {
@@ -124,10 +173,10 @@ import PixelEdge from './PixelEdge.astro';
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(10, 16, 22, 0.5);
-    border: 1px solid var(--band-line);
+    background: color-mix(in srgb, var(--paper) 70%, transparent);
+    border: 1px solid var(--mist-line);
     border-radius: 999px;
-    color: var(--band-muted);
+    color: var(--ink-2);
     font-family: var(--font-body);
     font-size: 0.72rem;
     letter-spacing: 0.1em;
@@ -138,8 +187,8 @@ import PixelEdge from './PixelEdge.astro';
   }
 
   .motion-toggle:hover {
-    color: var(--mint);
-    border-color: var(--band-muted);
+    color: var(--cyan-deep);
+    border-color: var(--cyan);
   }
 
   .motion-toggle .icon-play,
@@ -166,7 +215,6 @@ import PixelEdge from './PixelEdge.astro';
 </style>
 
 <script>
-  type P = { x: number; y: number; vx: number; vy: number; r: number; c: string; a: number };
   type Ripple = { x: number; y: number; r: number; alpha: number };
 
   // With the ClientRouter, this module executes once per site visit, not per
@@ -198,114 +246,105 @@ import PixelEdge from './PixelEdge.astro';
       return;
     }
 
-    const COLORS = ['rgba(79,201,220,', 'rgba(169,232,220,', 'rgba(0,151,178,', 'rgba(234,244,244,'];
+    // The logo wing's palette: heron cyans with rare clay and magenta pixels.
+    const COLORS = ['#0097b2', '#0097b2', '#0097b2', '#4fc9dc', '#00758c', '#b4652f', '#c85981'];
+    const CELL = 14;
+    const SQ = 9;
+    const THRESHOLD = 0.88;
+
     let w = 0;
     let h = 0;
+    let cols = 0;
+    let rows = 0;
     let dpr = 1;
     let raf = 0;
     let inView = true;
     const pointer = { x: -9999, y: -9999 };
-
-    let particles: P[] = [];
     let ripples: Ripple[] = [];
+
+    const cellHash = (n: number) => {
+      let x = (n ^ 61) ^ (n >>> 16);
+      x = (x + (x << 3)) | 0;
+      x = x ^ (x >>> 4);
+      x = Math.imul(x, 0x27d4eb2d);
+      x = x ^ (x >>> 15);
+      return x >>> 0;
+    };
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = band.clientWidth;
       h = band.clientHeight;
+      cols = Math.ceil(w / CELL);
+      rows = Math.ceil(h / CELL);
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(160, Math.floor((w * h) / 14000));
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: 0,
-        vy: 0,
-        r: 0.6 + Math.random() * 1.8,
-        c: COLORS[Math.floor(Math.random() * COLORS.length)],
-        a: 0.25 + Math.random() * 0.55,
-      }));
     };
 
-    // Cheap divergence-free-ish flow field from layered sines.
-    const flow = (x: number, y: number, time: number) => {
-      const s = 0.0016;
-      const ang =
-        Math.sin(x * s * 1.3 + time * 0.00022) * 1.6 +
-        Math.cos(y * s * 1.7 - time * 0.00018) * 1.6 +
-        Math.sin((x + y) * s * 0.6 + time * 0.0001) * 1.2;
-      return ang;
+    // Slow breathing field: which pixels are awake drifts over time.
+    // The per-cell hash phase breaks the waves into dappled clusters, so the
+    // field reads as the wing dissolving rather than as moving stripes.
+    const field = (cx: number, cy: number, t: number, phase: number) => {
+      return (
+        0.5 +
+        0.5 *
+          Math.sin(
+            cx * 0.23 +
+              cy * 0.37 +
+              phase * 6.28 +
+              Math.sin(cx * 0.09 - t * 0.00019) * 1.8 +
+              Math.cos(cy * 0.11 + t * 0.00015) * 1.8
+          )
+      );
     };
 
     const step = (now: number) => {
       ctx.clearRect(0, 0, w, h);
-      for (const p of particles) {
-        const ang = flow(p.x, p.y, now);
-        p.vx += Math.cos(ang) * 0.014;
-        p.vy += Math.sin(ang) * 0.012;
 
-        const dx = p.x - pointer.x;
-        const dy = p.y - pointer.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < 22500) {
-          const f = (1 - d2 / 22500) * 0.35;
-          const d = Math.sqrt(d2) || 1;
-          p.vx += (dx / d) * f;
-          p.vy += (dy / d) * f;
-        }
+      for (let cy = 0; cy < rows; cy++) {
+        for (let cx = 0; cx < cols; cx++) {
+          const hsh = cellHash(cx * 137 + cy * 613);
+          // Most cells never light at all — sparseness is the design.
+          const eligible = hsh % 100 < 38;
+          const v = eligible ? field(cx, cy, now, (hsh % 97) / 97) : 0;
+          let a = v > THRESHOLD ? ((v - THRESHOLD) / (1 - THRESHOLD)) * 0.42 : 0;
 
-        // Beacon ripples: particles riding near the expanding ring front get
-        // a gentle outward push, proportional to how strong the ring still is.
-        for (const rp of ripples) {
-          const rdx = p.x - rp.x;
-          const rdy = p.y - rp.y;
-          const dist = Math.sqrt(rdx * rdx + rdy * rdy) || 1;
-          if (Math.abs(dist - rp.r) < 28) {
-            const push = 0.5 * rp.alpha;
-            p.vx += (rdx / dist) * push;
-            p.vy += (rdy / dist) * push;
+          const px = cx * CELL + CELL / 2;
+          const py = cy * CELL + CELL / 2;
+
+          // Pointer warmth: nearby pixels wake and brighten.
+          const dx = px - pointer.x;
+          const dy = py - pointer.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < 24025) {
+            a += (1 - Math.sqrt(d2) / 155) * 0.45;
+          }
+
+          // Beacon ripples light pixels as the ring front passes through.
+          for (const rp of ripples) {
+            const dist = Math.sqrt((px - rp.x) ** 2 + (py - rp.y) ** 2);
+            if (Math.abs(dist - rp.r) < 22) {
+              a = Math.max(a, rp.alpha * 0.85);
+            }
+          }
+
+          if (a > 0.02) {
+            ctx.globalAlpha = Math.min(a, 0.8);
+            ctx.fillStyle = COLORS[hsh % COLORS.length];
+            ctx.fillRect(cx * CELL + 2, cy * CELL + 2, SQ, SQ);
           }
         }
-
-        p.vx *= 0.965;
-        p.vy *= 0.965;
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < -12) p.x = w + 12;
-        if (p.x > w + 12) p.x = -12;
-        if (p.y < -12) p.y = h + 12;
-        if (p.y > h + 12) p.y = -12;
-
-        const tw = 0.75 + 0.25 * Math.sin(now * 0.001 + p.x * 0.05);
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.c + p.a * tw + ')';
-        ctx.fill();
       }
+      ctx.globalAlpha = 1;
 
       for (let i = ripples.length - 1; i >= 0; i--) {
         const rp = ripples[i];
-        rp.r += 2.4;
-        rp.alpha -= 0.006;
+        rp.r += 3;
+        rp.alpha -= 0.008;
         if (rp.alpha <= 0) {
           ripples.splice(i, 1);
-          continue;
         }
-
-        ctx.beginPath();
-        ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(169,232,220,' + rp.alpha * 0.5 + ')';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-
-        // Inner ring for depth.
-        ctx.beginPath();
-        ctx.arc(rp.x, rp.y, rp.r * 0.7, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(169,232,220,' + rp.alpha * 0.25 + ')';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
       }
 
       raf = requestAnimationFrame(step);
@@ -322,6 +361,7 @@ import PixelEdge from './PixelEdge.astro';
       if (!running() && inView && !userPaused) {
         raf = requestAnimationFrame(step);
         canvas.classList.add('is-running');
+        band.classList.add('is-animating');
       }
     };
 
@@ -337,6 +377,7 @@ import PixelEdge from './PixelEdge.astro';
       const label = toggle.querySelector('.label');
       if (label) label.textContent = userPaused ? 'Play motion' : 'Pause motion';
       canvas.classList.toggle('is-running', !userPaused);
+      band.classList.toggle('is-animating', !userPaused);
     };
 
     toggle.hidden = false;
