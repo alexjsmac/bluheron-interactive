@@ -199,6 +199,14 @@ h2 em {
   color: var(--mint);
 }
 
+.band a.btn {
+  color: var(--btn-ink);
+}
+
+.band a.btn:hover {
+  color: #06131a;
+}
+
 .band :focus-visible {
   outline-color: var(--cyan-bright);
 }
