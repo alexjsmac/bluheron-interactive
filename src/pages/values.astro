@@ -1,33 +1,49 @@
 ---
 import { withBase } from '../lib/url';
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import BeaconMark from '../components/BeaconMark.astro';
+import blueNoiseWhale from '../assets/work/blue-noise-whale.png';
+import navitasSculpture from '../assets/work/navitas-sculpture.jpg';
+import navitasArtcrawl from '../assets/work/navitas-artcrawl.jpg';
+import jumpAround from '../assets/work/jump-around.png';
 
 const rs = [
   {
     name: 'Respect',
     text: 'Our door is open to every body and bandwidth. It shapes how we design — and how this website is built: readable without JavaScript, honest about motion, tested with screen readers.',
     link: { href: '/accessibility/', label: 'Our accessibility statement' },
+    img: null,
+    alt: '',
   },
   {
     name: 'Relevance',
     text: 'Work grows from the place it lives in. Blue Noise speaks to an ocean coalition; Navitas to a city and its water. Nothing is parachuted in.',
     link: { href: '/work/blue-noise/', label: 'Blue Noise' },
+    img: blueNoiseWhale,
+    alt: 'A projected whale swimming through luminous ocean visuals.',
   },
   {
     name: 'Responsibility',
     text: 'We build with reclaimed materials where we can, leave sites as we found them, and treat community stories as belonging to the communities that told them.',
     link: { href: '/work/navitas/', label: 'Navitas' },
+    img: navitasSculpture,
+    alt: 'The Navitas sculpture, built from copper, wood, and aluminum, glowing with blue LEDs.',
   },
   {
     name: 'Reciprocity',
     text: 'Advisors join at the start of each project, not the end — and engagement flows both ways: every activation gathers community feedback and gives something back.',
     link: { href: '/about/', label: 'Our advisors' },
+    img: navitasArtcrawl,
+    alt: 'Visitors gathered around the Navitas sculpture at an evening art crawl.',
   },
   {
     name: 'Relationality',
     text: 'Partnership, co-creation, and just having fun together. The connections a project sparks matter more than the hardware it runs on.',
     link: { href: '/work/', label: 'The work it leads to' },
+    img: jumpAround,
+    alt: 'A crowd dancing under colourful lights at Jump Around.',
   },
 ];
 ---
@@ -47,10 +63,24 @@ const rs = [
     </p>
   </section>
 
-  <section class="wrap list">
+  <section class="wrap list stagger">
     {
-      rs.map((r, i) => (
+      rs.map((r) => (
         <article class="r reveal">
+          {r.img ? (
+            <Image
+              class="visual"
+              src={r.img}
+              alt={r.alt}
+              width={640}
+              widths={[400, 640]}
+              sizes="(max-width: 720px) 100vw, 33vw"
+            />
+          ) : (
+            <div class="visual mark">
+              <BeaconMark size={120} />
+            </div>
+          )}
           <h2>{r.name}</h2>
           <p>{r.text}</p>
           <a href={withBase(r.link.href)}>{r.link.label} &rarr;</a>
@@ -107,6 +137,20 @@ const rs = [
     gap: 14px;
     border-top: 1px solid var(--line);
     padding-top: 28px;
+  }
+
+  .visual {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+  .visual.mark {
+    background: var(--band);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .r h2 {

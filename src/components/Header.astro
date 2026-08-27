@@ -40,7 +40,7 @@ const isCurrent = (href: string) =>
         <a class="btn hello" href={withBase('/contact/')}>Say hello</a>
       </li>
       <li>
-        <button class="theme-toggle" type="button" aria-pressed="false">
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark theme">
           <svg
             width="15"
             height="15"
@@ -53,7 +53,7 @@ const isCurrent = (href: string) =>
           >
             <path d="M21 12.8 A9 9 0 1 1 11.2 3 A7 7 0 0 0 21 12.8 Z"></path>
           </svg>
-          Dark theme
+          <span class="toggle-label">Dark theme</span>
         </button>
       </li>
     </ul>
@@ -107,6 +107,19 @@ const isCurrent = (href: string) =>
     padding: 10px 0;
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    .links a:not(.hello) {
+      font-variation-settings: 'wght' 400;
+      will-change: font-variation-settings;
+      transition: font-variation-settings 0.3s ease;
+    }
+
+    .links a:not(.hello):hover,
+    .links a:not(.hello):focus-visible {
+      font-variation-settings: 'wght' 640;
+    }
+  }
+
   .links a[aria-current='page'] {
     border-bottom: 2px solid var(--cyan);
   }
@@ -153,28 +166,75 @@ const isCurrent = (href: string) =>
   html.no-js .theme-toggle {
     display: none;
   }
+
+  @media (max-width: 720px) {
+    .bar {
+      padding-block: 14px;
+      gap: 12px;
+    }
+
+    .wordmark {
+      font-size: 1.1rem;
+    }
+
+    .links {
+      font-size: 0.68rem;
+      gap: 14px;
+      letter-spacing: 0.1em;
+    }
+
+    .n {
+      display: none;
+    }
+
+    .hello {
+      padding: 8px 14px;
+    }
+
+    .theme-toggle {
+      padding: 8px 10px;
+    }
+
+    .theme-toggle .toggle-label {
+      display: none;
+    }
+  }
 </style>
 
 <script>
-  const btn = document.querySelector<HTMLButtonElement>('.theme-toggle');
-  const root = document.documentElement;
+  // The header is transition:persist'ed across ClientRouter navigations, so
+  // this script only executes once per site visit. Re-run the paint step on
+  // every navigation (the saved theme may have just been re-applied to
+  // <html>), and guard the click binding so it's never attached twice.
+  function initThemeToggle() {
+    const btn = document.querySelector<HTMLButtonElement>('.theme-toggle');
+    if (!btn) return;
 
-  const isDark = () =>
-    root.dataset.theme === 'dark' ||
-    (!root.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const root = document.documentElement;
 
-  const paint = () => {
-    if (btn) btn.setAttribute('aria-pressed', String(isDark()));
-  };
+    const isDark = () =>
+      root.dataset.theme === 'dark' ||
+      (!root.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  btn?.addEventListener('click', () => {
-    const next = isDark() ? 'light' : 'dark';
-    root.dataset.theme = next;
-    try {
-      localStorage.setItem('theme', next);
-    } catch {}
+    const paint = () => {
+      btn.setAttribute('aria-pressed', String(isDark()));
+    };
+
+    if (!btn.dataset.bound) {
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', () => {
+        const next = isDark() ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem('theme', next);
+        } catch {}
+        paint();
+      });
+    }
+
     paint();
-  });
+  }
 
-  paint();
+  initThemeToggle();
+  document.addEventListener('astro:page-load', initThemeToggle);
 </script>

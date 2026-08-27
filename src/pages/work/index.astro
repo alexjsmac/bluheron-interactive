@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
+import BeaconMark from '../../components/BeaconMark.astro';
 
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -28,12 +29,9 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
         </p>
         <span class="arrow-link">Explore beacbeac &rarr;</span>
       </div>
-      <svg width="180" height="180" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-        <circle cx="100" cy="100" r="10" fill="var(--cyan)"></circle>
-        <circle cx="100" cy="100" r="42" stroke="var(--cyan)" stroke-width="1.5" opacity="0.75"></circle>
-        <circle cx="100" cy="100" r="74" stroke="var(--cyan-bright)" stroke-width="1.25" opacity="0.45"></circle>
-        <circle cx="100" cy="100" r="98" stroke="var(--mint)" stroke-width="1" opacity="0.25"></circle>
-      </svg>
+      <span class="ripples">
+        <BeaconMark size={180} />
+      </span>
     </a>
   </section>
 
@@ -116,12 +114,12 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
     max-width: 52ch;
   }
 
-  .flagship svg {
+  .flagship .ripples {
     flex-shrink: 0;
   }
 
   @media (max-width: 760px) {
-    .flagship svg {
+    .flagship .ripples {
       display: none;
     }
   }

@@ -3,6 +3,7 @@ import { withBase } from '../lib/url';
 import Base from '../layouts/Base.astro';
 import HeroCanvas from '../components/HeroCanvas.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import BeaconMark from '../components/BeaconMark.astro';
 
 const steps = [
   {
@@ -57,20 +58,15 @@ const tour = [
           <a class="arrow-link" href={withBase('/contact/')}>Book a deployment</a>
         </div>
       </div>
-      <svg class="ripples" width="280" height="280" viewBox="0 0 260 260" fill="none" aria-hidden="true">
-        <circle cx="130" cy="130" r="12" fill="var(--cyan)"></circle>
-        <circle cx="130" cy="130" r="52" stroke="var(--cyan)" stroke-width="1.5" opacity="0.75"></circle>
-        <circle cx="130" cy="130" r="92" stroke="var(--cyan-bright)" stroke-width="1.25" opacity="0.45"></circle>
-        <circle cx="130" cy="130" r="126" stroke="var(--mint)" stroke-width="1" opacity="0.25"></circle>
-        <circle cx="216" cy="80" r="5" fill="var(--mint)" opacity="0.9"></circle>
-        <circle cx="52" cy="180" r="4" fill="var(--cyan-bright)" opacity="0.8"></circle>
-      </svg>
+      <span class="ripples">
+        <BeaconMark size={280} />
+      </span>
     </div>
   </HeroCanvas>
 
   <section class="wrap how">
     <p class="kicker">How it works</p>
-    <ol role="list">
+    <ol role="list" class="stagger">
       {
         steps.map((s, i) => (
           <li class="reveal">
@@ -93,7 +89,7 @@ const tour = [
           Co-designed with Blind, Low Vision, Deaf, Deafblind, and disabled community members.
         </h2>
       </div>
-      <ul class="features" role="list">
+      <ul class="features stagger" role="list">
         <li class="reveal">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-bright)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
             <circle cx="12" cy="12" r="9"></circle>
@@ -137,7 +133,7 @@ const tour = [
       <h2>On the ground, fall 2026</h2>
       <p class="kicker">Come say hi</p>
     </div>
-    <ul role="list">
+    <ul role="list" class="stagger">
       {
         tour.map((t) => (
           <li class="reveal">
