@@ -1,0 +1,179 @@
+---
+interface Props {
+  /** When the page opens with a dark band, the header renders on it. */
+  dark?: boolean;
+}
+
+const { dark = false } = Astro.props;
+const current = Astro.url.pathname;
+
+const links = [
+  { n: '01', label: 'Work', href: '/work/' },
+  { n: '02', label: 'beacbeac', href: '/beacbeac/' },
+  { n: '03', label: 'Services', href: '/services/' },
+  { n: '04', label: 'About', href: '/about/' },
+  { n: '05', label: 'Values', href: '/values/' },
+];
+
+const isCurrent = (href: string) =>
+  href === '/' ? current === '/' : current.startsWith(href);
+---
+
+<header class:list={['site-header', { 'on-band': dark }]}>
+  <nav class="wrap bar" aria-label="Main">
+    <a class="wordmark" href="/">BluHeron Interactive</a>
+    <ul class="links">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
+              <span class="n" aria-hidden="true">
+                {l.n}
+              </span>
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a class="btn hello" href="/contact/">Say hello</a>
+      </li>
+      <li>
+        <button class="theme-toggle" type="button" aria-pressed="false">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12.8 A9 9 0 1 1 11.2 3 A7 7 0 0 0 21 12.8 Z"></path>
+          </svg>
+          Dark theme
+        </button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    background: var(--paper);
+  }
+
+  .site-header.on-band {
+    background: var(--band);
+    color: var(--band-ink);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-block: 22px;
+  }
+
+  .wordmark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .links a:not(.hello) {
+    color: inherit;
+    text-decoration: none;
+    padding: 10px 0;
+  }
+
+  .links a[aria-current='page'] {
+    border-bottom: 2px solid var(--cyan);
+  }
+
+  .links a:not(.hello):hover {
+    color: var(--cyan-deep);
+  }
+
+  .on-band .links a:not(.hello):hover {
+    color: var(--mint);
+  }
+
+  .n {
+    color: var(--cyan-deep);
+    margin-right: 4px;
+  }
+
+  .on-band .n {
+    color: var(--cyan-bright);
+  }
+
+  .hello {
+    padding: 10px 20px;
+    font-size: 0.8125rem;
+  }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: inherit;
+    font: inherit;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+
+  .on-band .theme-toggle {
+    border-color: var(--band-line);
+  }
+
+  html.no-js .theme-toggle {
+    display: none;
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const root = document.documentElement;
+
+  const isDark = () =>
+    root.dataset.theme === 'dark' ||
+    (!root.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  const paint = () => {
+    if (btn) btn.setAttribute('aria-pressed', String(isDark()));
+  };
+
+  btn?.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+    paint();
+  });
+
+  paint();
+</script>

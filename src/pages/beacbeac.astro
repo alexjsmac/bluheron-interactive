@@ -1,0 +1,367 @@
+---
+import Base from '../layouts/Base.astro';
+import HeroCanvas from '../components/HeroCanvas.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+
+const steps = [
+  {
+    title: 'Place small beacons',
+    text: "Discreet Bluetooth beacons live beside your artworks, trails, and venues — installed and tested by us, or by your own team.",
+  },
+  {
+    title: 'Load your stories',
+    text: 'Descriptions, audio, and images in English, French, and Spanish — managed from a simple console your existing staff can run.',
+  },
+  {
+    title: 'Visitors just walk',
+    text: 'As they approach, the story arrives on their own phone — read aloud, described, translated. The place introduces itself.',
+  },
+];
+
+const tour = [
+  {
+    when: 'Sept 4 · Woodstock',
+    name: 'Ability First Fest',
+    text: 'Accessible stories across the festival grounds.',
+  },
+  {
+    when: 'September · Hamilton',
+    name: 'Supercrawl',
+    text: "Place-based stories for one of Canada's biggest street festivals.",
+  },
+  {
+    when: 'Sept 19 · London',
+    name: 'Nuit Blanche London',
+    text: 'Fifteen beacons guiding visitors through a night of art.',
+  },
+];
+---
+
+<Base
+  title="beacbeac — art that finds you | BluHeron Interactive"
+  description="beacbeac delivers accessible, place-based stories — audio, descriptions, images — straight to visitors' phones as they approach. No QR codes. Nothing to hunt for."
+  darkHeader
+>
+  <HeroCanvas>
+    <div class="hero">
+      <div class="copy">
+        <p class="kicker on-dark">Flagship platform</p>
+        <h1 class="display">Art that <em>finds you</em>.</h1>
+        <p class="lede">
+          beacbeac delivers place-based stories — audio, descriptions, images — straight to
+          visitors' phones as they approach. No QR codes. Nothing to hunt for.
+        </p>
+        <div class="actions">
+          <a class="btn" href="https://beacbeac.com" rel="noopener">Visit beacbeac.com &rarr;</a>
+          <a class="arrow-link" href="/contact/">Book a deployment</a>
+        </div>
+      </div>
+      <svg class="ripples" width="280" height="280" viewBox="0 0 260 260" fill="none" aria-hidden="true">
+        <circle cx="130" cy="130" r="12" fill="var(--cyan)"></circle>
+        <circle cx="130" cy="130" r="52" stroke="var(--cyan)" stroke-width="1.5" opacity="0.75"></circle>
+        <circle cx="130" cy="130" r="92" stroke="var(--cyan-bright)" stroke-width="1.25" opacity="0.45"></circle>
+        <circle cx="130" cy="130" r="126" stroke="var(--mint)" stroke-width="1" opacity="0.25"></circle>
+        <circle cx="216" cy="80" r="5" fill="var(--mint)" opacity="0.9"></circle>
+        <circle cx="52" cy="180" r="4" fill="var(--cyan-bright)" opacity="0.8"></circle>
+      </svg>
+    </div>
+  </HeroCanvas>
+
+  <section class="wrap how">
+    <p class="kicker">How it works</p>
+    <ol role="list">
+      {
+        steps.map((s, i) => (
+          <li class="reveal">
+            <span class="num" aria-hidden="true">
+              {i + 1}
+            </span>
+            <h2>{s.title}</h2>
+            <p>{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="band access">
+    <div class="wrap inner">
+      <div class="lead">
+        <p class="kicker on-dark">Built access-first</p>
+        <h2>
+          Co-designed with Blind, Low Vision, Deaf, Deafblind, and disabled community members.
+        </h2>
+      </div>
+      <ul class="features" role="list">
+        <li class="reveal">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-bright)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <circle cx="12" cy="10" r="3"></circle>
+            <path d="M6.5 18.5 A7 7 0 0 1 17.5 18.5"></path>
+          </svg>
+          <h3>Screen-reader first</h3>
+          <p>Optimized for VoiceOver and TalkBack from the first line of code.</p>
+        </li>
+        <li class="reveal">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-bright)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 9 L8 9 L13 4 L13 20 L8 15 L4 15 Z"></path>
+            <path d="M17 8 A5 5 0 0 1 17 16"></path>
+          </svg>
+          <h3>Stories read aloud</h3>
+          <p>Text-to-speech audio for every story, with human recordings where you have them.</p>
+        </li>
+        <li class="reveal">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-bright)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12 L21 12"></path>
+            <path d="M12 3 A14 14 0 0 1 12 21 A14 14 0 0 1 12 3"></path>
+          </svg>
+          <h3>Three languages</h3>
+          <p>English, Français, and Español — the same story, welcoming more people.</p>
+        </li>
+        <li class="reveal">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--cyan-bright)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 3 L20 7 L20 12 C20 17 16.5 20.5 12 21 C7.5 20.5 4 17 4 12 L4 7 Z"></path>
+            <path d="M8.5 12 L11 14.5 L15.5 9.5"></path>
+          </svg>
+          <h3>Audited, AODA-aligned</h3>
+          <p>Accessibility-audited apps and console — a claim we can back up.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap tour">
+    <div class="row">
+      <h2>On the ground, fall 2026</h2>
+      <p class="kicker">Come say hi</p>
+    </div>
+    <ul role="list">
+      {
+        tour.map((t) => (
+          <li class="reveal">
+            <p class="when">{t.when}</p>
+            <h3>{t.name}</h3>
+            <p class="what">{t.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="band origin">
+    <div class="wrap inner">
+      <p class="kicker on-dark">Born in galleries, built for everywhere</p>
+      <h2>Every place has stories. Make them <em>accessible to everyone</em>.</h2>
+      <div class="actions">
+        <a class="btn" href="https://beacbeac.com" rel="noopener">Visit beacbeac.com &rarr;</a>
+        <a class="arrow-link" href="/contact/">Talk to us about your place</a>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA heading="Want beacbeac at your <em>festival</em>?" />
+</Base>
+
+<style>
+  .hero {
+    display: flex;
+    align-items: center;
+    gap: clamp(32px, 5vw, 64px);
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    max-width: 720px;
+  }
+
+  .lede {
+    font-size: 1.15rem;
+    color: var(--band-ink-2);
+    max-width: 52ch;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .ripples {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .ripples {
+      display: none;
+    }
+  }
+
+  .how {
+    padding-block: clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  .how ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 48px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .how li {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 2.8rem;
+    color: var(--cyan);
+  }
+
+  .how h2 {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .how p {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+  }
+
+  .access {
+    background-image: radial-gradient(
+      ellipse 600px 340px at 10% 100%,
+      rgba(0, 151, 178, 0.16),
+      transparent 70%
+    );
+  }
+
+  .access .inner {
+    padding-block: clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .lead {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 720px;
+  }
+
+  .lead h2 {
+    font-weight: 400;
+    font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .features li {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid var(--band-line);
+    border-radius: 16px;
+    padding: 28px;
+  }
+
+  .features h3 {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+
+  .features p {
+    font-size: 0.9rem;
+    color: var(--band-ink-2);
+  }
+
+  .tour {
+    padding-block: clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .tour h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  }
+
+  .tour ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tour li {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--paper-2);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .when {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  .tour h3 {
+    font-size: 1.5rem;
+  }
+
+  .what {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+  }
+
+  .origin .inner {
+    padding-block: clamp(64px, 8vw, 96px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .origin h2 {
+    font-weight: 400;
+    font-size: clamp(1.9rem, 3.6vw, 2.875rem);
+    max-width: 26ch;
+  }
+</style>

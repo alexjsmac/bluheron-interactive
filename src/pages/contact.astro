@@ -1,0 +1,158 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Create a form at https://formspree.io (free tier), then replace this ID.
+// Until then the form is hidden and the direct contacts below carry the page.
+const FORMSPREE_ID = '';
+---
+
+<Base
+  title="Contact — BluHeron Interactive"
+  description="Start a conversation with BluHeron Interactive — immersive experiences, beacbeac deployments, and digital services for arts organizations. London & Hamilton, Ontario."
+>
+  <section class="wrap head">
+    <p class="kicker">Contact</p>
+    <h1 class="display">Say <em class="clay">hello</em>.</h1>
+    <p class="lede">
+      New project partners, collaborators, and friends — we'd love to hear what you're
+      dreaming up. No idea is too early.
+    </p>
+  </section>
+
+  <section class="wrap body">
+    <div class="direct">
+      <div>
+        <p class="label">Email</p>
+        <p><a href="mailto:alex@bluheroninteractive.com">alex@bluheroninteractive.com</a></p>
+      </div>
+      <div>
+        <p class="label">Phone</p>
+        <p><a href="tel:+19057304008">905-730-4008</a></p>
+      </div>
+      <div>
+        <p class="label">Instagram</p>
+        <p>
+          <a href="https://www.instagram.com/bluheroninteractive" rel="noopener">
+            @bluheroninteractive
+          </a>
+        </p>
+      </div>
+      <div>
+        <p class="label">Where</p>
+        <p>London &amp; Hamilton, Ontario — serving communities across Turtle Island.</p>
+      </div>
+    </div>
+
+    {
+      FORMSPREE_ID && (
+        <form
+          class="contact-form"
+          method="POST"
+          action={`https://formspree.io/f/${FORMSPREE_ID}`}
+        >
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="message">What are you dreaming up?</label>
+            <textarea id="message" name="message" rows="6" required />
+          </div>
+          <button class="btn" type="submit">
+            Send it
+          </button>
+        </form>
+      )
+    }
+  </section>
+</Base>
+
+<style>
+  .head {
+    padding-block: clamp(48px, 7vw, 80px) clamp(24px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .head em.clay {
+    color: var(--clay);
+  }
+
+  .lede {
+    font-size: 1.1rem;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+
+  .body {
+    display: flex;
+    gap: clamp(40px, 6vw, 80px);
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding-bottom: clamp(56px, 8vw, 96px);
+  }
+
+  .direct {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: var(--paper-2);
+    border-radius: 16px;
+    padding: 36px;
+    min-width: 280px;
+    flex: 1;
+  }
+
+  .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 4px;
+  }
+
+  .contact-form {
+    flex: 2;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  label {
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+
+  input,
+  textarea {
+    font: inherit;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 1px;
+    border-color: var(--cyan);
+  }
+
+  .contact-form .btn {
+    align-self: flex-start;
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const fmt = new Intl.DateTimeFormat('en-CA', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<Base
+  title="News — BluHeron Interactive"
+  description="Announcements and updates from BluHeron Interactive — deployments, projects, and community programs."
+>
+  <section class="wrap head">
+    <p class="kicker">News</p>
+    <h1 class="display">What we're up to.</h1>
+  </section>
+
+  <section class="wrap list">
+    {
+      posts.map((post) => (
+        <article class="post reveal">
+          <p class="date">{fmt.format(post.data.date)}</p>
+          <h2>
+            <a href={`/news/${post.id}/`}>{post.data.title}</a>
+          </h2>
+          <p>{post.data.summary}</p>
+        </article>
+      ))
+    }
+  </section>
+</Base>
+
+<style>
+  .head {
+    padding-block: clamp(48px, 7vw, 80px) clamp(24px, 4vw, 40px);
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(32px, 5vw, 48px);
+    padding-bottom: clamp(56px, 8vw, 88px);
+  }
+
+  .post {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+    max-width: 760px;
+  }
+
+  .date {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  }
+
+  h2 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  h2 a:hover {
+    color: var(--cyan-deep);
+  }
+
+  .post p:not(.date) {
+    color: var(--ink-2);
+  }
+</style>

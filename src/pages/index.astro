@@ -1,0 +1,351 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import HeroCanvas from '../components/HeroCanvas.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+
+const work = (await getCollection('work'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 2);
+
+const rs = ['Respect', 'Relevance', 'Responsibility', 'Reciprocity', 'Relationality'];
+const partners = [
+  'Canadian Museums Association',
+  'Centre[3] for Artistic + Social Practice',
+  'City of Hamilton',
+  'Canadian Ocean Literacy Coalition',
+  'Nuit Blanche London',
+  'Supercrawl',
+];
+---
+
+<Base
+  title="BluHeron Interactive — Art, technology & accessibility"
+  description="A creative technology studio in London & Hamilton, Ontario, making art, places, and stories accessible to everyone — immersive installations, the beacbeac platform, and digital services for arts organizations."
+  darkHeader
+>
+  <HeroCanvas>
+    <div class="hero">
+      <p class="kicker on-dark">A creative technology studio &middot; London &amp; Hamilton, Ontario</p>
+      <h1 class="display">We make art, places, and stories <em>everyone</em> can enter.</h1>
+      <p class="lede">
+        BluHeron Interactive ignites community interaction through immersive, inclusive
+        experiences — from projection and sound installations to beacbeac, our accessibility
+        platform for public places.
+      </p>
+      <div class="actions">
+        <a class="btn" href="/work/">See our work</a>
+        <a class="arrow-link" href="/beacbeac/">Meet beacbeac &rarr;</a>
+      </div>
+    </div>
+  </HeroCanvas>
+
+  <section class="wrap pillars">
+    <p class="kicker">What we do</p>
+    <div class="grid">
+      <div class="pillar reveal">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <path d="M12 3 L21 8.5 L12 14 L3 8.5 Z"></path>
+          <path d="M3 13 L12 18.5 L21 13"></path>
+        </svg>
+        <h2>Immersive experiences &amp; installations</h2>
+        <p>
+          Interactive projection, generative sound, and playful public sculpture — co-created
+          with the communities they're built for.
+        </p>
+      </div>
+      <div class="pillar reveal">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="2.5"></circle>
+          <path d="M7.5 7.5 a6.5 6.5 0 0 1 9 0"></path>
+          <path d="M5 5 a10 10 0 0 1 14 0" opacity="0.55"></path>
+        </svg>
+        <h2>beacbeac — access, amplified</h2>
+        <p>
+          Our flagship platform delivers place-based stories and audio to visitors' phones as
+          they approach. No QR codes. Nothing to hunt for.
+        </p>
+      </div>
+      <div class="pillar reveal">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 17 L9 11 L13 14 L20 6"></path>
+          <path d="M15 6 L20 6 L20 11"></path>
+        </svg>
+        <h2>Digital services for arts organizations</h2>
+        <p>
+          Websites, hosting, and accessibility audits for arts councils, galleries, and
+          festivals — the same care, behind the scenes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap work">
+    <div class="row">
+      <h2 class="section-title">Selected work</h2>
+      <a class="arrow-link" href="/work/">All work &rarr;</a>
+    </div>
+
+    <a class="flagship band reveal" href="/beacbeac/">
+      <div class="flag-copy">
+        <div class="tags" aria-hidden="true">
+          <span>Flagship</span>
+          <span>Platform</span>
+        </div>
+        <h3>beacbeac: <em>art that finds you</em></h3>
+        <p>
+          Every place has stories. beacbeac makes them accessible to everyone — touring Ability
+          First Fest, Supercrawl, and Nuit Blanche London in fall 2026.
+        </p>
+        <span class="arrow-link">Explore beacbeac &rarr;</span>
+      </div>
+      <svg class="ripples" width="200" height="200" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <circle cx="100" cy="100" r="10" fill="var(--cyan)"></circle>
+        <circle cx="100" cy="100" r="42" stroke="var(--cyan)" stroke-width="1.5" opacity="0.75"></circle>
+        <circle cx="100" cy="100" r="74" stroke="var(--cyan-bright)" stroke-width="1.25" opacity="0.45"></circle>
+        <circle cx="100" cy="100" r="98" stroke="var(--mint)" stroke-width="1" opacity="0.25"></circle>
+      </svg>
+    </a>
+
+    <div class="cards">
+      {work.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </section>
+
+  <section class="values-teaser">
+    <div class="wrap inner">
+      <div class="lead reveal">
+        <p class="kicker">How we work</p>
+        <h2>Guided by the <em class="clay">5 Rs</em></h2>
+        <p>
+          We create through lived experience, in partnership with the communities we serve.
+          Every project begins — and ends — with these principles.
+        </p>
+        <a class="arrow-link" href="/values/">Our values &rarr;</a>
+      </div>
+      <ul class="chips" role="list">
+        {rs.map((r) => <li>{r}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap partners">
+    <p class="kicker muted-kicker">In good company</p>
+    <ul role="list">
+      {partners.map((p) => <li>{p}</li>)}
+    </ul>
+  </section>
+
+  <ContactCTA />
+</Base>
+
+<style>
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    max-width: 900px;
+  }
+
+  .lede {
+    font-size: 1.15rem;
+    color: var(--band-ink-2);
+    max-width: 56ch;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .pillars {
+    padding-block: clamp(56px, 8vw, 88px) clamp(24px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+  }
+
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .pillar h2 {
+    font-size: 1.55rem;
+  }
+
+  .pillar p {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+  }
+
+  .work {
+    padding-block: clamp(40px, 6vw, 64px) clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+  }
+
+  .flagship {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    border-radius: 20px;
+    padding: clamp(32px, 5vw, 64px);
+    text-decoration: none;
+    color: var(--band-ink);
+    background-image: radial-gradient(
+      ellipse 500px 300px at 85% 30%,
+      rgba(0, 151, 178, 0.25),
+      transparent 70%
+    );
+  }
+
+  .flag-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    flex: 1;
+  }
+
+  .tags {
+    display: flex;
+    gap: 10px;
+  }
+
+  .tags span {
+    border: 1px solid var(--band-line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+  }
+
+  .flagship h3 {
+    font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  }
+
+  .flagship:hover h3 {
+    color: var(--mint);
+  }
+
+  .flagship p {
+    color: var(--band-ink-2);
+    max-width: 52ch;
+  }
+
+  .ripples {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 760px) {
+    .ripples {
+      display: none;
+    }
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+  }
+
+  .values-teaser {
+    background: var(--paper-2);
+  }
+
+  .values-teaser .inner {
+    display: flex;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding-block: clamp(56px, 8vw, 80px);
+  }
+
+  .lead {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 480px;
+  }
+
+  .lead h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  }
+
+  .lead h2 em.clay {
+    color: var(--clay);
+    font-style: italic;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-content: flex-start;
+    flex: 1;
+    min-width: 280px;
+    list-style: none;
+    margin: 0;
+    padding: 32px 0 0;
+  }
+
+  .chips li {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 12px 28px;
+  }
+
+  .partners {
+    padding-block: clamp(48px, 7vw, 72px);
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .muted-kicker {
+    color: var(--muted);
+  }
+
+  .partners ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 48px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+</style>

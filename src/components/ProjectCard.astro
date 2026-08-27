@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'work'>;
+}
+
+const { project } = Astro.props;
+const { title, kicker, summary, hero, heroAlt } = project.data;
+---
+
+<a class="card band" href={`/work/${project.id}/`}>
+  <Image src={hero} alt={heroAlt} width={880} widths={[440, 880]} sizes="(max-width: 720px) 100vw, 45vw" />
+  <div class="body">
+    <p class="tag">{kicker}</p>
+    <h3>{title}</h3>
+    <p class="summary">{summary}</p>
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--band-ink);
+  }
+
+  .card img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 26px 30px 30px;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  .card:hover h3 {
+    color: var(--mint);
+  }
+
+  .summary {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--band-ink-2);
+  }
+</style>

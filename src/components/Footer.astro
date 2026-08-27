@@ -1,0 +1,85 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap inner">
+    <div class="row">
+      <a class="wordmark" href="/">BluHeron Interactive</a>
+      <ul class="meta">
+        <li>London &amp; Hamilton, ON</li>
+        <li><a href="tel:+19057304008">905-730-4008</a></li>
+        <li><a href="mailto:alex@bluheroninteractive.com">alex@bluheroninteractive.com</a></li>
+        <li>
+          <a href="https://www.instagram.com/bluheroninteractive" rel="noopener">Instagram</a>
+        </li>
+      </ul>
+    </div>
+    <p class="land">
+      We live and work on the traditional territories of the Haudenosaunee, Wendat, Anishinaabe,
+      and Mississaugas of the Credit First Nation, and we serve communities across Turtle Island.
+    </p>
+    <div class="row small">
+      <span>&copy; {year} BluHeron Interactive</span>
+      <ul class="meta">
+        <li><a href="/accessibility/">Accessibility statement</a></li>
+        <li><a href="/news/">News</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line);
+    margin-top: 0;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    padding-block: 48px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .wordmark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .meta {
+    display: flex;
+    gap: 12px 28px;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+    color: var(--ink-2);
+  }
+
+  .land {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 66ch;
+  }
+
+  .small {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+</style>

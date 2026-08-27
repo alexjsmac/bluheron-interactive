@@ -1,0 +1,251 @@
+/* ---------------------------------------------------------------------------
+   BluHeron Interactive — design tokens & base styles
+   "Progressive Immersion": warm paper base, dark luminous bands,
+   heron cyan accent drawn from the logo (#0097B2).
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Ground & ink (light theme) */
+  --paper: #faf7f2;
+  --paper-2: #f3ede3;
+  --ink: #140f11;
+  --ink-2: #4a4345;
+  --muted: #8a8184;
+  --line: #e2d8c8;
+
+  /* Immersive band palette (always dark, both themes) */
+  --band: #0a1016;
+  --band-ink: #eaf4f4;
+  --band-ink-2: #b8cccf;
+  --band-muted: #9db4b8;
+  --band-line: #223238;
+
+  /* Accents */
+  --cyan: #0097b2;
+  --cyan-deep: #00758c; /* 4.5:1 on paper — links & small text */
+  --cyan-bright: #4fc9dc; /* on dark grounds */
+  --mint: #a9e8dc;
+  --clay: #a4531f; /* 4.5:1 on paper */
+
+  --link: var(--cyan-deep);
+  --btn-bg: var(--cyan);
+  --btn-ink: #06131a;
+  --focus: var(--cyan-deep);
+
+  --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  --font-body: 'Space Grotesk Variable', system-ui, 'Helvetica Neue', sans-serif;
+
+  --content: 1200px;
+  --gutter: clamp(20px, 4.5vw, 64px);
+}
+
+[data-theme='dark'] {
+  --paper: #0a1016;
+  --paper-2: #101a22;
+  --ink: #eaf4f4;
+  --ink-2: #b8cccf;
+  --muted: #9db4b8;
+  --line: #223238;
+  --link: var(--cyan-bright);
+  --clay: #d98d55;
+  --focus: var(--cyan-bright);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #0a1016;
+    --paper-2: #101a22;
+    --ink: #eaf4f4;
+    --ink-2: #b8cccf;
+    --muted: #9db4b8;
+    --line: #223238;
+    --link: var(--cyan-bright);
+    --clay: #d98d55;
+    --focus: var(--cyan-bright);
+  }
+}
+
+/* --- Base ---------------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.12;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  max-width: 70ch;
+}
+
+a {
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--cyan);
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--mint);
+  color: #06131a;
+}
+
+/* --- Utilities ------------------------------------------------------------ */
+
+.wrap {
+  max-width: calc(var(--content) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--cyan);
+  color: var(--btn-ink);
+  padding: 12px 20px;
+  border-radius: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+.kicker {
+  font-size: 0.8125rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--clay);
+}
+
+.band .kicker,
+.kicker.on-dark {
+  color: var(--cyan-bright);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.06;
+  font-size: clamp(2.5rem, 6.5vw, 4.875rem);
+}
+
+.display em,
+h1 em,
+h2 em {
+  font-style: italic;
+  color: var(--mint);
+}
+
+.band {
+  background-color: var(--band);
+  color: var(--band-ink);
+}
+
+.band a {
+  color: var(--cyan-bright);
+}
+
+.band a:hover {
+  color: var(--mint);
+}
+
+.band :focus-visible {
+  outline-color: var(--cyan-bright);
+}
+
+.btn {
+  display: inline-block;
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 14px 30px;
+  border-radius: 999px;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--cyan-bright);
+  color: #06131a;
+}
+
+.arrow-link {
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+/* Scroll reveal — enhancement only; content is fully visible without JS */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.no-js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,145 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="Work — BluHeron Interactive"
+  description="Immersive installations, interactive sculpture, performances, and the beacbeac accessibility platform — selected projects by BluHeron Interactive."
+>
+  <section class="wrap head">
+    <p class="kicker">Work</p>
+    <h1 class="display">Experiences built <em class="clay">with</em> communities, not just for them.</h1>
+  </section>
+
+  <section class="wrap">
+    <a class="flagship band" href="/beacbeac/">
+      <div class="copy">
+        <div class="tags" aria-hidden="true"><span>Flagship</span><span>Platform</span></div>
+        <h2>beacbeac: <em>art that finds you</em></h2>
+        <p>
+          Accessible, place-based stories delivered straight to visitors' phones — our platform
+          for festivals, museums, trails, and main streets.
+        </p>
+        <span class="arrow-link">Explore beacbeac &rarr;</span>
+      </div>
+      <svg width="180" height="180" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <circle cx="100" cy="100" r="10" fill="var(--cyan)"></circle>
+        <circle cx="100" cy="100" r="42" stroke="var(--cyan)" stroke-width="1.5" opacity="0.75"></circle>
+        <circle cx="100" cy="100" r="74" stroke="var(--cyan-bright)" stroke-width="1.25" opacity="0.45"></circle>
+        <circle cx="100" cy="100" r="98" stroke="var(--mint)" stroke-width="1" opacity="0.25"></circle>
+      </svg>
+    </a>
+  </section>
+
+  <section class="wrap grid-wrap">
+    <div class="cards">
+      {work.map((p) => <ProjectCard project={p} />)}
+    </div>
+    <p class="more">
+      More projects — ARound Town, Our Home Your Home, Concrete Canopy, AV Nights — are on
+      their way to this page. <a href="/contact/">Ask us about any of them.</a>
+    </p>
+  </section>
+
+  <ContactCTA />
+</Base>
+
+<style>
+  .head {
+    padding-block: clamp(48px, 7vw, 80px) clamp(32px, 5vw, 48px);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .head h1 {
+    max-width: 20ch;
+  }
+
+  .head em.clay {
+    color: var(--clay);
+  }
+
+  .flagship {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    border-radius: 20px;
+    padding: clamp(32px, 5vw, 56px);
+    text-decoration: none;
+    color: var(--band-ink);
+    background-image: radial-gradient(
+      ellipse 500px 300px at 85% 30%,
+      rgba(0, 151, 178, 0.25),
+      transparent 70%
+    );
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .tags {
+    display: flex;
+    gap: 10px;
+  }
+
+  .tags span {
+    border: 1px solid var(--band-line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+  }
+
+  .flagship h2 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+  }
+
+  .flagship:hover h2 {
+    color: var(--mint);
+  }
+
+  .flagship p {
+    color: var(--band-ink-2);
+    max-width: 52ch;
+  }
+
+  .flagship svg {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 760px) {
+    .flagship svg {
+      display: none;
+    }
+  }
+
+  .grid-wrap {
+    padding-block: clamp(36px, 5vw, 56px) clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+  }
+
+  .more {
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+</style>

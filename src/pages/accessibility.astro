@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Accessibility statement — BluHeron Interactive"
+  description="How this website practices what our studio preaches: WCAG 2.2 AA, reduced-motion design, keyboard navigation, and a real way to tell us when something's wrong."
+>
+  <article class="wrap page">
+    <p class="kicker">Accessibility</p>
+    <h1 class="display">Everyone means <em class="clay">everyone</em>.</h1>
+
+    <div class="prose">
+      <p>
+        Accessibility isn't a checklist we run at the end — it's the reason this studio
+        exists. Our platform, beacbeac, was co-designed with Blind, Low Vision, Deaf,
+        Deafblind, and disabled community members. This website is held to the same standard.
+      </p>
+
+      <h2>What this site does</h2>
+      <ul>
+        <li>
+          Targets <strong>WCAG 2.2 Level AA</strong>, and aims higher where we can.
+        </li>
+        <li>
+          Works completely without JavaScript — every page, every piece of content.
+        </li>
+        <li>
+          Treats motion as an invitation, not a default: animation only runs if your system
+          allows it (<code>prefers-reduced-motion</code>), and the homepage's moving artwork
+          has a visible pause button that remembers your choice. The still version isn't a
+          fallback — it's designed.
+        </li>
+        <li>Is fully keyboard-navigable, with visible focus indicators and a skip link.</li>
+        <li>Meets or exceeds 4.5:1 colour contrast for text, in both light and dark themes.</li>
+        <li>Describes every meaningful image with alt text.</li>
+        <li>Uses semantic HTML landmarks, built and checked for screen-reader navigation.</li>
+      </ul>
+
+      <h2>Something not working for you?</h2>
+      <p>
+        Tell us — genuinely. If any part of this site is hard to use with your assistive
+        technology, browser, or connection, email
+        <a href="mailto:alex@bluheroninteractive.com">alex@bluheroninteractive.com</a> or call
+        <a href="tel:+19057304008">905-730-4008</a> and we will fix it. Feedback like this
+        makes our work better everywhere, not just here.
+      </p>
+
+      <h2>Beyond this website</h2>
+      <p>
+        In our physical installations we design for many bodies and ways of experiencing:
+        cooperative interfaces, multiple modes of interaction, and community advisors involved
+        from the start of every project. Read more about
+        <a href="/values/">how we work</a> or
+        <a href="/beacbeac/">what access-first technology looks like</a>.
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .page {
+    padding-block: clamp(48px, 7vw, 80px) clamp(56px, 8vw, 96px);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    max-width: 860px;
+  }
+
+  .page em.clay {
+    color: var(--clay);
+  }
+
+  .prose {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .prose p,
+  .prose li {
+    color: var(--ink-2);
+    line-height: 1.8;
+  }
+
+  .prose h2 {
+    font-size: 1.7rem;
+    margin-top: 18px;
+  }
+
+  .prose ul {
+    margin: 0;
+    padding-left: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  code {
+    font-size: 0.9em;
+    background: var(--paper-2);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+</style>

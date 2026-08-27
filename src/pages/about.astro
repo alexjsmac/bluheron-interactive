@@ -1,0 +1,243 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import chrisPhoto from '../assets/team/chris-mcleod.jpg';
+import alexPhoto from '../assets/team/alex-maclean.jpg';
+---
+
+<Base
+  title="About — BluHeron Interactive"
+  description="BluHeron Interactive is a creative technology studio in London & Hamilton, Ontario — co-founded by Christopher McLeod and Alex MacLean, guided by community collaboration and the 5 Rs."
+>
+  <section class="wrap head">
+    <p class="kicker">About us</p>
+    <h1 class="display">Builds cities, communities, <em class="clay">connections</em>.</h1>
+  </section>
+
+  <section class="wrap story">
+    <p>
+      Partnership, community collaboration, co-creation, and just having fun and being creative
+      while igniting community interaction is our focus — and very exciting to us.
+    </p>
+    <p>
+      Our blend of arts-based research for public engagement and community feedback focuses on
+      a principles-based approach where honesty, respect, equality, fairness, and courage are
+      our guides. We work to provide supportive time and space for diverse, equity-seeking
+      people to feel empowered to engage in our interactive experiences. Together, we create
+      through lived experiences following the <a href="/values/">5 Rs</a> — Respect, Relevance,
+      Responsibility, Reciprocity, and Relationality.
+    </p>
+    <p>
+      That work has grown. Today BluHeron is three practices with one mission: immersive
+      installations co-created with communities, <a href="/beacbeac/">beacbeac</a> — our
+      platform making public places accessible to everyone — and digital services that keep
+      arts organizations' own doors open online. As a team, we have had the opportunity to
+      create with amazing partners on arts-based community development projects across Ontario,
+      and we are always excited to meet new project partners, collaborators, and friends.
+      <a href="/contact/">Let's talk.</a>
+    </p>
+  </section>
+
+  <section class="wrap team">
+    <h2>Our team</h2>
+    <div class="people">
+      <article class="person reveal">
+        <Image src={chrisPhoto} alt="Portrait of Christopher McLeod" width={600} widths={[300, 600]} sizes="(max-width: 720px) 100vw, 300px" />
+        <h3>Christopher McLeod</h3>
+        <p class="role">Co-founder &middot; Artistic director</p>
+        <p>
+          A freelance artist and artistic director for three decades, Chris has led 24
+          community-engaged public art projects across Ontario, with a BA in Studio Art from
+          McMaster and an MFA from Emily Carr University focused on social practice and
+          community interaction. His work has always been about creating opportunities for
+          people to connect in positive and meaningful ways — art just sort of happened along
+          the way.
+        </p>
+        <p class="land">
+          Chris is of settler ancestry, living on the traditional territory of the
+          Haudenosaunee, Wendat, and Mississaugas of the Credit First Nation.
+        </p>
+      </article>
+      <article class="person reveal">
+        <Image src={alexPhoto} alt="Portrait of Alex MacLean" width={600} widths={[300, 600]} sizes="(max-width: 720px) 100vw, 300px" />
+        <h3>Alex MacLean</h3>
+        <p class="role">Co-founder &middot; Creative technologist</p>
+        <p>
+          An immersive media artist and developer, Alex builds the technology behind
+          BluHeron's work — from generative audiovisual installations to the beacbeac platform
+          and its accessibility-audited apps and console. Sound, light, and code: experiences
+          that listen back.
+        </p>
+        <p class="land">
+          <a href="https://alexmaclean.ca" rel="noopener">alexmaclean.ca &rarr;</a>
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band advisors">
+    <div class="wrap inner">
+      <div class="lead">
+        <h2>Our advisors</h2>
+        <p>
+          We are privileged to work with several diverse advisors in the development and
+          delivery of our projects. We commit to including our advisors from the start of each
+          project, with check-ins throughout delivery. Focusing on decolonizing, diversity,
+          and inclusivity requires many voices and perspectives to be embedded in the
+          activations we develop and deliver.
+        </p>
+      </div>
+      <div class="cols">
+        <article class="reveal">
+          <h3>Colina Phillips</h3>
+          <p>
+            A singer, filmmaker, and writer whose creative energy has spanned five decades —
+            from session singing and a Gold Record with Sway to writing, producing, and
+            directing <em>Making Change</em>, which premiered at the Toronto International
+            Film Festival. Colina brought her lens to two BluHeron public productions,
+            <a href="/work/jump-around/">Jump Around</a> and Our Home, Your Home.
+          </p>
+        </article>
+        <article class="reveal">
+          <h3>Kawennakon Bonnie Whitlow</h3>
+          <p>
+            Mohawk, Bear Clan. Kawennakon has been revitalizing cultural practices and
+            connecting to ancestral spiritual ceremonies, traditional dances, and songs since
+            her early 20s. A second-language speaker of Kanyen'kéha, she is a scholar, author,
+            lecturer, community organizer, activist, artist, and actress — and has been
+            learning, teaching, and advocating for ancestral language revitalization for
+            decades.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA heading="New partners, collaborators &amp; friends — <em>let’s talk</em>." />
+</Base>
+
+<style>
+  .head {
+    padding-block: clamp(48px, 7vw, 80px) clamp(24px, 4vw, 36px);
+  }
+
+  .head em.clay {
+    color: var(--clay);
+  }
+
+  .story {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-bottom: clamp(48px, 7vw, 72px);
+  }
+
+  .story p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--ink-2);
+    max-width: 66ch;
+  }
+
+  .team {
+    padding-block: 0 clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .team h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  }
+
+  .people {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(32px, 5vw, 56px);
+  }
+
+  .person {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .person img {
+    width: min(300px, 100%);
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  .person h3 {
+    font-size: 1.6rem;
+    margin-top: 10px;
+  }
+
+  .role {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  .person p:not(.role) {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--ink-2);
+  }
+
+  .person .land {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .advisors .inner {
+    padding-block: clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+
+  .lead {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 720px;
+  }
+
+  .lead h2 {
+    font-weight: 400;
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  }
+
+  .lead p {
+    color: var(--band-ink-2);
+    line-height: 1.75;
+  }
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(32px, 5vw, 56px);
+  }
+
+  .cols article {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid var(--band-line);
+    padding-top: 24px;
+  }
+
+  .cols h3 {
+    font-size: 1.4rem;
+  }
+
+  .cols p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--band-ink-2);
+  }
+</style>

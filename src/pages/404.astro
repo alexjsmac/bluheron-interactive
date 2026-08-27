@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Page not found — BluHeron Interactive"
+  description="This page doesn't exist — but the work does."
+>
+  <section class="wrap page">
+    <p class="kicker">404</p>
+    <h1 class="display">This place has no story <em class="clay">yet</em>.</h1>
+    <p>The page you're looking for doesn't exist — but plenty of good ones do.</p>
+    <div class="actions">
+      <a class="btn" href="/">Go home</a>
+      <a class="arrow-link" href="/work/">See our work &rarr;</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page {
+    padding-block: clamp(64px, 10vw, 120px);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .page em.clay {
+    color: var(--clay);
+  }
+
+  .page p {
+    color: var(--ink-2);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 8px;
+  }
+</style>

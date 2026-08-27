@@ -1,0 +1,131 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+---
+
+<Base
+  title="Services — BluHeron Interactive"
+  description="Three ways we work: immersive experiences and installations, the beacbeac accessibility platform, and digital services for arts organizations."
+>
+  <section class="wrap head">
+    <p class="kicker">Services</p>
+    <h1 class="display">Three ways we work.</h1>
+    <p class="lede">
+      Everything we do serves the same goal: art, places, and stories that more people can
+      enter. Here's how that shows up in practice.
+    </p>
+  </section>
+
+  <section class="wrap list">
+    <article class="service reveal">
+      <div class="head-row">
+        <span class="num" aria-hidden="true">01</span>
+        <h2>Immersive experiences &amp; installations</h2>
+      </div>
+      <p>
+        Interactive projection, generative soundscapes, kinetic sculpture, augmented reality,
+        and live performance — designed for streets, parks, galleries, and festivals. We
+        co-create with the communities each piece is built for, using arts-based methods for
+        public engagement and feedback: the artwork is also the conversation.
+      </p>
+      <p class="for">
+        For municipalities, festivals, galleries, and community organizations.&#32;
+        <a href="/work/">See the work &rarr;</a>
+      </p>
+    </article>
+
+    <article class="service reveal">
+      <div class="head-row">
+        <span class="num" aria-hidden="true">02</span>
+        <h2>beacbeac deployments</h2>
+      </div>
+      <p>
+        Our flagship platform brings accessible, place-based stories to visitors' own phones —
+        no QR codes, nothing to hunt for. We handle site surveys, beacon installation, content
+        loading, staff orientation, and on-site support through your event, then hand you the
+        engagement analytics. Or run it yourself: the console is built for the team you have.
+      </p>
+      <p class="for">
+        For festivals, museums, trails, main streets, and public spaces.&#32;
+        <a href="/beacbeac/">Meet beacbeac &rarr;</a>
+      </p>
+    </article>
+
+    <article class="service reveal">
+      <div class="head-row">
+        <span class="num" aria-hidden="true">03</span>
+        <h2>Digital services for arts organizations</h2>
+      </div>
+      <p>
+        Websites, hosting, maintenance, and accessibility audits — for arts councils,
+        galleries, studios, and festivals. We stay inside the arts community on purpose:
+        that's where we can help the most, and it keeps every project connected to the same
+        mission. Accessibility audits come with real reports, not checkbox exercises.
+      </p>
+      <p class="for">
+        For arts councils and arts organizations across Ontario.&#32;
+        <a href="/contact/">Ask about your site &rarr;</a>
+      </p>
+    </article>
+  </section>
+
+  <ContactCTA heading="Not sure which one you need? <em>Ask.</em>" />
+</Base>
+
+<style>
+  .head {
+    padding-block: clamp(48px, 7vw, 80px) clamp(24px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .lede {
+    font-size: 1.1rem;
+    color: var(--ink-2);
+    max-width: 58ch;
+  }
+
+  .list {
+    padding-block: clamp(24px, 4vw, 40px) clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 6vw, 64px);
+  }
+
+  .service {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border-top: 1px solid var(--line);
+    padding-top: clamp(32px, 5vw, 48px);
+    max-width: 800px;
+  }
+
+  .head-row {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+
+  .num {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--cyan-deep);
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+  }
+
+  .service p {
+    color: var(--ink-2);
+    line-height: 1.75;
+  }
+
+  .for {
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+</style>
