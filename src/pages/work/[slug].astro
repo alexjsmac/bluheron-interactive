@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../lib/url';
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
@@ -130,7 +131,7 @@ const next = all[(idx + 1) % all.length];
             </ul>
           </div>
           <p class="next">
-            Next project: <a href={`/work/${next.id}/`}>{next.data.title} &rarr;</a>
+            Next project: <a href={withBase(`/work/${next.id}/`)}>{next.data.title} &rarr;</a>
           </p>
         </div>
       </section>

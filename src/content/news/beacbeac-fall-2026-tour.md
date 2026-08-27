@@ -13,5 +13,5 @@ stories straight to visitors' phones — is on the ground at three festivals:
   visitors through a night of art
 
 If you run a festival, museum, trail, or main street and want to see beacbeac
-working in the wild, come find us — or [say hello](/contact/) and we'll walk
+working in the wild, come find us — or [say hello](../../contact/) and we'll walk
 you through it.

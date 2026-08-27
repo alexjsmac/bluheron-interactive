@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/url';
 import Base from '../layouts/Base.astro';
 ---
 
@@ -51,8 +52,8 @@ import Base from '../layouts/Base.astro';
         In our physical installations we design for many bodies and ways of experiencing:
         cooperative interfaces, multiple modes of interaction, and community advisors involved
         from the start of every project. Read more about
-        <a href="/values/">how we work</a> or
-        <a href="/beacbeac/">what access-first technology looks like</a>.
+        <a href={withBase('/values/')}>how we work</a> or
+        <a href={withBase('/beacbeac/')}>what access-first technology looks like</a>.
       </p>
     </div>
   </article>

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/url';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ContactCTA from '../components/ContactCTA.astro';
@@ -25,17 +26,17 @@ import alexPhoto from '../assets/team/alex-maclean.jpg';
       a principles-based approach where honesty, respect, equality, fairness, and courage are
       our guides. We work to provide supportive time and space for diverse, equity-seeking
       people to feel empowered to engage in our interactive experiences. Together, we create
-      through lived experiences following the <a href="/values/">5 Rs</a> — Respect, Relevance,
+      through lived experiences following the <a href={withBase('/values/')}>5 Rs</a> — Respect, Relevance,
       Responsibility, Reciprocity, and Relationality.
     </p>
     <p>
       That work has grown. Today BluHeron is three practices with one mission: immersive
-      installations co-created with communities, <a href="/beacbeac/">beacbeac</a> — our
+      installations co-created with communities, <a href={withBase('/beacbeac/')}>beacbeac</a> — our
       platform making public places accessible to everyone — and digital services that keep
       arts organizations' own doors open online. As a team, we have had the opportunity to
       create with amazing partners on arts-based community development projects across Ontario,
       and we are always excited to meet new project partners, collaborators, and friends.
-      <a href="/contact/">Let's talk.</a>
+      <a href={withBase('/contact/')}>Let's talk.</a>
     </p>
   </section>
 
@@ -96,7 +97,7 @@ import alexPhoto from '../assets/team/alex-maclean.jpg';
             from session singing and a Gold Record with Sway to writing, producing, and
             directing <em>Making Change</em>, which premiered at the Toronto International
             Film Festival. Colina brought her lens to two BluHeron public productions,
-            <a href="/work/jump-around/">Jump Around</a> and Our Home, Your Home.
+            <a href={withBase('/work/jump-around/')}>Jump Around</a> and Our Home, Your Home.
           </p>
         </article>
         <article class="reveal">

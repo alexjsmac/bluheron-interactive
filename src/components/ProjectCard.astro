@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/url';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
@@ -10,7 +11,7 @@ const { project } = Astro.props;
 const { title, kicker, summary, hero, heroAlt } = project.data;
 ---
 
-<a class="card band" href={`/work/${project.id}/`}>
+<a class="card band" href={withBase(`/work/${project.id}/`)}>
   <Image src={hero} alt={heroAlt} width={880} widths={[440, 880]} sizes="(max-width: 720px) 100vw, 45vw" />
   <div class="body">
     <p class="tag">{kicker}</p>

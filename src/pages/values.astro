@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/url';
 import Base from '../layouts/Base.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 
@@ -52,7 +53,7 @@ const rs = [
         <article class="r reveal">
           <h2>{r.name}</h2>
           <p>{r.text}</p>
-          <a href={r.link.href}>{r.link.label} &rarr;</a>
+          <a href={withBase(r.link.href)}>{r.link.label} &rarr;</a>
         </article>
       ))
     }
@@ -67,7 +68,7 @@ const rs = [
         including our advisors from the start of each project, with check-ins throughout — not
         as a review at the end.
       </p>
-      <a class="arrow-link" href="/about/">Meet our advisors &rarr;</a>
+      <a class="arrow-link" href={withBase('/about/')}>Meet our advisors &rarr;</a>
     </div>
   </section>
 

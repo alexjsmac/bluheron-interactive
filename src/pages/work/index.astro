@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../lib/url';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
@@ -17,7 +18,7 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
   </section>
 
   <section class="wrap">
-    <a class="flagship band" href="/beacbeac/">
+    <a class="flagship band" href={withBase('/beacbeac/')}>
       <div class="copy">
         <div class="tags" aria-hidden="true"><span>Flagship</span><span>Platform</span></div>
         <h2>beacbeac: <em>art that finds you</em></h2>
@@ -42,7 +43,7 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
     </div>
     <p class="more">
       More projects — ARound Town, Our Home Your Home, Concrete Canopy, AV Nights — are on
-      their way to this page. <a href="/contact/">Ask us about any of them.</a>
+      their way to this page. <a href={withBase('/contact/')}>Ask us about any of them.</a>
     </p>
   </section>
 

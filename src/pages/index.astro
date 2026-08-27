@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/url';
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import HeroCanvas from '../components/HeroCanvas.astro';
@@ -36,8 +37,8 @@ const partners = [
         platform for public places.
       </p>
       <div class="actions">
-        <a class="btn" href="/work/">See our work</a>
-        <a class="arrow-link" href="/beacbeac/">Meet beacbeac &rarr;</a>
+        <a class="btn" href={withBase('/work/')}>See our work</a>
+        <a class="arrow-link" href={withBase('/beacbeac/')}>Meet beacbeac &rarr;</a>
       </div>
     </div>
   </HeroCanvas>
@@ -85,10 +86,10 @@ const partners = [
   <section class="wrap work">
     <div class="row">
       <h2 class="section-title">Selected work</h2>
-      <a class="arrow-link" href="/work/">All work &rarr;</a>
+      <a class="arrow-link" href={withBase('/work/')}>All work &rarr;</a>
     </div>
 
-    <a class="flagship band reveal" href="/beacbeac/">
+    <a class="flagship band reveal" href={withBase('/beacbeac/')}>
       <div class="flag-copy">
         <div class="tags" aria-hidden="true">
           <span>Flagship</span>
@@ -123,7 +124,7 @@ const partners = [
           We create through lived experience, in partnership with the communities we serve.
           Every project begins — and ends — with these principles.
         </p>
-        <a class="arrow-link" href="/values/">Our values &rarr;</a>
+        <a class="arrow-link" href={withBase('/values/')}>Our values &rarr;</a>
       </div>
       <ul class="chips" role="list">
         {rs.map((r) => <li>{r}</li>)}

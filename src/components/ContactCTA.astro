@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/url';
 interface Props {
   heading?: string;
 }
@@ -9,7 +10,7 @@ const { heading = 'Let’s build something <em>everyone</em> can enter.' } = Ast
 <section class="band cta">
   <div class="wrap inner reveal">
     <h2 set:html={heading} />
-    <a class="btn" href="/contact/">Start a conversation</a>
+    <a class="btn" href={withBase('/contact/')}>Start a conversation</a>
   </div>
 </section>
 

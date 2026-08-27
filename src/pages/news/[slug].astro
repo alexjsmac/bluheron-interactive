@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../lib/url';
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
@@ -25,7 +26,7 @@ const fmt = new Intl.DateTimeFormat('en-CA', {
     <div class="prose">
       <Content />
     </div>
-    <p class="back"><a href="/news/">&larr; All news</a></p>
+    <p class="back"><a href={withBase('/news/')}>&larr; All news</a></p>
   </article>
 </Base>
 

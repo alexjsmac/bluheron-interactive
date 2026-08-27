@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/url';
 interface Props {
   /** When the page opens with a dark band, the header renders on it. */
   dark?: boolean;
@@ -16,17 +17,17 @@ const links = [
 ];
 
 const isCurrent = (href: string) =>
-  href === '/' ? current === '/' : current.startsWith(href);
+  href === '/' ? current === withBase('/') : current.startsWith(withBase(href));
 ---
 
 <header class:list={['site-header', { 'on-band': dark }]}>
   <nav class="wrap bar" aria-label="Main">
-    <a class="wordmark" href="/">BluHeron Interactive</a>
+    <a class="wordmark" href={withBase('/')}>BluHeron Interactive</a>
     <ul class="links">
       {
         links.map((l) => (
           <li>
-            <a href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
+            <a href={withBase(l.href)} aria-current={isCurrent(l.href) ? 'page' : undefined}>
               <span class="n" aria-hidden="true">
                 {l.n}
               </span>
@@ -36,7 +37,7 @@ const isCurrent = (href: string) =>
         ))
       }
       <li>
-        <a class="btn hello" href="/contact/">Say hello</a>
+        <a class="btn hello" href={withBase('/contact/')}>Say hello</a>
       </li>
       <li>
         <button class="theme-toggle" type="button" aria-pressed="false">
