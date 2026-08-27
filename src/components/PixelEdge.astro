@@ -1,0 +1,72 @@
+---
+/**
+ * The pixel-dissolve edge from the BluHeron logo's wing, as a section seam:
+ * the paper ground dissolves into the dark band the way the heron's feathers
+ * dissolve into pixels. Deterministic pattern (no Math.random) so builds are
+ * reproducible. Purely decorative.
+ */
+const COLS = 120;
+const ROWS = 3;
+const CELL = 12;
+const SQ = 9;
+
+// Cheap integer hash for a stable pseudo-random pattern.
+const hash = (n: number) => {
+  let x = (n ^ 61) ^ (n >>> 16);
+  x = (x + (x << 3)) | 0;
+  x = x ^ (x >>> 4);
+  x = Math.imul(x, 0x27d4eb2d);
+  x = x ^ (x >>> 15);
+  return (x >>> 0) % 100;
+};
+
+// Density grows toward the paper seam below, like the wing dissolving.
+const THRESHOLD = [14, 38, 72];
+
+type Cell = { x: number; y: number; o: number; accent: boolean };
+const cells: Cell[] = [];
+for (let row = 0; row < ROWS; row++) {
+  for (let col = 0; col < COLS; col++) {
+    const h = hash(col * 31 + row * 7 + 3);
+    if (h < THRESHOLD[row]) {
+      cells.push({
+        x: col * CELL,
+        y: row * CELL,
+        o: 0.35 + (h % 60) / 100,
+        accent: h % 17 === 0,
+      });
+    }
+  }
+}
+
+const W = COLS * CELL;
+const H = ROWS * CELL;
+---
+
+<svg
+  class="pixel-edge"
+  viewBox={`0 0 ${W} ${H}`}
+  preserveAspectRatio="xMidYMax slice"
+  aria-hidden="true"
+>
+  {
+    cells.map((c) => (
+      <rect
+        x={c.x}
+        y={c.y}
+        width={SQ}
+        height={SQ}
+        fill={c.accent ? 'var(--cyan)' : 'var(--paper)'}
+        opacity={c.accent ? 0.8 : c.o}
+      />
+    ))
+  }
+</svg>
+
+<style>
+  .pixel-edge {
+    display: block;
+    width: 100%;
+    height: 36px;
+  }
+</style>

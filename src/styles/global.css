@@ -176,7 +176,7 @@ video {
   font-family: var(--font-display);
   font-weight: 400;
   line-height: 1.06;
-  font-size: clamp(2.5rem, 6.5vw, 4.875rem);
+  font-size: clamp(2.6rem, 6.8vw, 5.5rem);
 }
 
 .display em,
@@ -279,5 +279,33 @@ h2 em {
 
   .stagger > .reveal:nth-child(6) {
     transition-delay: 0.5s;
+  }
+
+  /* Orchestrated hero entrance: children rise in sequence on arrival. */
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+  }
+
+  .rise > * {
+    animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .rise > :nth-child(2) {
+    animation-delay: 0.12s;
+  }
+
+  .rise > :nth-child(3) {
+    animation-delay: 0.26s;
+  }
+
+  .rise > :nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  html.no-js .rise > * {
+    animation: none;
   }
 }

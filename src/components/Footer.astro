@@ -1,12 +1,17 @@
 ---
 import { withBase } from '../lib/url';
+import { Image } from 'astro:assets';
+import heronMark from '../assets/brand/heron-mark.png';
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="wrap inner">
     <div class="row">
-      <a class="wordmark" href={withBase('/')}>BluHeron Interactive</a>
+      <a class="wordmark" href={withBase('/')}>
+        <Image class="mark" src={heronMark} alt="" width={64} densities={[1, 2]} />
+        <span>BluHeron Interactive</span>
+      </a>
       <ul class="meta">
         <li>London &amp; Hamilton, ON</li>
         <li><a href="tel:+19057304008">905-730-4008</a></li>
@@ -53,12 +58,20 @@ const year = new Date().getFullYear();
   }
 
   .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 600;
     font-size: 1.25rem;
     color: var(--ink);
     text-decoration: none;
+  }
+
+  .wordmark :global(.mark) {
+    width: auto;
+    height: 32px;
   }
 
   .meta {

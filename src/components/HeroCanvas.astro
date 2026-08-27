@@ -4,9 +4,16 @@
  * Motion is a progressive enhancement — the static gradient underneath is the
  * designed reduced-motion (and no-JS) experience, not a degraded one.
  */
+interface Props {
+  /** Landing-page mode: the band claims most of the viewport. */
+  tall?: boolean;
+}
+
+const { tall = false } = Astro.props;
+import PixelEdge from './PixelEdge.astro';
 ---
 
-<div class="hero-band band">
+<div class:list={['hero-band', 'band', { 'is-tall': tall }]}>
   <canvas class="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-content wrap">
     <slot />
@@ -39,6 +46,7 @@
       <span class="label">Pause motion</span>
     </button>
   </div>
+  <PixelEdge />
 </div>
 
 <style>
@@ -75,14 +83,41 @@
 
   .hero-content {
     position: relative;
-    padding-block: clamp(72px, 10vw, 128px) clamp(40px, 5vw, 64px);
+    width: 100%;
+    padding-block: clamp(72px, 10vw, 128px) clamp(56px, 7vw, 96px);
   }
 
+  /* Landing mode: the band is the opening stage, not a strip. */
+  .hero-band.is-tall {
+    display: flex;
+    align-items: center;
+    min-height: 86vh;
+    min-height: 86svh;
+  }
+
+  .hero-band.is-tall .hero-content {
+    padding-block: clamp(96px, 12vh, 160px);
+  }
+
+  /* The chip floats in the band's corner instead of claiming a layout row. */
   .hero-controls {
-    position: relative;
+    position: absolute;
+    inset: auto 0 52px 0;
     display: flex;
     justify-content: flex-end;
-    padding-bottom: 28px;
+    pointer-events: none;
+  }
+
+  .hero-controls .motion-toggle {
+    pointer-events: auto;
+  }
+
+  /* The logo's pixel dissolve, seaming the band into the paper below. */
+  .hero-band :global(.pixel-edge) {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
   }
 
   .motion-toggle {

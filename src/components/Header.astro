@@ -1,5 +1,8 @@
 ---
 import { withBase } from '../lib/url';
+import { Image } from 'astro:assets';
+import heronMark from '../assets/brand/heron-mark.png';
+
 interface Props {
   /** When the page opens with a dark band, the header renders on it. */
   dark?: boolean;
@@ -22,7 +25,10 @@ const isCurrent = (href: string) =>
 
 <header class:list={['site-header', { 'on-band': dark }]}>
   <nav class="wrap bar" aria-label="Main">
-    <a class="wordmark" href={withBase('/')}>BluHeron Interactive</a>
+    <a class="wordmark" href={withBase('/')}>
+      <Image class="mark" src={heronMark} alt="" width={80} densities={[1, 2]} />
+      <span>BluHeron Interactive</span>
+    </a>
     <ul class="links">
       {
         links.map((l) => (
@@ -80,12 +86,20 @@ const isCurrent = (href: string) =>
   }
 
   .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 600;
     font-size: 1.4rem;
     color: inherit;
     text-decoration: none;
+  }
+
+  .wordmark :global(.mark) {
+    width: auto;
+    height: 40px;
   }
 
   .links {
