@@ -3,7 +3,8 @@
  * The signature moment: the logo's pixel-dissolve wing as a living field.
  * Grid-locked pixels twinkle and drift across a pale heron mist; lit pixels
  * bend gently toward the pointer, and a tap sends a beacon ripple through the
- * grid, lighting pixels as it passes.
+ * grid, lighting pixels as it passes. The copy carves a quiet zone out of the
+ * field — pixels fade out behind text — so type always sits on clean ground.
  * Motion is a progressive enhancement — the static pixel scatter underneath
  * is the designed reduced-motion (and no-JS) experience, not a degraded one.
  */
@@ -275,6 +276,45 @@ for (let row = 0; row < ROWS; row++) {
       return x >>> 0;
     };
 
+    // Rects the hero copy occupies, in band-local coordinates. Pixels fade
+    // to nothing inside these and ramp back up across FEATHER px outside, so
+    // text never has to compete with the field for contrast.
+    const FEATHER = 44;
+    const PAD = 6;
+    let quietRects: { l: number; t: number; r: number; b: number }[] = [];
+
+    const measureQuiet = () => {
+      const bandBox = band.getBoundingClientRect();
+      const nodes = band.querySelectorAll<HTMLElement>(
+        '.hero-content p, .hero-content h1, .hero-content h2, .hero-content .btn, .hero-content .arrow-link'
+      );
+      quietRects = [...nodes].map((el) => {
+        const r = el.getBoundingClientRect();
+        return {
+          l: r.left - bandBox.left - PAD,
+          t: r.top - bandBox.top - PAD,
+          r: r.right - bandBox.left + PAD,
+          b: r.bottom - bandBox.top + PAD,
+        };
+      });
+    };
+
+    // 0 inside the copy, ramping to 1 once clear of it.
+    const quietAt = (x: number, y: number) => {
+      let q = 1;
+      for (const rect of quietRects) {
+        const dx = Math.max(rect.l - x, 0, x - rect.r);
+        const dy = Math.max(rect.t - y, 0, y - rect.b);
+        if (dx >= FEATHER || dy >= FEATHER) continue;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d >= FEATHER) continue;
+        const f = d / FEATHER;
+        if (f < q) q = f;
+        if (q === 0) break;
+      }
+      return q;
+    };
+
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = band.clientWidth;
@@ -284,6 +324,7 @@ for (let row = 0; row < ROWS; row++) {
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      measureQuiet();
     };
 
     // Slow breathing field: which pixels are awake drifts over time.
@@ -351,6 +392,11 @@ for (let row = 0; row < ROWS; row++) {
               ox = (dx / d) * pull;
               oy = (dy / d) * pull;
             }
+
+            // Measured where the pixel actually lands, so a pulled pixel
+            // can't drift in behind the copy.
+            a *= quietAt(px + ox, py + oy);
+            if (a <= 0.02) continue;
 
             ctx.globalAlpha = Math.min(a, 0.8);
             ctx.fillStyle = COLORS[hsh % COLORS.length];
@@ -449,6 +495,7 @@ for (let row = 0; row < ROWS; row++) {
 
     window.addEventListener('resize', resize);
     resize();
+    if (document.fonts?.ready) document.fonts.ready.then(measureQuiet);
     paint();
     start();
 
