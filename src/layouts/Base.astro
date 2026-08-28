@@ -11,11 +11,9 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description: string;
-  /** Pages with a dark hero pass true so the header sits on the band. */
-  darkHeader?: boolean;
 }
 
-const { title, description, darkHeader = false } = Astro.props;
+const { title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -66,7 +64,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <Header dark={darkHeader} />
+    <Header />
     <main id="main">
       <slot />
     </main>

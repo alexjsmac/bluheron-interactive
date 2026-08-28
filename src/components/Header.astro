@@ -3,12 +3,6 @@ import { withBase } from '../lib/url';
 import { Image } from 'astro:assets';
 import heronMark from '../assets/brand/heron-mark.png';
 
-interface Props {
-  /** When the page opens with a dark band, the header renders on it. */
-  dark?: boolean;
-}
-
-const { dark = false } = Astro.props;
 const current = Astro.url.pathname;
 
 const links = [
@@ -23,7 +17,7 @@ const isCurrent = (href: string) =>
   href === '/' ? current === withBase('/') : current.startsWith(withBase(href));
 ---
 
-<header class:list={['site-header', { 'on-band': dark }]}>
+<header class="site-header">
   <nav class="wrap bar" aria-label="Main">
     <a class="wordmark" href={withBase('/')}>
       <Image class="mark" src={heronMark} alt="" width={80} densities={[1, 2]} />
@@ -69,11 +63,6 @@ const isCurrent = (href: string) =>
 <style>
   .site-header {
     background: var(--paper);
-  }
-
-  .site-header.on-band {
-    background: var(--band);
-    color: var(--band-ink);
   }
 
   .bar {
@@ -141,17 +130,9 @@ const isCurrent = (href: string) =>
     color: var(--cyan-text);
   }
 
-  .on-band .links a:not(.hello):hover {
-    color: var(--mint);
-  }
-
   .n {
     color: var(--cyan-text);
     margin-right: 4px;
-  }
-
-  .on-band .n {
-    color: var(--cyan-bright);
   }
 
   .hello {
@@ -170,10 +151,6 @@ const isCurrent = (href: string) =>
     font: inherit;
     padding: 8px 14px;
     cursor: pointer;
-  }
-
-  .on-band .theme-toggle {
-    border-color: var(--band-line);
   }
 
   html.no-js .theme-toggle {
