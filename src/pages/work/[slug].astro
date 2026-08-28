@@ -4,6 +4,7 @@ import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
+import PixelField from '../../components/PixelField.astro';
 import VideoFacade from '../../components/VideoFacade.astro';
 
 export async function getStaticPaths() {
@@ -21,19 +22,27 @@ const next = all[(idx + 1) % all.length];
 ---
 
 <Base title={`${d.title} — BluHeron Interactive`} description={d.summary}>
-  <div class="hero band">
-    <Image
-      src={d.hero}
-      alt={d.heroAlt}
-      width={1920}
-      widths={[768, 1280, 1920]}
-      sizes="100vw"
-      loading="eager"
-      transition:name={`work-hero-${project.id}`}
-    />
-    <div class="scrim" aria-hidden="true"></div>
+  <div class:list={['hero', { 'has-photo': !!d.hero }]}>
+    {
+      d.hero ? (
+        <>
+          <Image
+            src={d.hero}
+            alt={d.heroAlt ?? ''}
+            width={1920}
+            widths={[768, 1280, 1920]}
+            sizes="100vw"
+            loading="eager"
+            transition:name={`work-hero-${project.id}`}
+          />
+          <div class="scrim" aria-hidden="true" />
+        </>
+      ) : (
+        <PixelField />
+      )
+    }
     <div class="wrap title-block">
-      <p class="kicker on-dark">Case study &middot; {d.kicker}</p>
+      <p class:list={['kicker', { 'on-dark': !!d.hero }]}>Case study &middot; {d.kicker}</p>
       <h1>{d.title}</h1>
       <p class="tagline">{d.tagline}</p>
     </div>
@@ -156,6 +165,37 @@ const next = all[(idx + 1) % all.length];
      the image needs the scrim, and the scrim needs the dark ground. */
   .hero {
     position: relative;
+    background-color: var(--mist);
+    color: var(--ink);
+    min-height: clamp(300px, 38vw, 400px);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  /* The pixel field fades out under the title, so the copy sits on clean
+     ground — the same quiet zone the home hero carves for its text. */
+  .hero:not(.has-photo)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      var(--mist) 0%,
+      var(--mist) 26%,
+      color-mix(in srgb, var(--mist) 82%, transparent) 46%,
+      transparent 78%
+    );
+    pointer-events: none;
+  }
+
+  .title-block {
+    z-index: 1;
+  }
+
+  /* Photography treatment: a photo hero stays dark regardless of theme —
+     the image needs the scrim, and the scrim needs the dark ground. */
+  .hero.has-photo {
+    display: block;
     background-color: var(--band);
     color: var(--band-ink);
   }
@@ -179,14 +219,20 @@ const next = all[(idx + 1) % all.length];
   }
 
   .title-block {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-block: clamp(44px, 6vw, 64px) clamp(32px, 5vw, 56px);
+  }
+
+  .has-photo .title-block {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding-bottom: clamp(32px, 5vw, 56px);
+    padding-block: 0 clamp(32px, 5vw, 56px);
   }
 
   h1 {
@@ -199,8 +245,12 @@ const next = all[(idx + 1) % all.length];
     font-family: var(--font-body);
     font-style: italic;
     font-size: clamp(1.15rem, 2.2vw, 1.55rem);
-    color: var(--mint);
+    color: var(--cyan-text);
     max-width: 44ch;
+  }
+
+  .has-photo .tagline {
+    color: var(--mint);
   }
 
   .context {

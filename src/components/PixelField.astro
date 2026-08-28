@@ -1,0 +1,57 @@
+---
+/**
+ * A generated pixel-dissolve panel in the logo's palette — used as the hero
+ * for case studies that don't have photography yet, so they read as
+ * deliberate rather than unfinished. Deterministic, so builds are stable.
+ */
+const CELL = 20;
+const SQ = 12;
+const COLS = 72;
+const ROWS = 30;
+
+const hash = (n: number) => {
+  let x = (n ^ 61) ^ (n >>> 16);
+  x = (x + (x << 3)) | 0;
+  x = x ^ (x >>> 4);
+  x = Math.imul(x, 0x27d4eb2d);
+  x = x ^ (x >>> 15);
+  return (x >>> 0) % 1000;
+};
+
+const COLORS = ['#0097b2', '#0097b2', '#4fc9dc', '#00758c', '#b4652f', '#c85981'];
+
+type Cell = { x: number; y: number; c: string; o: number };
+const cells: Cell[] = [];
+for (let row = 0; row < ROWS; row++) {
+  for (let col = 0; col < COLS; col++) {
+    const h = hash(col * 137 + row * 613 + 29);
+    // Density thins toward the right, like the wing dissolving.
+    if (h < 190 - Math.round((col / COLS) * 120)) {
+      cells.push({
+        x: col * CELL,
+        y: row * CELL,
+        c: COLORS[h % COLORS.length],
+        o: 0.16 + (h % 30) / 100,
+      });
+    }
+  }
+}
+---
+
+<svg
+  class="pixel-field"
+  viewBox={`0 0 ${COLS * CELL} ${ROWS * CELL}`}
+  preserveAspectRatio="xMidYMid slice"
+  aria-hidden="true"
+>
+  {cells.map((c) => <rect x={c.x} y={c.y} width={SQ} height={SQ} fill={c.c} opacity={c.o} />)}
+</svg>
+
+<style>
+  .pixel-field {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

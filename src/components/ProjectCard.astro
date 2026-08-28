@@ -1,6 +1,7 @@
 ---
 import { withBase } from '../lib/url';
 import { Image } from 'astro:assets';
+import PixelField from './PixelField.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -12,14 +13,22 @@ const { title, kicker, summary, hero, heroAlt } = project.data;
 ---
 
 <a class="card" href={withBase(`/work/${project.id}/`)}>
-  <Image
-    src={hero}
-    alt={heroAlt}
-    width={880}
-    widths={[440, 880]}
-    sizes="(max-width: 720px) 100vw, 45vw"
-    transition:name={`work-hero-${project.id}`}
-  />
+  {
+    hero ? (
+      <Image
+        src={hero}
+        alt={heroAlt ?? ''}
+        width={880}
+        widths={[440, 880]}
+        sizes="(max-width: 720px) 100vw, 45vw"
+        transition:name={`work-hero-${project.id}`}
+      />
+    ) : (
+      <div class="thumb-field">
+        <PixelField />
+      </div>
+    )
+  }
   <div class="body">
     <p class="tag">{kicker}</p>
     <h3>{title}</h3>
@@ -43,6 +52,15 @@ const { title, kicker, summary, hero, heroAlt } = project.data;
     width: 100%;
     aspect-ratio: 16 / 10;
     object-fit: cover;
+  }
+
+  /* Projects still awaiting photography get the brand's pixel field. */
+  .thumb-field {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: var(--mist);
+    border-bottom: 1px solid var(--mist-line);
   }
 
   @media (prefers-reduced-motion: no-preference) {

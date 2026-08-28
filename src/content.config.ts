@@ -13,8 +13,10 @@ const work = defineCollection({
       occasion: z.string().optional(),
       medium: z.string().optional(),
       vimeo: z.string().url().optional(),
-      hero: image(),
-      heroAlt: z.string(),
+      // Optional: projects still awaiting photography get a generated
+      // pixel-field hero instead of a placeholder image.
+      hero: image().optional(),
+      heroAlt: z.string().optional(),
       gallery: z
         .array(z.object({ src: image(), alt: z.string() }))
         .default([]),
