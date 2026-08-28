@@ -23,7 +23,36 @@ const isCurrent = (href: string) =>
       <Image class="mark" src={heronMark} alt="" width={80} densities={[1, 2]} />
       <span>BluHeron Interactive</span>
     </a>
-    <ul class="links">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <svg
+        class="icon-open"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M4 7 H20 M4 12 H20 M4 17 H20"></path>
+      </svg>
+      <svg
+        class="icon-close"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M6 6 L18 18 M18 6 L6 18"></path>
+      </svg>
+      Menu
+    </button>
+    <ul class="links" id="site-nav">
       {
         links.map((l) => (
           <li>
@@ -157,20 +186,84 @@ const isCurrent = (href: string) =>
     display: none;
   }
 
+  .menu-toggle {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: inherit;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+
+  .menu-toggle .icon-close,
+  .menu-toggle[aria-expanded='true'] .icon-open {
+    display: none;
+  }
+
+  .menu-toggle[aria-expanded='true'] .icon-close {
+    display: block;
+  }
+
   @media (max-width: 720px) {
+    /* One row: wordmark and a menu button. Everything else lives in the
+       panel, which is normal flow below the bar — no overlay, no z-index. */
     .bar {
-      padding-block: 14px;
+      padding-block: 12px;
       gap: 12px;
+      flex-wrap: wrap;
     }
 
     .wordmark {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
+      gap: 10px;
+    }
+
+    .wordmark :global(.mark) {
+      height: 32px;
+    }
+
+    .menu-toggle {
+      display: inline-flex;
     }
 
     .links {
-      font-size: 0.68rem;
-      gap: 14px;
-      letter-spacing: 0.1em;
+      display: none;
+      flex-basis: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      margin-top: 10px;
+      padding-bottom: 6px;
+      border-top: 1px solid var(--line);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+    }
+
+    .site-header.is-open .links {
+      display: flex;
+    }
+
+    .links li {
+      display: flex;
+    }
+
+    .links a:not(.hello) {
+      width: 100%;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .links a[aria-current='page'] {
+      border-bottom: 1px solid var(--line);
+      color: var(--cyan-text);
     }
 
     .n {
@@ -178,24 +271,42 @@ const isCurrent = (href: string) =>
     }
 
     .hello {
-      padding: 8px 14px;
+      width: 100%;
+      margin-top: 14px;
+      padding: 15px 20px;
+      text-align: center;
     }
 
     .theme-toggle {
-      padding: 8px 10px;
+      width: 100%;
+      margin-top: 10px;
+      justify-content: center;
+      min-height: 44px;
     }
 
+    /* The label earns its space back in the panel. */
     .theme-toggle .toggle-label {
-      display: none;
+      display: inline;
+    }
+  }
+
+  /* Without JS the button can't do anything, so show the nav instead. */
+  html.no-js .menu-toggle {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    html.no-js .links {
+      display: flex;
     }
   }
 </style>
 
 <script>
-  // The header is transition:persist'ed across ClientRouter navigations, so
-  // this script only executes once per site visit. Re-run the paint step on
-  // every navigation (the saved theme may have just been re-applied to
-  // <html>), and guard the click binding so it's never attached twice.
+  // With the ClientRouter this script executes once per site visit, not per
+  // page. Re-run the paint step on every navigation (the saved theme may have
+  // just been re-applied to <html>), and guard the click binding against
+  // being attached twice.
   function initThemeToggle() {
     const btn = document.querySelector<HTMLButtonElement>('.theme-toggle');
     if (!btn) return;
@@ -225,6 +336,48 @@ const isCurrent = (href: string) =>
     paint();
   }
 
+  // The Escape handler lives on document, so it's bound once for the whole
+  // site visit rather than once per navigation.
+  let escBound = false;
+
+  function initMenu() {
+    const header = document.querySelector<HTMLElement>('.site-header');
+    const btn = header?.querySelector<HTMLButtonElement>('.menu-toggle');
+    if (!header || !btn) return;
+
+    const close = () => {
+      header.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    };
+
+    if (!btn.dataset.bound) {
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', () => {
+        const open = header.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    }
+
+    if (!escBound) {
+      escBound = true;
+      document.addEventListener('keydown', (e) => {
+        const h = document.querySelector<HTMLElement>('.site-header');
+        if (e.key !== 'Escape' || !h?.classList.contains('is-open')) return;
+        h.classList.remove('is-open');
+        const b = h.querySelector<HTMLButtonElement>('.menu-toggle');
+        b?.setAttribute('aria-expanded', 'false');
+        b?.focus();
+      });
+    }
+
+    // Every navigation lands with the menu shut.
+    close();
+  }
+
   initThemeToggle();
-  document.addEventListener('astro:page-load', initThemeToggle);
+  initMenu();
+  document.addEventListener('astro:page-load', () => {
+    initThemeToggle();
+    initMenu();
+  });
 </script>

@@ -150,6 +150,19 @@ for (let row = 0; row < ROWS; row++) {
     padding-block: clamp(96px, 12vh, 160px);
   }
 
+  @media (max-width: 720px) {
+    .hero-content,
+    .hero-band.is-tall .hero-content {
+      /* Bottom padding clears the motion chip, which is absolutely
+         positioned in the band's corner. */
+      padding-block: clamp(40px, 7vh, 64px) clamp(88px, 12vh, 104px);
+    }
+
+    .hero-controls {
+      inset: auto 0 22px 0;
+    }
+  }
+
   /* The chip floats in the band's corner instead of claiming a layout row. */
   .hero-controls {
     position: absolute;
