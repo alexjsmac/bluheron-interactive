@@ -1,8 +1,9 @@
 ---
 /**
  * The signature moment: the logo's pixel-dissolve wing as a living field.
- * Grid-locked pixels twinkle and drift across a pale heron mist; the pointer
- * warms them and a tap sends a beacon ripple lighting pixels as it passes.
+ * Grid-locked pixels twinkle and drift across a pale heron mist; lit pixels
+ * bend gently toward the pointer, and a tap sends a beacon ripple through the
+ * grid, lighting pixels as it passes.
  * Motion is a progressive enhancement — the static pixel scatter underneath
  * is the designed reduced-motion (and no-JS) experience, not a degraded one.
  */
@@ -260,6 +261,9 @@ for (let row = 0; row < ROWS; row++) {
     let raf = 0;
     let inView = true;
     const pointer = { x: -9999, y: -9999 };
+    // The pull trails the cursor with a soft lag, so the field feels magnetic
+    // rather than switched.
+    const drift = { x: -9999, y: -9999 };
     let ripples: Ripple[] = [];
 
     const cellHash = (n: number) => {
@@ -299,8 +303,19 @@ for (let row = 0; row < ROWS; row++) {
       );
     };
 
+    const PULL_R = 260;
+    const PULL_MAX = 13;
+
     const step = (now: number) => {
       ctx.clearRect(0, 0, w, h);
+
+      if (drift.x < -5000) {
+        drift.x = pointer.x;
+        drift.y = pointer.y;
+      } else {
+        drift.x += (pointer.x - drift.x) * 0.07;
+        drift.y += (pointer.y - drift.y) * 0.07;
+      }
 
       for (let cy = 0; cy < rows; cy++) {
         for (let cx = 0; cx < cols; cx++) {
@@ -313,14 +328,6 @@ for (let row = 0; row < ROWS; row++) {
           const px = cx * CELL + CELL / 2;
           const py = cy * CELL + CELL / 2;
 
-          // Pointer warmth: nearby pixels wake and brighten.
-          const dx = px - pointer.x;
-          const dy = py - pointer.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < 24025) {
-            a += (1 - Math.sqrt(d2) / 155) * 0.45;
-          }
-
           // Beacon ripples light pixels as the ring front passes through.
           for (const rp of ripples) {
             const dist = Math.sqrt((px - rp.x) ** 2 + (py - rp.y) ** 2);
@@ -330,9 +337,24 @@ for (let row = 0; row < ROWS; row++) {
           }
 
           if (a > 0.02) {
+            // Lit pixels bend gently toward the cursor — never brighter,
+            // never denser, just pulled a little off their grid.
+            let ox = 0;
+            let oy = 0;
+            const dx = drift.x - px;
+            const dy = drift.y - py;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < PULL_R * PULL_R) {
+              const d = Math.sqrt(d2) || 1;
+              const t = 1 - d / PULL_R;
+              const pull = t * t * PULL_MAX;
+              ox = (dx / d) * pull;
+              oy = (dy / d) * pull;
+            }
+
             ctx.globalAlpha = Math.min(a, 0.8);
             ctx.fillStyle = COLORS[hsh % COLORS.length];
-            ctx.fillRect(cx * CELL + 2, cy * CELL + 2, SQ, SQ);
+            ctx.fillRect(cx * CELL + 2 + ox, cy * CELL + 2 + oy, SQ, SQ);
           }
         }
       }
