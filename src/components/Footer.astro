@@ -8,52 +8,56 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="wrap inner">
     <div class="row">
-      <a class="wordmark" href={withBase('/')}>
-        <Image class="mark" src={heronMark} alt="" width={64} densities={[1, 2]} />
-        <span>BluHeron Interactive</span>
-      </a>
-      <ul class="meta">
-        <li>London &amp; Hamilton, ON</li>
-        <li><a href="mailto:alex@bluheroninteractive.com">alex@bluheroninteractive.com</a></li>
-        <li>
-          <a href="https://www.instagram.com/bluheroninteractive" rel="noopener">Instagram</a>
-        </li>
-      </ul>
+      <div class="identity">
+        <a class="wordmark" href={withBase('/')}>
+          <Image class="mark" src={heronMark} alt="" width={64} densities={[1, 2]} />
+          <span>BluHeron Interactive</span>
+        </a>
+        <p class="where">London &amp; Hamilton, ON</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="links">
+          <li><a href={withBase('/contact/')}>Contact</a></li>
+          <li>
+            <a href="https://www.instagram.com/bluheroninteractive" rel="noopener">Instagram</a>
+          </li>
+          <li><a href={withBase('/news/')}>News</a></li>
+          <li><a href={withBase('/accessibility/')}>Accessibility statement</a></li>
+        </ul>
+      </nav>
     </div>
     <p class="land">
       We live and work on the traditional territories of the Haudenosaunee, Wendat, Anishinaabe,
       and Mississaugas of the Credit First Nation, and we serve communities across Turtle Island.
     </p>
-    <div class="row small">
-      <span>&copy; {year} BluHeron Interactive</span>
-      <ul class="meta">
-        <li><a href={withBase('/accessibility/')}>Accessibility statement</a></li>
-        <li><a href={withBase('/news/')}>News</a></li>
-        <li><a href={withBase('/contact/')}>Contact</a></li>
-      </ul>
-    </div>
+    <p class="small">&copy; {year} BluHeron Interactive</p>
   </div>
 </footer>
 
 <style>
   .site-footer {
     border-top: 1px solid var(--line);
-    margin-top: 0;
   }
 
   .inner {
     display: flex;
     flex-direction: column;
-    gap: 26px;
+    gap: 28px;
     padding-block: 48px;
   }
 
   .row {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    gap: 24px;
+    align-items: flex-start;
+    gap: 28px;
     flex-wrap: wrap;
+  }
+
+  .identity {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .wordmark {
@@ -72,7 +76,12 @@ const year = new Date().getFullYear();
     height: 32px;
   }
 
-  .meta {
+  .where {
+    font-size: 0.9rem;
+    color: var(--ink-2);
+  }
+
+  .links {
     display: flex;
     gap: 12px 28px;
     flex-wrap: wrap;
@@ -80,7 +89,6 @@ const year = new Date().getFullYear();
     margin: 0;
     padding: 0;
     font-size: 0.9rem;
-    color: var(--ink-2);
   }
 
   .land {
@@ -93,5 +101,15 @@ const year = new Date().getFullYear();
   .small {
     font-size: 0.85rem;
     color: var(--muted);
+  }
+
+  @media (max-width: 720px) {
+    .row {
+      gap: 22px;
+    }
+
+    .links {
+      gap: 12px 22px;
+    }
   }
 </style>
