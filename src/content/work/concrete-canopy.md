@@ -4,7 +4,7 @@ kicker: Projection mapping · Nuit Blanche London
 tagline: Thirty seconds each, and the building grows.
 summary: A heritage façade turned into a living digital organism — and a queue of strangers taking turns shaping it from their phones.
 partner: Nuit Blanche London
-occasion: Kingsmill's façade · 2025
+occasion: Kingsmill's façade · September 20, 2025
 medium: Projection mapping · TouchDesigner · custom web app · generative audio
 youtube: 4ILKOoMnx8w
 hero: ../../assets/work/concrete-canopy-facade.jpg
@@ -18,7 +18,7 @@ gallery:
     alt: Close view of the projection — electric blue and cyan washing across the stone between lit window bays.
 howItWorks:
   - title: Map the building, not a screen
-    text: Two high-brightness projectors in weatherproof housings throw onto the Kingsmill's façade, and the whole surface — columns, cornices, window bays — is mapped in TouchDesigner so the image follows the architecture instead of lying flat across it.
+    text: A single 12,000-lumen projector throws onto the Kingsmill's façade, and the whole surface — columns, cornices, window bays — is mapped in TouchDesigner so the image follows the architecture instead of lying flat across it.
   - title: Join the queue on your phone
     text: A web app run from the sidewalk puts you in line. No app store, no sign-up — you open a page and wait your turn with everyone else.
   - title: Take your thirty seconds
@@ -27,7 +27,7 @@ credits:
   - role: Occasion
     name: Nuit Blanche London 2025
   - role: Projection partner
-    name: Horizon Solutions
+    name: PA Shop
   - role: Research & creation support
     name: Ontario Arts Council
   - role: Research & creation support
