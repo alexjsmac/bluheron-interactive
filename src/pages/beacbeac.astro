@@ -2,7 +2,6 @@
 import { withBase } from '../lib/url';
 import Base from '../layouts/Base.astro';
 import HeroCanvas from '../components/HeroCanvas.astro';
-import ContactCTA from '../components/ContactCTA.astro';
 import BeaconMark from '../components/BeaconMark.astro';
 
 const steps = [
@@ -156,7 +155,6 @@ const tour = [
     </div>
   </section>
 
-  <ContactCTA heading="Want beacbeac at your <em>festival</em>?" />
 </Base>
 
 <style>
@@ -354,6 +352,11 @@ const tour = [
     align-items: center;
     gap: 24px;
     text-align: center;
+  }
+
+  /* The heading is centred, so the actions should be too when they wrap. */
+  .origin .actions {
+    justify-content: center;
   }
 
   .origin h2 {
