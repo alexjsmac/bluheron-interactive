@@ -8,15 +8,17 @@ occasion: Kingsmill's façade · 2025
 medium: Projection mapping · TouchDesigner · custom web app · generative audio
 youtube: 4ILKOoMnx8w
 hero: ../../assets/work/concrete-canopy-facade.jpg
-heroAlt: Green and blue foliage projected across the stone façade of the historic Kingsmill's Department Store, growing over windows and pilasters.
+heroAlt: The Kingsmill's façade at night, three storeys washed in magenta and green foliage, with two people watching from the street below.
 gallery:
-  - src: ../../assets/work/concrete-canopy-mapping.jpg
-    alt: The projection mapped precisely to the façade's geometry, amber light washing the stone while the window bays stay dark.
-  - src: ../../assets/work/concrete-canopy-facade.jpg
-    alt: Foliage and blue flowers spreading across the Kingsmill's stone, with the carved KINGSMILL'S sign below.
+  - src: ../../assets/work/concrete-canopy-phone.jpg
+    alt: Two visitors on the sidewalk holding up a phone, looking up at the projection as they take their turn at the controls.
+  - src: ../../assets/work/concrete-canopy-crowd.jpg
+    alt: Green foliage spreading across the lit stone of the façade while people watch from below.
+  - src: ../../assets/work/concrete-canopy-detail.jpg
+    alt: Close view of the projection — electric blue and cyan washing across the stone between lit window bays.
 howItWorks:
   - title: Map the building, not a screen
-    text: The Kingsmill's façade — columns, cornices, window bays, the carved sign — is measured and mapped in TouchDesigner, so the projection follows the architecture instead of being laid flat across it.
+    text: Two high-brightness projectors in weatherproof housings throw onto the Kingsmill's façade, and the whole surface — columns, cornices, window bays — is mapped in TouchDesigner so the image follows the architecture instead of lying flat across it.
   - title: Join the queue on your phone
     text: A web app run from the sidewalk puts you in line. No app store, no sign-up — you open a page and wait your turn with everyone else.
   - title: Take your thirty seconds
@@ -24,6 +26,8 @@ howItWorks:
 credits:
   - role: Occasion
     name: Nuit Blanche London 2025
+  - role: Projection partner
+    name: Horizon Solutions
   - role: Research & creation support
     name: Ontario Arts Council
   - role: Research & creation support
