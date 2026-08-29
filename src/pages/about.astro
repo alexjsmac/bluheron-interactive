@@ -1,47 +1,50 @@
 ---
 import { withBase } from '../lib/url';
-import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import chrisPhoto from '../assets/team/chris-mcleod.jpg';
-import alexPhoto from '../assets/team/alex-maclean.jpg';
 ---
 
 <Base
   title="About — BluHeron Interactive"
-  description="BluHeron Interactive is a small studio in London & Hamilton, Ontario — two artists who design, build, and run immersive work with the communities it is made for."
+  description="BluHeron Interactive is a creative technology studio in London and Hamilton, Ontario, designing and producing immersive public artwork and digital tools for the arts sector."
 >
   <section class="wrap head">
-    <p class="kicker">About us</p>
-    <h1 class="display">We design it, we build it, and we're <em class="clay">there when it runs</em>.</h1>
+    <p class="kicker">About</p>
+    <h1 class="display">We design, build, and deliver the work <em class="clay">ourselves</em>.</h1>
   </section>
 
   <section class="wrap story">
     <p>
-      BluHeron Interactive is a small studio in London and Hamilton, Ontario. We're both
-      artists and we both art-direct — Chris from three decades of community-engaged public
-      art, Alex from immersive media and code. Between us we've put interactive work in
-      galleries, market squares, sculpture gardens, a landfill, and the middle of a street
-      festival, and we're usually the ones on site before the doors open making sure it still
-      works.
+      BluHeron Interactive is a creative technology studio based in London and Hamilton,
+      Ontario. We design and produce immersive and interactive public artwork, and we build
+      the software that supports it. Our work has been commissioned by municipalities, arts
+      councils, galleries, festivals, and community organizations across Ontario, and has been
+      installed in galleries, market squares, sculpture gardens, a landfill site, and the
+      middle of a street festival.
     </p>
     <p>
-      That's the point of a studio this size. We're not a design shop that hands off a
-      concept, and we're not a development shop waiting for a brief. The people who build the
-      work are in the room when it's designed — which is why it tends to survive contact with
-      real weather, real crowds, and real budgets.
+      The studio combines three decades of community-engaged public art practice with
+      expertise in immersive media and software development. That range sits inside a single
+      small team rather than across a chain of contractors, which means the people who design
+      a project are the people who build it and the people on site when it opens.
+    </p>
+    <p>
+      The structure is deliberate. We are not a design consultancy that hands over a concept,
+      and not a development shop waiting for a specification. Because one team carries a
+      commission from proposal to closing night, the work is scoped against real conditions —
+      weather, crowds, accessibility requirements, and public budgets — from the first sketch.
     </p>
   </section>
 
   <section class="band now">
     <div class="wrap inner">
-      <p class="kicker">What we're working on now</p>
+      <p class="kicker">Current work</p>
       <p class="now-lede">
-        This fall, <a href={withBase('/beacbeac/')}>beacbeac</a> — our platform for accessible,
-        place-based stories — goes out at Ability First Fest and Supercrawl in Hamilton, and
-        Nuit Blanche London. We're a business member of the Canadian Museums Association, we
-        look after the websites and hosting for the Mississauga Arts Council, and we've done
-        development work for Centre[4]Arts.
+        <a href={withBase('/beacbeac/')}>beacbeac</a>, our platform for accessible,
+        place-based stories, is deployed this fall at Ability First Fest and Supercrawl in
+        Hamilton and at Nuit Blanche London. The studio is a business member of the Canadian
+        Museums Association, provides web development and hosting for the Mississauga Arts
+        Council, and has delivered development work for Centre[4]Arts.
       </p>
     </div>
   </section>
@@ -50,80 +53,45 @@ import alexPhoto from '../assets/team/alex-maclean.jpg';
     <h2>How we work</h2>
     <div class="grid stagger">
       <article class="principle reveal">
-        <h3>Co-creation, not consultation</h3>
+        <h3>Co-creation over consultation</h3>
         <p>
-          <a href={withBase('/work/navitas/')}>Navitas</a> needed two people pumping together
-          to move water across Hamilton.{' '}
-          <a href={withBase('/work/jump-around/')}>Jump Around</a> put the audience inside the
-          game show. The participation is the artwork, not a survey bolted onto one.
+          Participation is the artwork, not a survey attached to one.{' '}
+          <a href={withBase('/work/navitas/')}>Navitas</a> required two people pumping in
+          tandem to move water across Hamilton.{' '}
+          <a href={withBase('/work/jump-around/')}>Jump Around</a> carried the City of
+          Hamilton's public art consultation inside a game show and returned the results to
+          the department.
         </p>
       </article>
       <article class="principle reveal">
-        <h3>Access designed in, not added on</h3>
+        <h3>Accessibility as a starting condition</h3>
         <p>
           beacbeac was co-designed with Blind, Low Vision, Deaf, Deafblind, and disabled
-          community members. That was the starting condition, not a retrofit.
+          community members. Access requirements shape the brief rather than a remediation
+          pass at the end of it.
         </p>
       </article>
       <article class="principle reveal">
-        <h3>Build with what's already there</h3>
+        <h3>Work with what is already there</h3>
         <p>
-          Navitas is 2,000 LEDs threaded through reclaimed copper, aluminum, and wood. The{' '}
+          Navitas threads 2,000 LEDs through reclaimed copper, aluminum, and wood. The{' '}
           <a href={withBase('/work/landfill-education-model/')}>Landfill Education Model</a>{' '}
-          explains a system most people never get to see.
+          makes a working municipal system legible to the people who fund it. Existing
+          materials and existing infrastructure are the starting point.
         </p>
       </article>
       <article class="principle reveal">
-        <h3>We stay in the arts on purpose</h3>
+        <h3>Committed to the arts sector</h3>
         <p>
-          We take websites and hosting for arts councils, galleries, and festivals — not
-          because we want to be a web shop, but because it's the same community, and it's
-          where we're most useful.
+          Our digital services — websites, hosting, maintenance, and accessibility audits —
+          are offered to arts councils, galleries, studios, and festivals. Staying inside the
+          sector keeps the studio close to the organizations our public work is made with.
         </p>
       </article>
     </div>
   </section>
 
-  <section class="wrap team">
-    <h2>Our team</h2>
-    <div class="people">
-      <article class="person reveal">
-        <Image src={chrisPhoto} alt="Portrait of Christopher McLeod" width={600} widths={[300, 600]} sizes="(max-width: 720px) 100vw, 300px" />
-        <h3>Christopher McLeod</h3>
-        <p class="role">Co-founder &middot; Artistic director</p>
-        <p>
-          A freelance artist and artistic director for three decades, Chris has led 24
-          community-engaged public art projects across Ontario, with a BA in Studio Art from
-          McMaster and an MFA from Emily Carr University focused on social practice and
-          community interaction. His work has always been about creating opportunities for
-          people to connect in positive and meaningful ways — art just sort of happened along
-          the way.
-        </p>
-        <p class="land">
-          Chris is of settler ancestry, living on the traditional territory of the
-          Haudenosaunee, Wendat, and Mississaugas of the Credit First Nation.
-        </p>
-      </article>
-      <article class="person reveal">
-        <Image src={alexPhoto} alt="Portrait of Alex MacLean" width={600} widths={[300, 600]} sizes="(max-width: 720px) 100vw, 300px" />
-        <h3>Alex MacLean</h3>
-        <p class="role">Co-founder &middot; Artist &amp; creative technologist</p>
-        <p>
-          An immersive media artist and developer, Alex art-directs and builds — from
-          generative audiovisual installations like{' '}
-          <a href={withBase('/work/blue-noise/')}>Blue Noise</a> and{' '}
-          <a href={withBase('/work/concrete-canopy/')}>Concrete Canopy</a> to the beacbeac
-          platform, its apps and admin console, and the websites we look after for arts
-          organizations. Sound, light, and code: experiences that listen back.
-        </p>
-        <p class="land">
-          <a href="https://alexmaclean.ca" rel="noopener">alexmaclean.ca &rarr;</a>
-        </p>
-      </article>
-    </div>
-  </section>
-
-  <ContactCTA heading="New partners, collaborators &amp; friends — <em>let’s talk</em>." />
+  <ContactCTA heading="New commissions, partnerships &amp; collaborations — <em>let’s talk</em>." />
 </Base>
 
 <style>
@@ -174,10 +142,18 @@ import alexPhoto from '../assets/team/alex-maclean.jpg';
     font-size: clamp(1.9rem, 3.4vw, 2.5rem);
   }
 
+  /* Four principles read as a balanced 2x2 rather than a row of three with
+     an orphan trailing underneath it. */
   .principles .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr;
     gap: clamp(32px, 4vw, 48px);
+  }
+
+  @media (min-width: 760px) {
+    .principles .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   .principle {
@@ -196,59 +172,6 @@ import alexPhoto from '../assets/team/alex-maclean.jpg';
     font-size: 0.98rem;
     line-height: 1.7;
     color: var(--ink-2);
-  }
-
-  .team {
-    padding-block: 0 clamp(56px, 8vw, 88px);
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .team h2 {
-    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
-  }
-
-  .people {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: clamp(32px, 5vw, 56px);
-  }
-
-  .person {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .person img {
-    width: min(300px, 100%);
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 16px;
-  }
-
-  .person h3 {
-    font-size: 1.6rem;
-    margin-top: 10px;
-  }
-
-  .role {
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--clay);
-  }
-
-  .person p:not(.role) {
-    font-size: 0.98rem;
-    line-height: 1.7;
-    color: var(--ink-2);
-  }
-
-  .person .land {
-    font-size: 0.9rem;
-    color: var(--muted);
   }
 
 </style>
