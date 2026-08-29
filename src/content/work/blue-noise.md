@@ -30,8 +30,8 @@ credits:
     name: Ocean Week Canada
 tags:
   - Installations
-order: 3
-featured: true
+order: 6
+featured: false
 ---
 
 Blue Noise explores the devastating impact of ocean noise pollution on marine

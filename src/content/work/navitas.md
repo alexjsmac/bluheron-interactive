@@ -26,7 +26,7 @@ credits:
 tags:
   - Installations
   - Community engagement
-order: 4
+order: 8
 featured: false
 ---
 
