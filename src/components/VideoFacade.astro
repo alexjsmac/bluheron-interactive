@@ -1,21 +1,27 @@
 ---
-// Click-to-load Vimeo facade: ships a poster image instead of an iframe, so
-// case-study pages don't pay Vimeo's player weight until someone asks for it.
+// Click-to-load video facade: ships a poster image instead of an iframe, so
+// case-study pages don't pay a player's weight until someone asks for it.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro:assets';
 
 interface Props {
-  vimeo: string;
+  /** Full Vimeo URL, or a YouTube video id via `youtube`. */
+  vimeo?: string;
+  youtube?: string;
   poster: ImageMetadata;
   posterAlt: string;
   title: string;
 }
 
-const { vimeo, poster, posterAlt, title } = Astro.props;
-const id = vimeo.replace(/\/+$/, '').split('/').pop();
+const { vimeo, youtube, poster, posterAlt, title } = Astro.props;
+
+const provider = youtube ? 'youtube' : 'vimeo';
+const id = youtube ?? vimeo!.replace(/\/+$/, '').split('/').pop()!;
+const watchUrl = youtube ? `https://www.youtube.com/watch?v=${youtube}` : vimeo!;
+const providerName = youtube ? 'YouTube' : 'Vimeo';
 ---
 
-<div class="video-facade" data-vimeo-id={id} data-title={title}>
+<div class="video-facade" data-video-id={id} data-provider={provider} data-title={title}>
   <button type="button" class="facade-btn">
     <Image src={poster} alt={posterAlt} width={1280} widths={[768, 1280]} sizes="100vw" />
     <span class="scrim" aria-hidden="true"></span>
@@ -28,7 +34,7 @@ const id = vimeo.replace(/\/+$/, '').split('/').pop();
     <span class="label">Play film &mdash; {title}</span>
   </button>
   <noscript>
-    <a href={vimeo} rel="noopener">Watch on Vimeo</a>
+    <a href={watchUrl} rel="noopener">Watch on {providerName}</a>
   </noscript>
 </div>
 
@@ -117,12 +123,16 @@ const id = vimeo.replace(/\/+$/, '').split('/').pop();
       btn.addEventListener('click', () => {
         const wrapper = btn.closest<HTMLElement>('.video-facade');
         if (!wrapper) return;
-        const id = wrapper.dataset.vimeoId;
+        const id = wrapper.dataset.videoId;
+        const provider = wrapper.dataset.provider;
         const title = wrapper.dataset.title ?? '';
         if (!id) return;
 
         const iframe = document.createElement('iframe');
-        iframe.src = `https://player.vimeo.com/video/${id}?autoplay=1`;
+        iframe.src =
+          provider === 'youtube'
+            ? `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`
+            : `https://player.vimeo.com/video/${id}?autoplay=1`;
         iframe.title = title;
         iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
         iframe.allowFullscreen = true;

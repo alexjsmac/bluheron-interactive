@@ -13,6 +13,8 @@ const work = defineCollection({
       occasion: z.string().optional(),
       medium: z.string().optional(),
       vimeo: z.string().url().optional(),
+      // YouTube video id (not a URL), for films hosted there instead.
+      youtube: z.string().optional(),
       // Optional: projects still awaiting photography get a generated
       // pixel-field hero instead of a placeholder image.
       hero: image().optional(),

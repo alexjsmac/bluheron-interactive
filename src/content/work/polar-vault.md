@@ -25,7 +25,7 @@ credits:
     name: Covent Garden Market, London, Ontario
 tags:
   - Installations
-order: 3
+order: 4
 featured: false
 ---
 

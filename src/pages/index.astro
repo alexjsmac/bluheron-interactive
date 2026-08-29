@@ -10,7 +10,7 @@ import BeaconMark from '../components/BeaconMark.astro';
 const work = (await getCollection('work'))
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 2);
+  .slice(0, 3);
 
 const partners = [
   'Canadian Museums Association',
@@ -300,15 +300,23 @@ const partners = [
     gap: 32px;
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 700px) {
     .cards {
-      grid-template-columns: 1.18fr 1fr;
-      gap: 44px;
+      grid-template-columns: repeat(2, 1fr);
       align-items: start;
+    }
+  }
+
+  /* Three across once there's room, with the middle card dropped so the row
+     reads as a composition rather than a strip of thumbnails. */
+  @media (min-width: 1080px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
     }
 
     .cards > :global(:nth-child(2)) {
-      margin-top: 72px;
+      margin-top: 56px;
     }
   }
 

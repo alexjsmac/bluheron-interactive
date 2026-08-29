@@ -78,11 +78,16 @@ const next = all[(idx + 1) % all.length];
         )
       }
       {
-        d.vimeo && (
+        (d.vimeo || d.youtube) && (
           <div>
             <p class="label">Film</p>
             <p>
-              <a href={d.vimeo} rel="noopener">Watch on Vimeo &rarr;</a>
+              <a
+                href={d.youtube ? `https://www.youtube.com/watch?v=${d.youtube}` : d.vimeo}
+                rel="noopener"
+              >
+                Watch on {d.youtube ? 'YouTube' : 'Vimeo'} &rarr;
+              </a>
             </p>
           </div>
         )
@@ -91,9 +96,15 @@ const next = all[(idx + 1) % all.length];
   </section>
 
   {
-    d.vimeo && (
+    (d.vimeo || d.youtube) && d.hero && (
       <section class="wrap film">
-        <VideoFacade vimeo={d.vimeo} poster={d.hero} posterAlt={d.heroAlt} title={d.title} />
+        <VideoFacade
+          vimeo={d.vimeo}
+          youtube={d.youtube}
+          poster={d.hero}
+          posterAlt={d.heroAlt ?? ''}
+          title={d.title}
+        />
       </section>
     )
   }
