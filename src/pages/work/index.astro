@@ -40,8 +40,8 @@ const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.
       {work.map((p) => <ProjectCard project={p} />)}
     </div>
     <p class="more">
-      More projects — ARound Town, Our Home Your Home, Concrete Canopy, AV Nights — are on
-      their way to this page. <a href={withBase('/contact/')}>Ask us about any of them.</a>
+      This is a selection — there's more where it came from.{' '}
+      <a href={withBase('/contact/')}>Ask us about the rest.</a>
     </p>
   </section>
 
