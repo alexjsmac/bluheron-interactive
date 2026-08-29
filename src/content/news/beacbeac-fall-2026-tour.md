@@ -7,7 +7,7 @@ summary: Our accessibility platform deploys at three festivals this fall — com
 This fall, beacbeac — our platform for delivering accessible, place-based
 stories straight to visitors' phones — is on the ground at three festivals:
 
-- **Ability First Fest** — Woodstock, September 4
+- **Ability First Fest** — Hamilton, September 4
 - **Supercrawl** — Hamilton, September
 - **Nuit Blanche London** — September 19, with fifteen beacons guiding
   visitors through a night of art

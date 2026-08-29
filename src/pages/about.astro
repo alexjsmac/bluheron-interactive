@@ -9,34 +9,79 @@ import alexPhoto from '../assets/team/alex-maclean.jpg';
 
 <Base
   title="About — BluHeron Interactive"
-  description="BluHeron Interactive is a creative technology studio in London & Hamilton, Ontario — co-founded by Christopher McLeod and Alex MacLean, guided by community collaboration and co-creation."
+  description="BluHeron Interactive is a small studio in London & Hamilton, Ontario — two artists who design, build, and run immersive work with the communities it is made for."
 >
   <section class="wrap head">
     <p class="kicker">About us</p>
-    <h1 class="display">Builds cities, communities, <em class="clay">connections</em>.</h1>
+    <h1 class="display">We design it, we build it, and we're <em class="clay">there when it runs</em>.</h1>
   </section>
 
   <section class="wrap story">
     <p>
-      Partnership, community collaboration, co-creation, and just having fun and being creative
-      while igniting community interaction is our focus — and very exciting to us.
+      BluHeron Interactive is a small studio in London and Hamilton, Ontario. We're both
+      artists and we both art-direct — Chris from three decades of community-engaged public
+      art, Alex from immersive media and code. Between us we've put interactive work in
+      galleries, market squares, sculpture gardens, a landfill, and the middle of a street
+      festival, and we're usually the ones on site before the doors open making sure it still
+      works.
     </p>
     <p>
-      Our blend of arts-based research for public engagement and community feedback focuses on
-      a principles-based approach where honesty, respect, equality, fairness, and courage are
-      our guides. We work to provide supportive time and space for diverse, equity-seeking
-      people to feel empowered to engage in our interactive experiences. Together, we create
-      through lived experience.
+      That's the point of a studio this size. We're not a design shop that hands off a
+      concept, and we're not a development shop waiting for a brief. The people who build the
+      work are in the room when it's designed — which is why it tends to survive contact with
+      real weather, real crowds, and real budgets.
     </p>
-    <p>
-      That work has grown. Today BluHeron is three practices with one mission: immersive
-      installations co-created with communities, <a href={withBase('/beacbeac/')}>beacbeac</a> — our
-      platform making public places accessible to everyone — and digital services that keep
-      arts organizations' own doors open online. As a team, we have had the opportunity to
-      create with amazing partners on arts-based community development projects across Ontario,
-      and we are always excited to meet new project partners, collaborators, and friends.{' '}
-      <a href={withBase('/contact/')}>Let's talk.</a>
-    </p>
+  </section>
+
+  <section class="band now">
+    <div class="wrap inner">
+      <p class="kicker">What we're working on now</p>
+      <p class="now-lede">
+        This fall, <a href={withBase('/beacbeac/')}>beacbeac</a> — our platform for accessible,
+        place-based stories — goes out at Ability First Fest and Supercrawl in Hamilton, and
+        Nuit Blanche London. We're a business member of the Canadian Museums Association, and
+        we keep the websites and hosting running for arts organizations including Centre[4]Arts
+        and the Mississauga Arts Council.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap principles">
+    <h2>How we work</h2>
+    <div class="grid stagger">
+      <article class="principle reveal">
+        <h3>Co-creation, not consultation</h3>
+        <p>
+          <a href={withBase('/work/navitas/')}>Navitas</a> needed two people pumping together
+          to move water across Hamilton.{' '}
+          <a href={withBase('/work/jump-around/')}>Jump Around</a> put the audience inside the
+          game show. The participation is the artwork, not a survey bolted onto one.
+        </p>
+      </article>
+      <article class="principle reveal">
+        <h3>Access designed in, not added on</h3>
+        <p>
+          beacbeac was co-designed with Blind, Low Vision, Deaf, Deafblind, and disabled
+          community members. That was the starting condition, not a retrofit.
+        </p>
+      </article>
+      <article class="principle reveal">
+        <h3>Build with what's already there</h3>
+        <p>
+          Navitas is 2,000 LEDs threaded through reclaimed copper, aluminum, and wood. The{' '}
+          <a href={withBase('/work/landfill-education-model/')}>Landfill Education Model</a>{' '}
+          explains a system most people never get to see.
+        </p>
+      </article>
+      <article class="principle reveal">
+        <h3>We stay in the arts on purpose</h3>
+        <p>
+          We take websites and hosting for arts councils, galleries, and festivals — not
+          because we want to be a web shop, but because it's the same community, and it's
+          where we're most useful.
+        </p>
+      </article>
+    </div>
   </section>
 
   <section class="wrap team">
@@ -62,12 +107,14 @@ import alexPhoto from '../assets/team/alex-maclean.jpg';
       <article class="person reveal">
         <Image src={alexPhoto} alt="Portrait of Alex MacLean" width={600} widths={[300, 600]} sizes="(max-width: 720px) 100vw, 300px" />
         <h3>Alex MacLean</h3>
-        <p class="role">Co-founder &middot; Creative technologist</p>
+        <p class="role">Co-founder &middot; Artist &amp; creative technologist</p>
         <p>
-          An immersive media artist and developer, Alex builds the technology behind
-          BluHeron's work — from generative audiovisual installations to the beacbeac platform
-          and its accessibility-audited apps and console. Sound, light, and code: experiences
-          that listen back.
+          An immersive media artist and developer, Alex art-directs and builds — from
+          generative audiovisual installations like{' '}
+          <a href={withBase('/work/blue-noise/')}>Blue Noise</a> and{' '}
+          <a href={withBase('/work/concrete-canopy/')}>Concrete Canopy</a> to the beacbeac
+          platform, its apps and admin console, and the websites we look after for arts
+          organizations. Sound, light, and code: experiences that listen back.
         </p>
         <p class="land">
           <a href="https://alexmaclean.ca" rel="noopener">alexmaclean.ca &rarr;</a>
@@ -100,6 +147,55 @@ import alexPhoto from '../assets/team/alex-maclean.jpg';
     line-height: 1.8;
     color: var(--ink-2);
     max-width: 66ch;
+  }
+
+  .now .inner {
+    padding-block: clamp(48px, 7vw, 72px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .now-lede {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--ink-2);
+    max-width: 70ch;
+  }
+
+  .principles {
+    padding-block: clamp(56px, 8vw, 88px) clamp(40px, 6vw, 64px);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .principles h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  }
+
+  .principles .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(32px, 4vw, 48px);
+  }
+
+  .principle {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid var(--line);
+    padding-top: 22px;
+  }
+
+  .principle h3 {
+    font-size: 1.25rem;
+  }
+
+  .principle p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--ink-2);
   }
 
   .team {
