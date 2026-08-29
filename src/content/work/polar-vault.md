@@ -5,7 +5,8 @@ tagline: A shipping container, a snow globe, and a queue that runs itself.
 summary: A standard shipping container transformed into a glowing, interactive winter wonderland you steer from your own phone.
 partner: Covent Garden Market, London, Ontario
 occasion: Winter 2025
-medium: Projection · touch-responsive walls · web app · Three.js
+medium: Projection · touch-responsive walls · web app · Three.js · Firebase
+youtube: k7fTsfXsvUk
 hero: ../../assets/work/polar-vault-exterior.jpg
 heroAlt: The Polar Vault container at night, lit with giant illuminated ornaments as visitors line up outside.
 gallery:

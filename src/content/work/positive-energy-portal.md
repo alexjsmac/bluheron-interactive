@@ -4,8 +4,9 @@ kicker: Interactive installation · City of Cambridge
 tagline: Walk through, and a 200-year-old oak answers in light.
 summary: A glowing portal in the Cambridge Sculpture Garden that turned every passing gesture into light and sound in the branches of an ancient oak.
 partner: City of Cambridge
-occasion: Unsilent Night · December 2025
+occasion: Unsilent Night, Winterfest · December 2025
 medium: Motion sensing · laser projection · directional audio · LED
+youtube: FOa23wRTiK8
 hero: ../../assets/work/portal-oak-lasers.jpg
 heroAlt: The ancient oak at night with laser light tracing its branches, the glowing portal structure standing to the right.
 gallery:

@@ -4,9 +4,9 @@ kicker: AV installation · Ocean Week Canada
 tagline: What does the ocean sound like when we stop shouting over it?
 summary: Move your hands, hear the ocean change — a visceral encounter with noise pollution.
 partner: Canadian Ocean Literacy Coalition
-occasion: Ocean Week Canada
-medium: Projection · generative sound · motion sensor
-vimeo: https://vimeo.com/1039676214
+occasion: Ocean Week Canada · 100 Kellogg Lane, London · 2024
+medium: Projection · TouchDesigner · MediaPipe hand tracking · generative sound
+vimeo: https://vimeo.com/955939854
 hero: ../../assets/work/blue-noise-ship.jpg
 heroAlt: A ship silhouette projected over glowing generative ocean visuals, radiating simulated noise.
 gallery:
@@ -22,8 +22,12 @@ howItWorks:
   - title: Choose quiet
     text: Lower your hands and the ecosystem recovers — the consequence, and the hope, made audible.
 credits:
+  - role: Created by
+    name: Christopher McLeod & Alex MacLean
   - role: Partner
     name: Canadian Ocean Literacy Coalition
+  - role: Funded by
+    name: Ocean Week Canada
 tags:
   - Installations
 order: 3
