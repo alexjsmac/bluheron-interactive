@@ -63,9 +63,8 @@ for (let row = 0; row < ROWS; row++) {
   <canvas class="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-content wrap">
     <slot />
-  </div>
-  <div class="hero-controls wrap">
-    <button class="motion-toggle" type="button" hidden aria-pressed="false">
+    <div class="hero-controls">
+      <button class="motion-toggle" type="button" hidden aria-pressed="false">
       <svg
         class="icon-pause"
         width="13"
@@ -89,8 +88,9 @@ for (let row = 0; row < ROWS; row++) {
       >
         <path d="M4 2.5 L13 8 L4 13.5 Z"></path>
       </svg>
-      <span class="label">Pause motion</span>
-    </button>
+        <span class="label">Pause motion</span>
+      </button>
+    </div>
   </div>
   <PixelEdge />
 </div>
@@ -155,25 +155,18 @@ for (let row = 0; row < ROWS; row++) {
     .hero-band.is-tall .hero-content {
       /* Bottom padding clears the motion chip, which is absolutely
          positioned in the band's corner. */
-      padding-block: clamp(40px, 7vh, 64px) clamp(88px, 12vh, 104px);
-    }
-
-    .hero-controls {
-      inset: auto 0 22px 0;
+      padding-block: clamp(40px, 7vh, 64px) clamp(44px, 8vh, 72px);
     }
   }
 
-  /* The chip floats in the band's corner instead of claiming a layout row. */
+  /* In normal flow, not anchored to the band's bottom edge. The band's height
+     tracks the viewport, so anything pinned to its bottom drifts against the
+     vertically-centred content as mobile browser chrome collapses. */
   .hero-controls {
-    position: absolute;
-    inset: auto 0 52px 0;
     display: flex;
     justify-content: flex-end;
-    pointer-events: none;
-  }
-
-  .hero-controls .motion-toggle {
-    pointer-events: auto;
+    /* vw, not vh: viewport-height units shift when mobile chrome collapses. */
+    margin-top: clamp(28px, 5vw, 44px);
   }
 
   /* The logo's pixel dissolve, seaming the band into the paper below. */
