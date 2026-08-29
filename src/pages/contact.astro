@@ -23,7 +23,7 @@ const FORM_ACTION = `https://formspree.io/f/${FORMSPREE_ID}`;
     <div class="direct">
       <div>
         <p class="label">Email</p>
-        <p><a href="mailto:alex@bluheroninteractive.com">alex@bluheroninteractive.com</a></p>
+        <p><a href="mailto:info@bluheroninteractive.com">info@bluheroninteractive.com</a></p>
       </div>
       <div>
         <p class="label">Instagram</p>
@@ -78,7 +78,7 @@ const FORM_ACTION = `https://formspree.io/f/${FORMSPREE_ID}`;
         <h2>Thanks — that's with us.</h2>
         <p>
           We read everything ourselves and usually reply within a couple of days. If it's
-          urgent, email <a href="mailto:alex@bluheroninteractive.com">alex@bluheroninteractive.com</a>.
+          urgent, email <a href="mailto:info@bluheroninteractive.com">info@bluheroninteractive.com</a>.
         </p>
       </div>
     </div>
@@ -228,10 +228,20 @@ const FORM_ACTION = `https://formspree.io/f/${FORMSPREE_ID}`;
     color: var(--ink-2);
   }
 
+  /* These carry an explicit display, which would otherwise beat the [hidden]
+     attribute's own display:none. */
+  .contact-form[hidden],
   .form-success[hidden],
   .field-error[hidden],
   .form-error[hidden] {
     display: none;
+  }
+
+  /* The panel takes focus so keyboard and screen-reader users land on the
+     confirmation — but it is a status message, not a control, so it does not
+     need a focus ring. Safari paints one by default; this removes it. */
+  .form-success:focus {
+    outline: none;
   }
 </style>
 
@@ -310,14 +320,14 @@ const FORM_ACTION = `https://formspree.io/f/${FORMSPREE_ID}`;
         if (!errors.length || unfielded.length) {
           formError.textContent = unfielded[0]?.message
             ? `That didn't send: ${unfielded[0].message}`
-            : "That didn't send. Please try again, or email alex@bluheroninteractive.com.";
+            : "That didn't send. Please try again, or email info@bluheroninteractive.com.";
           formError.hidden = false;
         }
 
         (firstInvalid ?? formError).focus?.();
       } catch {
         formError.textContent =
-          "That didn't send — you may be offline. Please try again, or email alex@bluheroninteractive.com.";
+          "That didn't send — you may be offline. Please try again, or email info@bluheroninteractive.com.";
         formError.hidden = false;
       } finally {
         button.disabled = false;
