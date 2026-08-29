@@ -12,7 +12,6 @@ const work = (await getCollection('work'))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 2);
 
-const rs = ['Respect', 'Relevance', 'Responsibility', 'Reciprocity', 'Relationality'];
 const partners = [
   'Canadian Museums Association',
   'Centre[3] for Artistic + Social Practice',
@@ -109,23 +108,6 @@ const partners = [
 
     <div class="cards">
       {work.map((p) => <ProjectCard project={p} />)}
-    </div>
-  </section>
-
-  <section class="values-teaser">
-    <div class="wrap inner">
-      <div class="lead reveal">
-        <p class="kicker">How we work</p>
-        <h2>Guided by the <em class="clay">5 Rs</em></h2>
-        <p>
-          We create through lived experience, in partnership with the communities we serve.
-          Every project begins — and ends — with these principles.
-        </p>
-        <a class="arrow-link" href={withBase('/about/')}>How we work &rarr;</a>
-      </div>
-      <ul class="chips stagger" role="list">
-        {rs.map((r) => <li class="reveal">{r}</li>)}
-      </ul>
     </div>
   </section>
 
@@ -328,54 +310,6 @@ const partners = [
     .cards > :global(:nth-child(2)) {
       margin-top: 72px;
     }
-  }
-
-  .values-teaser {
-    background: var(--paper-2);
-  }
-
-  .values-teaser .inner {
-    display: flex;
-    gap: clamp(40px, 6vw, 80px);
-    align-items: flex-start;
-    flex-wrap: wrap;
-    padding-block: clamp(72px, 9vw, 112px);
-  }
-
-  .lead {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    max-width: 480px;
-  }
-
-  .lead h2 {
-    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
-  }
-
-  .lead h2 em.clay {
-    color: var(--clay);
-  }
-
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    align-content: flex-start;
-    flex: 1;
-    min-width: 280px;
-    list-style: none;
-    margin: 0;
-    padding: 32px 0 0;
-  }
-
-  .chips li {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 12px 28px;
   }
 
   .partners {
