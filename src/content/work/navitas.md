@@ -26,8 +26,8 @@ credits:
 tags:
   - Installations
   - Community engagement
-order: 3
-featured: true
+order: 4
+featured: false
 ---
 
 Navitas — Latin for *energy* — is an interactive pop-up sculpture that moves

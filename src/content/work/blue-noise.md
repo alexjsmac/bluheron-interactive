@@ -26,7 +26,7 @@ credits:
     name: Canadian Ocean Literacy Coalition
 tags:
   - Installations
-order: 2
+order: 3
 featured: true
 ---
 

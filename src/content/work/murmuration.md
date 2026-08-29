@@ -23,8 +23,8 @@ credits:
 tags:
   - Installations
   - Community engagement
-order: 9
-featured: false
+order: 2
+featured: true
 ---
 
 Murmuration is a live visual installation with no author on the night. The
