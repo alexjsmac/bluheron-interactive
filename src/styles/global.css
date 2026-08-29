@@ -12,7 +12,7 @@
   --mist-line: #cde5e3;
   --ink: #140f11;
   --ink-2: #4a4345;
-  --muted: #837b7e;
+  --muted: #6f686b; /* 4.5:1 on paper, paper-2, and mist — see /accessibility */
   --line: #e5ddcc;
 
   /* Immersive band palette (always dark, both themes) */
