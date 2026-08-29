@@ -48,10 +48,18 @@ One-time setup:
 
 ## Contact form
 
-The form on `/contact/` is wired for [Formspree](https://formspree.io): create
-a (free) form, then set `FORMSPREE_ID` at the top of
-`src/pages/contact.astro`. Until then the page shows direct contact details
-only.
+The form on `/contact/` posts to [Formspree](https://formspree.io) — the form
+id lives in `FORMSPREE_ID` at the top of `src/pages/contact.astro`.
+
+It follows the site's usual pattern: a real `action`/`method` so it submits
+without JavaScript, plus a small fetch layer that submits in place when JS is
+available, showing field errors inline (`aria-invalid` + `aria-describedby`,
+focus moved to the first bad field) and a `role="status"` confirmation on
+success. A clipped `_gotcha` honeypot catches bots; `_subject` titles the
+notification email.
+
+Deliberately no `@formspree/ajax` dependency — one form, a no-JS-required
+promise to keep, and a tight JS budget.
 
 ## Accessibility budget
 
