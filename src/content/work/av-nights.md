@@ -34,6 +34,8 @@ credits:
     name: Alex MacLean
   - role: Co-presenters, Night 1
     name: Nuit Blanche London & the London Society of Architects
+  - role: Recap film, Night 1
+    name: Shot & edited by Jeff Chambers
   - role: Beneficiary & partner, Night 2
     name: Forest City Gallery
   - role: Lighting & production, Night 2
