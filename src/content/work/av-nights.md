@@ -6,15 +6,16 @@ summary: An immersive art showcase we founded and produce — two nights, fourte
 partner: Forest City Gallery · Nuit Blanche London
 occasion: XUUX Artists Studio, 2025 · Honey Dip + DoughEV, 2026
 medium: Curation · event production · live audiovisual performance · installation · experimental film
-hero: ../../assets/work/av-nights-lights.jpg
-heroAlt: Two artists bent over their gear at A/V Nights 2, red and white visuals filling the wall behind them and a fan of magenta and cyan light thrown across the ceiling.
+youtube: yx97wsm3qsU
+hero: ../../assets/work/av-nights-room.jpg
+heroAlt: A darkened studio at A/V Nights 1 — two performers at a table of gear beside a wall-sized green geometric projection, the audience watching in silhouette.
 gallery:
-  - src: ../../assets/work/av-nights-room.jpg
-    alt: A darkened studio at A/V Nights 1 — two performers at a table of gear beside a wall-sized green geometric projection, the audience watching in silhouette.
   - src: ../../assets/work/av-nights-projection.jpg
     alt: A performer working a bank of synthesizers in front of a magenta and violet projection that fills the wall behind them.
   - src: ../../assets/work/av-nights-installation.jpg
     alt: Visitors standing around a light-edged plinth holding one of the installations, drinks in hand, mid-conversation.
+  - src: ../../assets/work/av-nights-lights.jpg
+    alt: Two artists bent over their gear at A/V Nights 2, red and white visuals filling the wall behind them and a fan of magenta and cyan light thrown across the ceiling.
   - src: ../../assets/work/av-nights-qa.jpg
     alt: The opening artist Q&A at A/V Nights 2 — artists seated in front of a projected black-and-white film in a brick room, the audience packed in close around them.
   - src: ../../assets/work/av-nights-violin.jpg
