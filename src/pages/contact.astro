@@ -2,9 +2,8 @@
 import { withBase } from '../lib/url';
 import Base from '../layouts/Base.astro';
 
-// Create a form at https://formspree.io (free tier), then replace this ID.
-// Until then the form is hidden and the direct contacts below carry the page.
-const FORMSPREE_ID = '';
+const FORMSPREE_ID = 'xeaqqbob';
+const FORM_ACTION = `https://formspree.io/f/${FORMSPREE_ID}`;
 ---
 
 <Base
@@ -40,31 +39,49 @@ const FORMSPREE_ID = '';
       </div>
     </div>
 
-    {
-      FORMSPREE_ID && (
-        <form
-          class="contact-form"
-          method="POST"
-          action={`https://formspree.io/f/${FORMSPREE_ID}`}
-        >
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" autocomplete="name" required />
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" required />
-          </div>
-          <div class="field">
-            <label for="message">What are you dreaming up?</label>
-            <textarea id="message" name="message" rows="6" required />
-          </div>
-          <button class="btn" type="submit">
-            Send it
-          </button>
-        </form>
-      )
-    }
+    <div class="form-area">
+      {/* Posts natively without JavaScript; the script below upgrades it to
+          submit in place so nobody loses the page they were on. */}
+      <form class="contact-form" method="POST" action={FORM_ACTION} data-endpoint={FORM_ACTION}>
+        <p class="form-error" data-form-error hidden role="alert" tabindex="-1"></p>
+
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+          <p class="field-error" id="name-error" data-field-error="name" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+          <p class="field-error" id="email-error" data-field-error="email" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="message">What are you dreaming up?</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+          <p class="field-error" id="message-error" data-field-error="message" hidden></p>
+        </div>
+
+        <input type="hidden" name="_subject" value="New enquiry from bluheroninteractive.com" />
+
+        {/* Spam trap: hidden from people and assistive tech, catnip for bots. */}
+        <div class="gotcha" aria-hidden="true">
+          <label for="_gotcha">Leave this field empty</label>
+          <input id="_gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <button class="btn" type="submit">Send it</button>
+      </form>
+
+      <div class="form-success" data-form-success hidden tabindex="-1" role="status">
+        <h2>Thanks — that's with us.</h2>
+        <p>
+          We read everything ourselves and usually reply within a couple of days. If it's
+          urgent, email <a href="mailto:alex@bluheroninteractive.com">alex@bluheroninteractive.com</a>.
+        </p>
+      </div>
+    </div>
   </section>
 </Base>
 
@@ -114,8 +131,6 @@ const FORMSPREE_ID = '';
   }
 
   .contact-form {
-    flex: 2;
-    min-width: 300px;
     display: flex;
     flex-direction: column;
     gap: 22px;
@@ -152,4 +167,165 @@ const FORMSPREE_ID = '';
   .contact-form .btn {
     align-self: flex-start;
   }
+
+  .contact-form .btn[disabled] {
+    opacity: 0.65;
+    cursor: progress;
+  }
+
+  .form-area {
+    flex: 2;
+    min-width: 300px;
+  }
+
+  .form-area .contact-form {
+    width: 100%;
+  }
+
+  .field-error,
+  .form-error {
+    font-size: 0.9rem;
+    color: var(--clay);
+    font-weight: 500;
+  }
+
+  .form-error {
+    border-left: 3px solid var(--clay);
+    padding-left: 12px;
+  }
+
+  input[aria-invalid='true'],
+  textarea[aria-invalid='true'] {
+    border-color: var(--clay);
+  }
+
+  /* Off-screen rather than display:none — bots fill what they can see in the
+     DOM, and people never reach it. */
+  .gotcha {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .form-success {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--mist);
+    border: 1px solid var(--mist-line);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .form-success h2 {
+    font-size: 1.6rem;
+  }
+
+  .form-success p {
+    color: var(--ink-2);
+  }
+
+  .form-success[hidden],
+  .field-error[hidden],
+  .form-error[hidden] {
+    display: none;
+  }
 </style>
+
+<script>
+  // The form posts natively without JavaScript. This upgrades it to submit in
+  // place, so a visitor keeps their scroll position and gets errors inline.
+  function initContactForm() {
+    const form = document.querySelector<HTMLFormElement>('.contact-form');
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = '1';
+
+    const endpoint = form.dataset.endpoint;
+    const success = document.querySelector<HTMLElement>('[data-form-success]');
+    const formError = form.querySelector<HTMLElement>('[data-form-error]');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (!endpoint || !success || !formError || !button) return;
+
+    const clearErrors = () => {
+      formError.hidden = true;
+      formError.textContent = '';
+      form.querySelectorAll<HTMLElement>('[data-field-error]').forEach((el) => {
+        el.hidden = true;
+        el.textContent = '';
+      });
+      form.querySelectorAll<HTMLElement>('input, textarea').forEach((el) => {
+        el.removeAttribute('aria-invalid');
+        el.removeAttribute('aria-describedby');
+      });
+    };
+
+    const showFieldError = (field: string, message: string) => {
+      const note = form.querySelector<HTMLElement>(`[data-field-error="${field}"]`);
+      const input = form.querySelector<HTMLElement>(`[name="${field}"]`);
+      if (!note || !input) return false;
+      note.textContent = message;
+      note.hidden = false;
+      input.setAttribute('aria-invalid', 'true');
+      input.setAttribute('aria-describedby', note.id);
+      return true;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearErrors();
+
+      button.disabled = true;
+      const label = button.textContent;
+      button.textContent = 'Sending…';
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (res.ok) {
+          form.hidden = true;
+          success.hidden = false;
+          success.focus();
+          return;
+        }
+
+        const data = await res.json().catch(() => null);
+        const errors = data?.errors ?? [];
+        let firstInvalid: HTMLElement | null = null;
+
+        for (const err of errors) {
+          const field = err.field;
+          if (field && showFieldError(field, err.message)) {
+            firstInvalid ??= form.querySelector<HTMLElement>(`[name="${field}"]`);
+          }
+        }
+
+        const unfielded = errors.filter((x: { field?: string }) => !x.field);
+        if (!errors.length || unfielded.length) {
+          formError.textContent = unfielded[0]?.message
+            ? `That didn't send: ${unfielded[0].message}`
+            : "That didn't send. Please try again, or email alex@bluheroninteractive.com.";
+          formError.hidden = false;
+        }
+
+        (firstInvalid ?? formError).focus?.();
+      } catch {
+        formError.textContent =
+          "That didn't send — you may be offline. Please try again, or email alex@bluheroninteractive.com.";
+        formError.hidden = false;
+      } finally {
+        button.disabled = false;
+        button.textContent = label;
+      }
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:page-load', initContactForm);
+</script>
