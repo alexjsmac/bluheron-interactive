@@ -1,7 +1,10 @@
 ---
 import { withBase } from '../lib/url';
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+import chrisPhoto from '../assets/team/chris-mcleod.jpg';
+import alexPhoto from '../assets/team/alex-maclean.jpg';
 ---
 
 <Base
@@ -23,8 +26,8 @@ import ContactCTA from '../components/ContactCTA.astro';
       middle of a street festival.
     </p>
     <p>
-      The studio combines three decades of community-engaged public art practice with
-      expertise in immersive media and software development. That range sits inside a single
+      The studio brings together a long practice in community-engaged public art and a
+      background in immersive media and software development. That range sits inside a single
       small team rather than across a chain of contractors, which means the people who design
       a project are the people who build it and the people on site when it opens.
     </p>
@@ -86,6 +89,45 @@ import ContactCTA from '../components/ContactCTA.astro';
           Our digital services — websites, hosting, maintenance, and accessibility audits —
           are offered to arts councils, galleries, studios, and festivals. Staying inside the
           sector keeps the studio close to the organizations our public work is made with.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap team">
+    <h2>Our team</h2>
+    <div class="people">
+      <article class="person reveal">
+        <Image src={chrisPhoto} alt="Portrait of Christopher McLeod" width={600} widths={[300, 600]} sizes="(max-width: 720px) 100vw, 300px" />
+        <h3>Christopher McLeod</h3>
+        <p class="role">Co-founder &middot; Artistic director</p>
+        <p>
+          A freelance artist and artistic director for three decades, Chris has led 24
+          community-engaged public art projects across Ontario. He holds a BA in Studio Art
+          from McMaster University and an MFA from Emily Carr University of Art + Design,
+          where his research focused on social practice and community interaction. His
+          practice centres on creating opportunities for people to connect meaningfully, with
+          the artwork emerging from those encounters.
+        </p>
+        <p class="land">
+          Chris is of settler ancestry, living on the traditional territory of the
+          Haudenosaunee, Wendat, and Mississaugas of the Credit First Nation.
+        </p>
+      </article>
+      <article class="person reveal">
+        <Image src={alexPhoto} alt="Portrait of Alex MacLean" width={600} widths={[300, 600]} sizes="(max-width: 720px) 100vw, 300px" />
+        <h3>Alex MacLean</h3>
+        <p class="role">Co-founder &middot; Artist &amp; creative technologist</p>
+        <p>
+          An immersive media artist and developer, Alex art-directs and builds — from
+          generative audiovisual installations such as{' '}
+          <a href={withBase('/work/blue-noise/')}>Blue Noise</a> and{' '}
+          <a href={withBase('/work/concrete-canopy/')}>Concrete Canopy</a> to the beacbeac
+          platform, its apps and administration console, and the websites the studio maintains
+          for arts organizations.
+        </p>
+        <p class="land">
+          <a href="https://alexmaclean.ca" rel="noopener">alexmaclean.ca &rarr;</a>
         </p>
       </article>
     </div>
@@ -172,6 +214,59 @@ import ContactCTA from '../components/ContactCTA.astro';
     font-size: 0.98rem;
     line-height: 1.7;
     color: var(--ink-2);
+  }
+
+  .team {
+    padding-block: 0 clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .team h2 {
+    font-size: clamp(1.9rem, 3.4vw, 2.5rem);
+  }
+
+  .people {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(32px, 5vw, 56px);
+  }
+
+  .person {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .person img {
+    width: min(300px, 100%);
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  .person h3 {
+    font-size: 1.6rem;
+    margin-top: 10px;
+  }
+
+  .role {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+
+  .person p:not(.role) {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--ink-2);
+  }
+
+  .person .land {
+    font-size: 0.9rem;
+    color: var(--muted);
   }
 
 </style>
