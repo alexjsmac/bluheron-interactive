@@ -74,12 +74,25 @@ const shareImage = new URL(image ?? '/og-default.jpg', Astro.site);
       })}
     />
     {
+      /* Two ClientRouter interactions, both measured:
+
+         transition:persist keeps this exact element across view transitions.
+         Without it the router re-inserts the tag on every navigation and the
+         beacon re-initialises.
+
+         spa:false turns off Cloudflare's own route-change tracking. Left on,
+         it hooks the History API — and because the router makes several
+         history writes per navigation, it fired three pageviews per click,
+         each with a fresh pageloadId and each labelled with the URL of the
+         page being left. Off, real page loads are counted once and correctly;
+         in-site navigation is not counted at all. Accurate beats complete. */
       CF_BEACON_TOKEN && (
         <script
           is:inline
-          type="module"
+          transition:persist
+          defer
           src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon={`{"token": "${CF_BEACON_TOKEN}"}`}
+          data-cf-beacon={`{"token": "${CF_BEACON_TOKEN}", "spa": false}`}
         />
       )
     }
