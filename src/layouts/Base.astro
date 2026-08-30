@@ -1,5 +1,6 @@
 ---
 import { withBase } from '../lib/url';
+import { CF_BEACON_TOKEN } from '../lib/analytics';
 import { ClientRouter } from 'astro:transitions';
 import '@fontsource-variable/bricolage-grotesque';
 import '@fontsource-variable/dm-sans';
@@ -72,6 +73,16 @@ const shareImage = new URL(image ?? '/og-default.jpg', Astro.site);
         sameAs: ['https://www.instagram.com/bluheroninteractive'],
       })}
     />
+    {
+      CF_BEACON_TOKEN && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${CF_BEACON_TOKEN}"}`}
+        />
+      )
+    }
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
