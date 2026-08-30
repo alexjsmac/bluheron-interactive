@@ -1,6 +1,6 @@
 ---
 import { withBase } from '../lib/url';
-import { CF_BEACON_TOKEN } from '../lib/analytics';
+import { GA_MEASUREMENT_ID } from '../lib/analytics';
 import { ClientRouter } from 'astro:transitions';
 import '@fontsource-variable/bricolage-grotesque';
 import '@fontsource-variable/dm-sans';
@@ -74,26 +74,63 @@ const shareImage = new URL(image ?? '/og-default.jpg', Astro.site);
       })}
     />
     {
-      /* Two ClientRouter interactions, both measured:
+      /* GA4, configured cookieless — mirrors the pattern already proven on
+         beacbeac.com's marketing site.
 
-         transition:persist keeps this exact element across view transitions.
-         Without it the router re-inserts the tag on every navigation and the
-         beacon re-initialises.
+         Consent Mode with analytics_storage denied, declared BEFORE config
+         (defaults only apply to a measurement id configured after them). GA4
+         then sends cookieless pings and writes nothing to the device, which is
+         what keeps this site free of a consent banner. The cost is that
+         returning visitors are not recognised, so "users" trends toward
+         "sessions". Do not relax this without shipping a banner.
 
-         spa:false turns off Cloudflare's own route-change tracking. Left on,
-         it hooks the History API — and because the router makes several
-         history writes per navigation, it fired three pageviews per click,
-         each with a fresh pageloadId and each labelled with the URL of the
-         page being left. Off, real page loads are counted once and correctly;
-         in-site navigation is not counted at all. Accurate beats complete. */
-      CF_BEACON_TOKEN && (
-        <script
-          is:inline
-          transition:persist
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon={`{"token": "${CF_BEACON_TOKEN}", "spa": false}`}
-        />
+         send_page_view:false plus a manual page_view on astro:page-load. The
+         ClientRouter writes to the History API several times per navigation,
+         and anything that counts those writes reports duplicates labelled with
+         the URL of the page being left — measured, when Cloudflare's beacon
+         was here. Driving the pageview from astro:page-load instead fires once
+         per navigation, after the swap, so the path is the one arrived at.
+         GA4's Enhanced Measurement "page changes based on browser history
+         events" must stay OFF in the data stream settings or it re-introduces
+         exactly that duplication.
+
+         The window guard survives soft navigation, so consent, config, and the
+         listener are registered once even though head scripts re-run on swap;
+         transition:persist keeps the gtag.js element from being re-inserted. */
+      GA_MEASUREMENT_ID && (
+        <>
+          <script
+            is:inline
+            transition:persist
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          />
+          <script is:inline define:vars={{ gaId: GA_MEASUREMENT_ID }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              window.dataLayer.push(arguments);
+            }
+            window.gtag = gtag;
+            if (!window.__gaInit) {
+              window.__gaInit = true;
+              gtag('consent', 'default', {
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                analytics_storage: 'denied',
+              });
+              gtag('js', new Date());
+              gtag('config', gaId, { anonymize_ip: true, send_page_view: false });
+              document.addEventListener('astro:page-load', function () {
+                gtag('event', 'page_view', {
+                  page_location: location.href,
+                  page_path: location.pathname,
+                  page_title: document.title,
+                });
+              });
+            }
+          </script>
+        </>
       )
     }
   </head>

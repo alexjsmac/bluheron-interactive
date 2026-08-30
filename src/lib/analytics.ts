@@ -1,10 +1,8 @@
-// Cloudflare Web Analytics beacon token.
+// GA4 measurement id for bluheroninteractive.com.
 //
-// Public by design — it ships in the page source, so it is not a secret and
-// does not belong in a repo secret or an env var. Cookieless: the beacon sets
-// no cookies and stores nothing on the device, which is why the site needs no
-// consent banner.
+// Public by design — it ships in the page source, so it is not a secret. An
+// empty string emits no tag at all, so the site builds and runs without it.
 //
-// An empty string disables the script entirely, so the site builds and runs
-// normally without it.
-export const CF_BEACON_TOKEN = '6ea1c11526fb4bb7a42eeae88762efe1';
+// The tag is configured cookieless: see the consent block in Base.astro. Do
+// not relax that without also shipping a consent banner.
+export const GA_MEASUREMENT_ID = 'G-H9LML2JBR4';
