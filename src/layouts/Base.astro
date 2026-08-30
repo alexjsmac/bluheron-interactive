@@ -77,7 +77,7 @@ const shareImage = new URL(image ?? '/og-default.jpg', Astro.site);
       CF_BEACON_TOKEN && (
         <script
           is:inline
-          defer
+          type="module"
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon={`{"token": "${CF_BEACON_TOKEN}"}`}
         />

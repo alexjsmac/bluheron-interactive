@@ -7,4 +7,4 @@
 //
 // An empty string disables the script entirely, so the site builds and runs
 // normally without it.
-export const CF_BEACON_TOKEN = '';
+export const CF_BEACON_TOKEN = '6ea1c11526fb4bb7a42eeae88762efe1';
