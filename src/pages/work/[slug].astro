@@ -1,7 +1,7 @@
 ---
 import { withBase } from '../../lib/url';
 import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import PixelField from '../../components/PixelField.astro';
@@ -16,12 +16,42 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 const d = project.data;
 
+// Share card: the project's own hero, cropped to the 1.91:1 OG ratio.
+const share = d.hero
+  ? await getImage({ src: d.hero, width: 1200, height: 630, fit: 'cover', format: 'jpeg' })
+  : undefined;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
 const all = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const idx = all.findIndex((p) => p.id === project.id);
 const next = all[(idx + 1) % all.length];
 ---
 
-<Base title={`${d.title} — BluHeron Interactive`} description={d.summary}>
+<Base
+  title={`${d.title} — BluHeron Interactive`}
+  description={d.summary}
+  image={share?.src}
+>
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      name: d.title,
+      headline: d.tagline,
+      description: d.summary,
+      url: canonical.href,
+      ...(share ? { image: new URL(share.src, Astro.site).href } : {}),
+      creator: {
+        '@type': 'Organization',
+        name: 'BluHeron Interactive',
+        url: 'https://bluheroninteractive.com',
+      },
+      ...(d.partner ? { sponsor: { '@type': 'Organization', name: d.partner } } : {}),
+      ...(d.tags.length ? { keywords: d.tags.join(', ') } : {}),
+    })}
+  />
   <div class:list={['hero', { 'has-photo': !!d.hero }]}>
     {
       d.hero ? (

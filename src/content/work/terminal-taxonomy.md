@@ -2,7 +2,7 @@
 title: Terminal Taxonomy
 kicker: Live A/V production · London, Ontario
 tagline: When the machine stops trusting what it hears, the room comes apart.
-summary: A live audiovisual system that listens to the music, transcribes it as it plays, and turns its own falling confidence into visuals, sound, and ten bars of light.
+summary: A live audiovisual system that transcribes the music as it plays and turns its own falling confidence into visuals, sound, and ten bars of light.
 occasion: Honey Dip Bar, London · February 26, 2026
 medium: TouchDesigner · real-time speech-to-text · generative visuals · Art-Net lighting
 youtube: gVczY7dNSvo
