@@ -1,8 +1,10 @@
 ---
 // Click-to-load video facade: ships a poster image instead of an iframe, so
 // case-study pages don't pay a player's weight until someone asks for it.
+
+// ImageMetadata is global, from astro/client.d.ts — it is not an astro:assets
+// export, and importing it from there fails astro check.
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro:assets';
 
 interface Props {
   /** Full Vimeo URL, or a YouTube video id via `youtube`. */

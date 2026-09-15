@@ -1,0 +1,42 @@
+# Dependabot is configuration, not a workflow — GitHub reads this file directly
+# and opens the pull requests itself, which ci.yml then checks like any other PR.
+#
+# Updates are grouped because this is a small marketing site: a weekly handful of
+# single-package PRs is noise nobody reads, whereas one grouped PR per area is a
+# review someone will actually do.
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # Astro and its first-party integrations move together; splitting them
+      # produces PRs that fail until their siblings land.
+      astro:
+        patterns:
+          - astro
+          - '@astrojs/*'
+      # Font packages are versioned in lockstep upstream and are content, not code.
+      fontsource:
+        patterns:
+          - '@fontsource-variable/*'
+      # Everything else: one PR for the safe bumps, majors left on their own so
+      # they get read individually.
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      actions:
+        patterns:
+          - '*'

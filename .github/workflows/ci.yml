@@ -1,0 +1,49 @@
+# Pre-merge checks. deploy.yml only runs on pushes to main, so without this
+# nothing verified a pull request before it shipped to Pages.
+#
+# The three steps mirror what a contributor runs locally, in the order that
+# fails cheapest first: types, then the build, then the analytics guard — which
+# needs dist/ on disk because it greps the built HTML.
+name: CI
+
+on:
+  pull_request:
+  # main is covered too, so a branch protection rule has a required check to
+  # point at and a direct push still gets verified.
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  # Supersede in-flight runs for the same ref; the last commit is the one that
+  # matters on a PR that gets pushed to repeatedly.
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          # Matches engines.node in package.json and deploy.yml's build.
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run check:types
+
+      - name: Build
+        run: npm run build
+
+      - name: Check analytics guards
+        run: npm run check:analytics
