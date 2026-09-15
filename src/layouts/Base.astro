@@ -29,7 +29,15 @@ const shareImage = new URL(image ?? '/og-default.jpg', Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {
+      /* The .ico is listed first and sized so browsers without SVG icon support
+         take it; everything current prefers the SVG that follows and scales it.
+         apple-touch-icon is a full-bleed square because iOS rounds the corners
+         itself — a pre-rounded PNG would get masked twice. */
+    }
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

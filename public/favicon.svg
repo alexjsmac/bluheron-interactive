@@ -1,6 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  BluHeron Interactive favicon: the heron in flight, redrawn for small sizes.
+
+  The brand mark (src/assets/brand/heron-mark.png) is a detailed illustration —
+  scaled to 16px it collapses into an unreadable smudge, which is why this is a
+  purpose-built drawing rather than a downscale. The pose is taken from the logo
+  (beak forward, kinked neck, wing on the upstroke, legs trailing) and reduced to
+  one continuous silhouette so nothing thins out to sub-pixel width.
+
+  The squares shedding off the wing are the logo's pixel dissolve, in its coral to
+  magenta to violet ramp. They are the "Interactive" half of the name, and at 16px
+  they survive as a warm speck of colour even once the shapes stop resolving.
+
+  Geometry is a 64-unit grid: 64 is 4x the 16px tab icon, so edges landing on even
+  units stay crisp at every size a browser asks for. The ground and bird are the
+  band and cyan-bright tokens from src/styles/global.css; the ramp is sampled from
+  the logo art itself.
+-->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="14" fill="#0a1016"/>
-  <circle cx="32" cy="32" r="6" fill="#0097b2"/>
-  <circle cx="32" cy="32" r="15" fill="none" stroke="#4fc9dc" stroke-width="2.5" opacity="0.75"/>
-  <circle cx="32" cy="32" r="24" fill="none" stroke="#a9e8dc" stroke-width="2" opacity="0.4"/>
+  <path fill="#4fc9dc" d="
+    M3 36.0
+    L13 34.2
+    C17 33.2 20 34.0 22 36.4
+    C24.5 39.4 26 41.2 28 43
+    C30 34 34 22 41 13
+    C43 10.5 46 10 48 12
+    C47 20 44 30 41 39
+    C44 42 47 45 50 47
+    L61 54.5 L60 56.8 L48 50
+    C42 52.6 34 51.6 28 48.2
+    C24 46 21 41.2 17 38.6
+    L3 38.4 Z"/>
+  <rect x="49.5" y="13"   width="4.5" height="4.5" fill="#f07878"/>
+  <rect x="56"   y="18"   width="3.5" height="3.5" fill="#c06090"/>
+  <rect x="50"   y="22.5" width="3"   height="3"   fill="#c06090"/>
+  <rect x="56.5" y="26"   width="2.5" height="2.5" fill="#9048c0"/>
+  <rect x="51.5" y="30.5" width="2"   height="2"   fill="#9048c0"/>
 </svg>
