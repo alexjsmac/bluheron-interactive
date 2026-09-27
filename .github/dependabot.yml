@@ -13,6 +13,12 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
+    # Hold back releases younger than this. A merge auto-deploys to Pages, and
+    # hijacked npm releases are usually caught and yanked within days.
+    # Security updates ignore cooldown, so advisories still land immediately.
+    cooldown:
+      default-days: 3
+      semver-major-days: 7
     groups:
       # Astro and its first-party integrations move together; splitting them
       # produces PRs that fail until their siblings land.
@@ -36,6 +42,8 @@ updates:
     schedule:
       interval: weekly
       day: monday
+    cooldown:
+      default-days: 3
     groups:
       actions:
         patterns:
