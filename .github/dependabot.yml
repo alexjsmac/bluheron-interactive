@@ -1,9 +1,6 @@
-# Dependabot is configuration, not a workflow — GitHub reads this file directly
-# and opens the pull requests itself, which ci.yml then checks like any other PR.
-#
-# Updates are grouped because this is a small marketing site: a weekly handful of
-# single-package PRs is noise nobody reads, whereas one grouped PR per area is a
-# review someone will actually do.
+# Dependabot opens update PRs itself; ci.yml checks them like any other PR.
+# This layout is shared across alexjsmac's site repos (only the framework
+# group differs) so the weekly Dependabot review can treat them all the same.
 version: 2
 
 updates:
@@ -36,9 +33,10 @@ updates:
       fontsource:
         patterns:
           - '@fontsource-variable/*'
-      # Everything else: one PR for the safe bumps, majors left on their own so
-      # they get read individually.
-      minor-and-patch:
+      # Build, lint and test tooling: batch the safe bumps. Majors stay
+      # individual so each one gets read.
+      dev-tooling:
+        dependency-type: development
         update-types:
           - minor
           - patch
