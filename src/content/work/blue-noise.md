@@ -30,7 +30,7 @@ credits:
     name: Ocean Week Canada
 tags:
   - Installations
-order: 6
+order: 7
 featured: false
 ---
 

@@ -28,7 +28,7 @@ credits:
     name: Honey Dip Bar, London, Ontario
 tags:
   - Performances
-order: 9
+order: 10
 featured: false
 ---
 
