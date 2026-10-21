@@ -34,7 +34,7 @@ credits:
     name: Government of Ontario
 tags:
   - Installations
-order: 1
+order: 2
 featured: true
 ---
 
