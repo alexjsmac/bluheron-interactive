@@ -6,6 +6,21 @@ summary: A community-built interactive exhibition — Holy Cross students in Art
 partner: Museum Strathroy-Caradoc · Holy Cross Catholic Secondary School
 occasion: Museum Strathroy-Caradoc · Summer 2026
 medium: Interactive exhibits · creative coding with students · TouchDesigner · p5.js · Arduino sensors
+hero: ../../assets/work/strathroy-piano.jpg
+heroAlt: A visitor plays a keyboard beside an old upright piano; a student animation glows on a screen set into the piano, with streaks of projected light across the wall behind it.
+gallery:
+  - src: ../../assets/work/strathroy-dance-crowd.jpg
+    alt: Visitors watch the Dance Dance Arthur screen, a glowing blue vortex with a step arrow, above a lit display case of First World War artifacts.
+  - src: ../../assets/work/strathroy-dance-pad.jpg
+    alt: The Dance Dance Arthur station — a dance pad on the floor in front of a lit artifact case and a screen showing the title, with two visitors talking nearby.
+  - src: ../../assets/work/strathroy-turning-year.jpg
+    alt: Visitors gather at a round wooden table with a clock hand on it, facing a wall projection of a historic Strathroy street scene for November.
+  - src: ../../assets/work/strathroy-clock-tower.jpg
+    alt: Two visitors study a projection of the town's red-brick clock tower, "The tower, then and now", beside a scale model of the building.
+  - src: ../../assets/work/strathroy-down-the-line.jpg
+    alt: A wooden plinth of carved clock-tower features on sliders, below a projected photo of a freight train passing the old station.
+  - src: ../../assets/work/strathroy-tv.jpg
+    alt: A vintage television flickers with "Strathroy — press a button to tune in", beside a panel about jingle writer Don Wright.
 howItWorks:
   - title: Students make the content
     text: Students from Holy Cross's ArtTech, History, and Construction programs researched the stories, wrote the museum texts, made the music and animation, and built the physical pieces. We taught them the creative coding to turn that work into exhibits, and walked them through how a museum exhibition comes together.
@@ -24,6 +39,10 @@ credits:
     name: Municipality of Strathroy-Caradoc — Progress Through Partnership program
   - role: Built with
     name: TouchDesigner · p5.js · Arduino
+quote:
+  text: We would not hesitate to work with BluHeron Interactive again on future projects and confidently recommend them to any museum or cultural organization seeking an innovative, reliable, and collaborative digital exhibition partner.
+  name: Michelle Wright
+  role: Museum Curator, Museum Strathroy-Caradoc
 tags:
   - Installations
   - Community engagement
