@@ -6,19 +6,29 @@ import HeroCanvas from '../components/HeroCanvas.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import BeaconMark from '../components/BeaconMark.astro';
+import LogoRow, { type LogoRowItem } from '../components/LogoRow.astro';
+import nuitBlancheLogo from '../assets/partners/nuit-blanche-london.png';
+import lsaLogo from '../assets/partners/london-society-of-architects.png';
 
 const work = (await getCollection('work'))
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
 
-const partners = [
-  'Canadian Museums Association',
-  'Centre[4]Arts',
-  'City of Hamilton',
-  'Canadian Ocean Literacy Coalition',
-  'Nuit Blanche London',
-  'Supercrawl',
+// Clients and collaborators only; funders are acknowledged on the About
+// page. Entries without a `logo` show their name until artwork arrives
+// (single-colour black on transparent, into src/assets/partners/).
+const partners: LogoRowItem[] = [
+  { name: 'Nuit Blanche London', logo: nuitBlancheLogo },
+  { name: 'Centre[4]Arts' },
+  { name: 'City of Hamilton' },
+  { name: 'Supercrawl' },
+  { name: 'City of Waterloo' },
+  { name: 'City of Cambridge' },
+  { name: 'Mississauga Arts Council' },
+  { name: 'Covent Garden Market' },
+  { name: 'Forest City Gallery' },
+  { name: 'London Society of Architects', logo: lsaLogo },
 ];
 ---
 
@@ -114,9 +124,7 @@ const partners = [
 
   <section class="wrap partners">
     <p class="kicker muted-kicker">In good company</p>
-    <ul role="list">
-      {partners.map((p) => <li>{p}</li>)}
-    </ul>
+    <LogoRow items={partners} label="Partners and clients" />
   </section>
 
   <ContactCTA />
@@ -333,30 +341,5 @@ const partners = [
 
   .muted-kicker {
     color: var(--muted);
-  }
-
-  .partners ul {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 14px 22px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(1.25rem, 2.3vw, 1.8rem);
-    color: var(--muted);
-  }
-
-  .partners li::after {
-    content: '·';
-    margin-left: 22px;
-    color: var(--clay);
-  }
-
-  .partners li:last-child::after {
-    content: '';
-    margin: 0;
   }
 </style>

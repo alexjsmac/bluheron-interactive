@@ -1,0 +1,85 @@
+---
+/**
+ * A row of organization marks. Each entry shows its logo when we have a
+ * file for it and falls back to the set name otherwise, so the row can go
+ * live before every partner has sent artwork; adding a logo later is a
+ * one-line `logo:` import with no layout change.
+ *
+ * Logos must be single-colour black artwork on a transparent ground: they
+ * render muted in the light theme and are inverted to light in the dark
+ * theme, so full-colour marks would come out wrong.
+ */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+export interface LogoRowItem {
+  name: string;
+  logo?: ImageMetadata;
+}
+
+interface Props {
+  items: LogoRowItem[];
+  label?: string;
+}
+
+const { items, label } = Astro.props;
+---
+
+<ul class="logo-row" role="list" aria-label={label}>
+  {
+    items.map((item) => (
+      <li>
+        {item.logo ? (
+          <Image src={item.logo} alt={item.name} height={88} class="mark" />
+        ) : (
+          <span class="name">{item.name}</span>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .logo-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px clamp(32px, 4.5vw, 56px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mark {
+    display: block;
+    height: 44px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    opacity: 0.72;
+  }
+
+  .name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    line-height: 1.15;
+    color: var(--muted);
+  }
+
+  :global([data-theme='dark']) .mark {
+    filter: invert(1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .mark {
+      filter: invert(1);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .mark {
+      height: 36px;
+    }
+  }
+</style>
