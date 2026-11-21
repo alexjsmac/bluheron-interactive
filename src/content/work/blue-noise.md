@@ -28,6 +28,11 @@ credits:
     name: Canadian Ocean Literacy Coalition
   - role: Funded by
     name: Ocean Week Canada
+support:
+  text: Blue Noise was funded by Ocean Week Canada.
+  logos:
+    - src: ../../assets/funders/ocean-week-canada.png
+      name: Ocean Week Canada
 tags:
   - Installations
 order: 7

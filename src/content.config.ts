@@ -26,6 +26,16 @@ const work = defineCollection({
         .array(z.object({ title: z.string(), text: z.string() }))
         .default([]),
       credits: z.array(z.object({ role: z.string(), name: z.string() })).default([]),
+      // Funder acknowledgement for this project: the funder's required
+      // credit line plus their logos, shown only on the funded project's
+      // page (several funders forbid logo use as general studio branding).
+      // Logos: single-colour black on transparent, from src/assets/funders/.
+      support: z
+        .object({
+          text: z.string(),
+          logos: z.array(z.object({ src: image(), name: z.string() })).default([]),
+        })
+        .optional(),
       tags: z.array(z.string()).default([]),
       order: z.number().default(99),
       featured: z.boolean().default(false),

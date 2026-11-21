@@ -20,16 +20,19 @@ export interface LogoRowItem {
 interface Props {
   items: LogoRowItem[];
   label?: string;
+  /** Multiplier on the balanced size, e.g. for a short row of funder marks
+   * that must stay legible. */
+  scale?: number;
 }
 
-const { items, label } = Astro.props;
+const { items, label, scale = 1 } = Astro.props;
 
 // Optical balance: size each mark to roughly the same visual area rather
 // than the same height, so a stacked square logo isn't dwarfed by a long
 // horizontal wordmark. Clamped so neither extreme gets silly.
 const AREA = 4800;
 const markHeight = (logo: ImageMetadata) =>
-  Math.round(Math.min(64, Math.max(30, Math.sqrt(AREA / (logo.width / logo.height)))));
+  Math.round(scale * Math.min(64, Math.max(30, Math.sqrt(AREA / (logo.width / logo.height)))));
 ---
 
 <ul class="logo-row" role="list" aria-label={label}>
@@ -67,7 +70,7 @@ const markHeight = (logo: ImageMetadata) =>
     display: block;
     height: var(--h, 44px);
     width: auto;
-    max-width: 200px;
+    max-width: min(100%, 280px);
     object-fit: contain;
     opacity: 0.72;
   }

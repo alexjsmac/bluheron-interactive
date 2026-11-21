@@ -6,6 +6,7 @@ import Base from '../../layouts/Base.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import PixelField from '../../components/PixelField.astro';
 import VideoFacade from '../../components/VideoFacade.astro';
+import LogoRow from '../../components/LogoRow.astro';
 
 export async function getStaticPaths() {
   const work = await getCollection('work');
@@ -189,6 +190,18 @@ const next = all[(idx + 1) % all.length];
                 </li>
               ))}
             </ul>
+            {d.support && (
+              <div class="support">
+                <p class="support-text">{d.support.text}</p>
+                {d.support.logos.length > 0 && (
+                  <LogoRow
+                    items={d.support.logos.map((l) => ({ name: l.name, logo: l.src }))}
+                    label="Funders"
+                    scale={1.5}
+                  />
+                )}
+              </div>
+            )}
           </div>
           <p class="next">
             Next project: <a href={withBase(`/work/${next.id}/`)}>{next.data.title} &rarr;</a>
@@ -443,6 +456,28 @@ const next = all[(idx + 1) % all.length];
   .role {
     font-weight: 500;
     color: var(--ink);
+  }
+
+  .support {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    max-width: 640px;
+  }
+
+  .support-text {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+  }
+
+  /* Funder marks render at full strength: pure black (or white in the dark
+     theme), never the muted grey of the partner strip. Funders' guidelines
+     allow only their own palette colours. */
+  .support :global(.mark) {
+    opacity: 1;
   }
 
   .next {
