@@ -45,13 +45,20 @@ const tour = [
   <HeroCanvas>
     <div class="hero">
       <div class="copy">
-        <p class="kicker">Flagship platform</p>
+        <p class="kicker">Flagship partnership</p>
         <h1 class="display">Art that <em>finds you</em>.</h1>
         <p class="lede">
           beacbeac delivers place-based stories — audio, descriptions, images — straight to
           visitors' phones as they approach. No QR codes. Nothing to hunt for.
         </p>
         <p class="say">Say it &ldquo;beek-beek&rdquo;</p>
+        {/* Public credit wording from the Centre[4]Arts MOU (section 10).
+            Keep it verbatim, and in step with beacbeac.com. */}
+        <p class="credit">
+          beacbeac is a disability-led program owned and led by{' '}
+          <a href="https://centre4arts.com/" rel="noopener">Centre[4]Arts</a>, developed and
+          operated in collaboration with BluHeron Interactive.
+        </p>
         <div class="actions">
           <a class="btn" href="https://beacbeac.com" rel="noopener">Visit beacbeac.com &rarr;</a>
           <a class="arrow-link" href={withBase('/contact/')}>Book a deployment</a>
@@ -85,7 +92,7 @@ const tour = [
       <div class="lead">
         <p class="kicker">Built access-first</p>
         <h2>
-          Co-designed with Blind, Low Vision, Deaf, Deafblind, and disabled community members.
+          Co-designed with Blind, Low Vision, Deaf, and disabled community members.
         </h2>
       </div>
       <ul class="features stagger" role="list">
@@ -174,6 +181,12 @@ const tour = [
 
   .lede {
     font-size: 1.15rem;
+    color: var(--ink-2);
+    max-width: 52ch;
+  }
+
+  .credit {
+    font-size: 0.95rem;
     color: var(--ink-2);
     max-width: 52ch;
   }
