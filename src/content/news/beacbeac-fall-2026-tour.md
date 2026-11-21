@@ -1,11 +1,12 @@
 ---
 title: "beacbeac hits the road: Ability First Fest, Supercrawl, and Nuit Blanche London"
 date: 2026-08-27
-summary: Our accessibility platform deploys at three festivals this fall — come walk with us.
+summary: beacbeac deploys at three festivals this fall — come walk with us.
 ---
 
-This fall, beacbeac — our platform for delivering accessible, place-based
-stories straight to visitors' phones — is on the ground at three festivals:
+This fall, beacbeac — the accessibility program we develop and operate with
+Centre[4]Arts, delivering place-based stories straight to visitors' phones — is on
+the ground at three festivals:
 
 - **Ability First Fest** — Hamilton, September 4
 - **Supercrawl** — Hamilton, September
