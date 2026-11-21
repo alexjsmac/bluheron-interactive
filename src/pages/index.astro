@@ -6,19 +6,37 @@ import HeroCanvas from '../components/HeroCanvas.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import BeaconMark from '../components/BeaconMark.astro';
+import LogoRow, { type LogoRowItem } from '../components/LogoRow.astro';
+import nuitBlancheLogo from '../assets/partners/nuit-blanche-london.png';
+import centre4ArtsLogo from '../assets/partners/centre4arts.png';
+import hamiltonLogo from '../assets/partners/city-of-hamilton.png';
+import supercrawlLogo from '../assets/partners/supercrawl.png';
+import waterlooLogo from '../assets/partners/city-of-waterloo.png';
+import cambridgeLogo from '../assets/partners/city-of-cambridge.svg';
+import macLogo from '../assets/partners/mississauga-arts-council.png';
+import coventGardenLogo from '../assets/partners/covent-garden-market.png';
+import fcgLogo from '../assets/partners/forest-city-gallery.png';
+import lsaLogo from '../assets/partners/london-society-of-architects.png';
 
 const work = (await getCollection('work'))
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
 
-const partners = [
-  'Canadian Museums Association',
-  'Centre[4]Arts',
-  'City of Hamilton',
-  'Canadian Ocean Literacy Coalition',
-  'Nuit Blanche London',
-  'Supercrawl',
+// Clients and collaborators only; funders are acknowledged on the About
+// page. Entries without a `logo` show their name until artwork arrives
+// (single-colour black on transparent, into src/assets/partners/).
+const partners: LogoRowItem[] = [
+  { name: 'Nuit Blanche London', logo: nuitBlancheLogo },
+  { name: 'Centre[4]Arts', logo: centre4ArtsLogo },
+  { name: 'City of Hamilton', logo: hamiltonLogo },
+  { name: 'Supercrawl', logo: supercrawlLogo },
+  { name: 'City of Waterloo', logo: waterlooLogo },
+  { name: 'City of Cambridge', logo: cambridgeLogo },
+  { name: 'Mississauga Arts Council', logo: macLogo },
+  { name: 'Covent Garden Market', logo: coventGardenLogo },
+  { name: 'Forest City Gallery', logo: fcgLogo },
+  { name: 'London Society of Architects', logo: lsaLogo },
 ];
 ---
 
@@ -114,9 +132,7 @@ const partners = [
 
   <section class="wrap partners">
     <p class="kicker muted-kicker">In good company</p>
-    <ul role="list">
-      {partners.map((p) => <li>{p}</li>)}
-    </ul>
+    <LogoRow items={partners} label="Partners and clients" />
   </section>
 
   <ContactCTA />
@@ -333,30 +349,5 @@ const partners = [
 
   .muted-kicker {
     color: var(--muted);
-  }
-
-  .partners ul {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 14px 22px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(1.25rem, 2.3vw, 1.8rem);
-    color: var(--muted);
-  }
-
-  .partners li::after {
-    content: '·';
-    margin-left: 22px;
-    color: var(--clay);
-  }
-
-  .partners li:last-child::after {
-    content: '';
-    margin: 0;
   }
 </style>

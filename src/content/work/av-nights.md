@@ -48,6 +48,14 @@ credits:
     name: City of London
   - role: Supported by
     name: Cambia Development Foundation
+support:
+  # Wording is the London Arts Council's required CAIP credit line.
+  text: A/V Nights is supported by the London Arts Council through the City of London's Community Arts Investment Program.
+  logos:
+    - src: ../../assets/funders/london-arts-council.png
+      name: London Arts Council
+    - src: ../../assets/funders/city-of-london.png
+      name: City of London
 tags:
   - Performances
   - Community engagement
