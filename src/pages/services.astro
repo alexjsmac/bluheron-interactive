@@ -10,22 +10,25 @@ const offerings = [
   {
     title: 'Public art for municipalities',
     text: 'Interactive and kinetic public art, from commission and community input through fabrication, installation, and upkeep.',
-    example: { label: 'Navitas', slug: 'navitas' },
+    examples: [{ label: 'Navitas', slug: 'navitas' }],
   },
   {
-    title: 'Festival projection & live AV',
-    text: 'Projection mapping, light installations, and live audiovisual performance for light, music, and arts festivals.',
-    example: { label: 'Concrete Canopy', slug: 'concrete-canopy' },
+    title: 'Festival production & live AV',
+    text: 'From a single projection-mapped facade to producing the whole event: we design the stations, bring in and coordinate subcontractors, run everything from one control system, and see it through install and opening night.',
+    examples: [
+      { label: 'A/V Nights', slug: 'av-nights' },
+      { label: 'Concrete Canopy', slug: 'concrete-canopy' },
+    ],
   },
   {
     title: 'Museum & science-centre interactives',
     text: 'Hands-on exhibits that turn a collection or an idea into something visitors can play with, built to the same access standard as beacbeac.',
-    example: { label: 'Blue Noise', slug: 'blue-noise' },
+    examples: [{ label: 'Blue Noise', slug: 'blue-noise' }],
   },
   {
     title: 'Community engagement through art',
     text: 'Arts-based public consultation that people actually show up for, with results your department can use.',
-    example: { label: 'Jump Around', slug: 'jump-around' },
+    examples: [{ label: 'Jump Around', slug: 'jump-around' }],
   },
 ];
 ---
@@ -61,9 +64,14 @@ const offerings = [
             <li>
               <h3>{o.title}</h3>
               <p>{o.text}</p>
-              <a class="example" href={withBase(`/work/${o.example.slug}/`)}>
-                See {o.example.label} &rarr;
-              </a>
+              <p class="examples">
+                {o.examples.map((e, i) => (
+                  <>
+                    {i > 0 && <span aria-hidden="true"> · </span>}
+                    <a href={withBase(`/work/${e.slug}/`)}>See {e.label} &rarr;</a>
+                  </>
+                ))}
+              </p>
             </li>
           ))
         }
@@ -197,9 +205,12 @@ const offerings = [
     line-height: 1.6;
   }
 
-  .example {
+  .offerings .examples {
     font-size: 0.9rem;
-    align-self: flex-start;
+  }
+
+  .examples a {
+    white-space: nowrap;
   }
 
   /* Keep "See … →" links whole so the arrow never wraps onto its own line. */
