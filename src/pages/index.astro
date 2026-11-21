@@ -28,7 +28,7 @@ const partners = [
 >
   <HeroCanvas tall>
     <div class="hero rise">
-      <p class="kicker">A creative technology studio<span class="where"> &middot; London &amp; Hamilton, Ontario</span></p>
+      <p class="kicker">A creative technology studio</p>
       <h1 class="display">We make art, places, and stories <em>everyone</em> can enter.</h1>
       <p class="lede">
         BluHeron Interactive ignites community interaction through immersive, inclusive
@@ -63,6 +63,7 @@ const partners = [
           <path d="M5 5 a10 10 0 0 1 14 0" opacity="0.55"></path>
         </svg>
         <h2>beacbeac — access, amplified</h2>
+        <p class="say">Say it &ldquo;beek-beek&rdquo;</p>
         <p>
           Our flagship platform delivers place-based stories and audio to visitors' phones as
           they approach. No QR codes. Nothing to hunt for.
@@ -144,11 +145,6 @@ const partners = [
       line-height: 1.06;
     }
 
-    /* The eyebrow stays one line; the location lives in the footer. */
-    .where {
-      display: none;
-    }
-
     .lede {
       font-size: 1.0625rem;
     }
@@ -212,6 +208,14 @@ const partners = [
   .pillar p {
     font-size: 0.95rem;
     color: var(--ink-2);
+  }
+
+  /* Pronunciation guide: sits tight under the heading, reads as a gloss. */
+  .pillar .say {
+    margin-top: -8px;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--muted);
   }
 
   .work {
