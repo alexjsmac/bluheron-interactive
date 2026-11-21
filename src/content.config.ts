@@ -19,6 +19,9 @@ const work = defineCollection({
       // pixel-field hero instead of a placeholder image.
       hero: image().optional(),
       heroAlt: z.string().optional(),
+      // Short silent loop (a public/ path, e.g. /loops/x.mp4) played over the
+      // card image on the homepage. Keep it ~4s, 960x600, no audio.
+      loop: z.string().optional(),
       gallery: z
         .array(z.object({ src: image(), alt: z.string() }))
         .default([]),

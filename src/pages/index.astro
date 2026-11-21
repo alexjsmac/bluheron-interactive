@@ -105,7 +105,21 @@ const partners: LogoRowItem[] = [
   <section class="wrap work">
     <div class="row">
       <h2 class="section-title">Selected work</h2>
-      <a class="arrow-link" href={withBase('/work/')}>All work &rarr;</a>
+      <div class="row-actions">
+        {/* Shown by script only when the project loops can play. Shares one
+            setting with the hero's Pause motion button. */}
+        <button class="loops-toggle" type="button" hidden aria-pressed="false">
+          <svg class="icon-pause" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="3" y="2.5" width="3.5" height="11" rx="1"></rect>
+            <rect x="9.5" y="2.5" width="3.5" height="11" rx="1"></rect>
+          </svg>
+          <svg class="icon-play" width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M4 2.5 L13 8 L4 13.5 Z"></path>
+          </svg>
+          <span class="label">Pause motion</span>
+        </button>
+        <a class="arrow-link" href={withBase('/work/')}>All work &rarr;</a>
+      </div>
     </div>
 
     <a class="flagship band reveal" href={withBase('/beacbeac/')}>
@@ -127,7 +141,7 @@ const partners: LogoRowItem[] = [
     </a>
 
     <div class="cards">
-      {work.map((p) => <ProjectCard project={p} />)}
+      {work.map((p) => <ProjectCard project={p} animate />)}
     </div>
   </section>
 
@@ -250,6 +264,44 @@ const partners: LogoRowItem[] = [
     flex-wrap: wrap;
   }
 
+  .row-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .loops-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid var(--mist-line);
+    border-radius: 999px;
+    color: var(--ink-2);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 12px 18px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+
+  .loops-toggle[hidden] {
+    display: none;
+  }
+
+  .loops-toggle:hover {
+    color: var(--cyan-deep);
+    border-color: var(--cyan);
+  }
+
+  .loops-toggle[aria-pressed='false'] .icon-play,
+  .loops-toggle[aria-pressed='true'] .icon-pause {
+    display: none;
+  }
+
   .section-title {
     font-size: clamp(2rem, 3.5vw, 2.75rem);
   }
@@ -352,3 +404,99 @@ const partners: LogoRowItem[] = [
     color: var(--muted);
   }
 </style>
+
+<script>
+  // Project loops on the Selected work cards. Enhancement only: the still
+  // image is the no-JS, reduced-motion and paused state, and a clip's file
+  // is only fetched once it is allowed to play. Clips play only while on
+  // screen. Pausing here or in the hero pauses both, and is remembered.
+  let cleanupLoops: (() => void) | null = null;
+
+  function initLoops() {
+    cleanupLoops?.();
+    cleanupLoops = null;
+
+    const videos = [...document.querySelectorAll<HTMLVideoElement>('video.loop[data-loop-src]')];
+    const toggle = document.querySelector<HTMLButtonElement>('.loops-toggle');
+    if (!videos.length || !toggle) return;
+    if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+
+    let paused = false;
+    try {
+      paused = localStorage.getItem('hero-motion') === 'off';
+    } catch {}
+
+    const visible = new Set<HTMLVideoElement>();
+
+    const paint = () => {
+      toggle.setAttribute('aria-pressed', String(paused));
+      const label = toggle.querySelector('.label');
+      if (label) label.textContent = paused ? 'Play motion' : 'Pause motion';
+    };
+
+    const sync = () => {
+      for (const v of videos) {
+        if (!paused && visible.has(v)) {
+          if (!v.getAttribute('src')) v.src = v.dataset.loopSrc!;
+          // Autoplay can still be refused (e.g. iOS Low Power Mode); the
+          // still image simply stays.
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+          v.classList.remove('is-playing');
+        }
+      }
+      paint();
+    };
+
+    const onPlaying = (e: Event) => (e.currentTarget as HTMLElement).classList.add('is-playing');
+    videos.forEach((v) => v.addEventListener('playing', onPlaying));
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) visible.add(v);
+          else visible.delete(v);
+        }
+        sync();
+      },
+      { threshold: 0.4 }
+    );
+    videos.forEach((v) => io.observe(v));
+
+    const onClick = () => {
+      paused = !paused;
+      try {
+        localStorage.setItem('hero-motion', paused ? 'off' : 'on');
+      } catch {}
+      document.dispatchEvent(new CustomEvent('site-motion', { detail: { paused, from: 'loops' } }));
+      sync();
+    };
+    const onSiteMotion = (e: Event) => {
+      const d = (e as CustomEvent<{ paused: boolean; from: string }>).detail;
+      if (d.from !== 'loops') {
+        paused = d.paused;
+        sync();
+      }
+    };
+
+    toggle.hidden = false;
+    toggle.addEventListener('click', onClick);
+    document.addEventListener('site-motion', onSiteMotion);
+    paint();
+
+    cleanupLoops = () => {
+      io.disconnect();
+      videos.forEach((v) => {
+        v.pause();
+        v.removeEventListener('playing', onPlaying);
+      });
+      toggle.removeEventListener('click', onClick);
+      document.removeEventListener('site-motion', onSiteMotion);
+    };
+  }
+
+  initLoops();
+  document.addEventListener('astro:page-load', initLoops);
+</script>

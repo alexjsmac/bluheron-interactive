@@ -8,6 +8,7 @@ medium: Live visual installation · custom web app · real-time co-creation
 youtube: H8nsqBQeO9E
 hero: ../../assets/work/murmuration-scene.webp
 heroAlt: The projected scene — a green wireframe cube and geodesic spheres drifting in dark space, cut through by a beam of yellow light, with a QR code reading "scan to join" in the corner.
+loop: /loops/murmuration.mp4
 howItWorks:
   - title: Scan, and you're in
     text: A QR code on the projection opens a web page. No app store, no sign-up, no account — the phone already in your pocket becomes the controller.
