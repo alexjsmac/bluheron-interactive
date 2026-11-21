@@ -23,6 +23,13 @@ interface Props {
 }
 
 const { items, label } = Astro.props;
+
+// Optical balance: size each mark to roughly the same visual area rather
+// than the same height, so a stacked square logo isn't dwarfed by a long
+// horizontal wordmark. Clamped so neither extreme gets silly.
+const AREA = 4800;
+const markHeight = (logo: ImageMetadata) =>
+  Math.round(Math.min(64, Math.max(30, Math.sqrt(AREA / (logo.width / logo.height)))));
 ---
 
 <ul class="logo-row" role="list" aria-label={label}>
@@ -30,7 +37,13 @@ const { items, label } = Astro.props;
     items.map((item) => (
       <li>
         {item.logo ? (
-          <Image src={item.logo} alt={item.name} height={88} class="mark" />
+          <Image
+            src={item.logo}
+            alt={item.name}
+            height={markHeight(item.logo) * 2}
+            class="mark"
+            style={`--h: ${markHeight(item.logo)}px`}
+          />
         ) : (
           <span class="name">{item.name}</span>
         )}
@@ -52,7 +65,7 @@ const { items, label } = Astro.props;
 
   .mark {
     display: block;
-    height: 44px;
+    height: var(--h, 44px);
     width: auto;
     max-width: 200px;
     object-fit: contain;
@@ -79,7 +92,7 @@ const { items, label } = Astro.props;
 
   @media (max-width: 720px) {
     .mark {
-      height: 36px;
+      height: calc(var(--h, 44px) * 0.8);
     }
   }
 </style>

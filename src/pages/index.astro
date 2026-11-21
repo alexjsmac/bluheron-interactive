@@ -8,6 +8,13 @@ import ContactCTA from '../components/ContactCTA.astro';
 import BeaconMark from '../components/BeaconMark.astro';
 import LogoRow, { type LogoRowItem } from '../components/LogoRow.astro';
 import nuitBlancheLogo from '../assets/partners/nuit-blanche-london.png';
+import centre4ArtsLogo from '../assets/partners/centre4arts.png';
+import hamiltonLogo from '../assets/partners/city-of-hamilton.png';
+import supercrawlLogo from '../assets/partners/supercrawl.png';
+import waterlooLogo from '../assets/partners/city-of-waterloo.png';
+import macLogo from '../assets/partners/mississauga-arts-council.png';
+import coventGardenLogo from '../assets/partners/covent-garden-market.png';
+import fcgLogo from '../assets/partners/forest-city-gallery.png';
 import lsaLogo from '../assets/partners/london-society-of-architects.png';
 
 const work = (await getCollection('work'))
@@ -20,14 +27,14 @@ const work = (await getCollection('work'))
 // (single-colour black on transparent, into src/assets/partners/).
 const partners: LogoRowItem[] = [
   { name: 'Nuit Blanche London', logo: nuitBlancheLogo },
-  { name: 'Centre[4]Arts' },
-  { name: 'City of Hamilton' },
-  { name: 'Supercrawl' },
-  { name: 'City of Waterloo' },
+  { name: 'Centre[4]Arts', logo: centre4ArtsLogo },
+  { name: 'City of Hamilton', logo: hamiltonLogo },
+  { name: 'Supercrawl', logo: supercrawlLogo },
+  { name: 'City of Waterloo', logo: waterlooLogo },
   { name: 'City of Cambridge' },
-  { name: 'Mississauga Arts Council' },
-  { name: 'Covent Garden Market' },
-  { name: 'Forest City Gallery' },
+  { name: 'Mississauga Arts Council', logo: macLogo },
+  { name: 'Covent Garden Market', logo: coventGardenLogo },
+  { name: 'Forest City Gallery', logo: fcgLogo },
   { name: 'London Society of Architects', logo: lsaLogo },
 ];
 ---
