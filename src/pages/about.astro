@@ -3,19 +3,8 @@ import { withBase } from '../lib/url';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import LogoRow, { type LogoRowItem } from '../components/LogoRow.astro';
 import chrisPhoto from '../assets/team/chris-mcleod.jpg';
 import alexPhoto from '../assets/team/alex-maclean.jpg';
-
-// Funders of past projects, kept apart from the homepage partner strip.
-// Before swapping a name for a logo, check that funder's acknowledgement
-// guidelines; some require specific wording or approval for logo use.
-const funders: LogoRowItem[] = [
-  { name: 'Ontario Arts Council' },
-  { name: 'Government of Ontario' },
-  { name: 'London Arts Council' },
-  { name: 'Ocean Week Canada' },
-];
 ---
 
 <Base
@@ -149,14 +138,6 @@ const funders: LogoRowItem[] = [
     </div>
   </section>
 
-  <section class="wrap supported">
-    <p class="kicker">Supported by</p>
-    <p class="supported-lede">
-      We gratefully acknowledge the funders who have made our projects possible.
-    </p>
-    <LogoRow items={funders} label="Funders" />
-  </section>
-
   <ContactCTA heading="New commissions, partnerships &amp; collaborations — <em>let’s talk</em>." />
 </Base>
 
@@ -238,20 +219,6 @@ const funders: LogoRowItem[] = [
     font-size: 0.98rem;
     line-height: 1.7;
     color: var(--ink-2);
-  }
-
-  .supported {
-    padding-block: clamp(40px, 6vw, 64px) clamp(56px, 8vw, 88px);
-    border-top: 1px solid var(--line);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .supported-lede {
-    color: var(--ink-2);
-    max-width: 58ch;
-    margin-bottom: 8px;
   }
 
   .team {
