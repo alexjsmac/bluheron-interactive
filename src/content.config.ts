@@ -36,6 +36,11 @@ const work = defineCollection({
           logos: z.array(z.object({ src: image(), name: z.string() })).default([]),
         })
         .optional(),
+      // A client's words about the project, shown as a pull quote. Only
+      // quote someone who has agreed to be quoted publicly.
+      quote: z
+        .object({ text: z.string(), name: z.string(), role: z.string() })
+        .optional(),
       tags: z.array(z.string()).default([]),
       order: z.number().default(99),
       featured: z.boolean().default(false),
