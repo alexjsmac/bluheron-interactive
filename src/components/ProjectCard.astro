@@ -6,23 +6,44 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   project: CollectionEntry<'work'>;
+  /** Play the project's short loop over the card image (homepage only,
+   * where the "Pause motion" control lives). */
+  animate?: boolean;
 }
 
-const { project } = Astro.props;
-const { title, kicker, summary, hero, heroAlt } = project.data;
+const { project, animate = false } = Astro.props;
+const { title, kicker, summary, hero, heroAlt, loop } = project.data;
+// The video is decorative: the image underneath carries the alt text and
+// stays as the no-JS, reduced-motion, and paused state. Its src is only set
+// by script once motion is allowed, so nothing downloads otherwise.
+const loopSrc = animate && hero && loop ? withBase(loop) : undefined;
 ---
 
 <a class="card" href={withBase(`/work/${project.id}/`)}>
   {
     hero ? (
-      <Image
-        src={hero}
-        alt={heroAlt ?? ''}
-        width={880}
-        widths={[440, 880]}
-        sizes="(max-width: 720px) 100vw, 45vw"
-        transition:name={`work-hero-${project.id}`}
-      />
+      <div class="media">
+        <Image
+          src={hero}
+          alt={heroAlt ?? ''}
+          width={880}
+          widths={[440, 880]}
+          sizes="(max-width: 720px) 100vw, 45vw"
+          transition:name={`work-hero-${project.id}`}
+        />
+        {loopSrc && (
+          <video
+            class="loop"
+            data-loop-src={loopSrc}
+            muted
+            loop
+            playsinline
+            preload="none"
+            aria-hidden="true"
+            tabindex="-1"
+          />
+        )}
+      </div>
     ) : (
       <div class="thumb-field">
         <PixelField />
@@ -48,10 +69,31 @@ const { title, kicker, summary, hero, heroAlt } = project.data;
     border: 1px solid var(--mist-line);
   }
 
-  .card img {
+  .media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card img,
+  .loop {
+    display: block;
     width: 100%;
     aspect-ratio: 16 / 10;
     object-fit: cover;
+  }
+
+  /* The loop fades in over the still once it is actually playing. */
+  .loop {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .loop.is-playing {
+    opacity: 1;
   }
 
   /* Projects still awaiting photography get the brand's pixel field. */
@@ -64,12 +106,17 @@ const { title, kicker, summary, hero, heroAlt } = project.data;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .card img {
-      transition: transform 0.6s ease;
+    .card img,
+    .loop {
+      transition:
+        transform 0.6s ease,
+        opacity 0.5s ease;
     }
 
     .card:hover img,
-    .card:focus-visible img {
+    .card:focus-visible img,
+    .card:hover .loop,
+    .card:focus-visible .loop {
       transform: scale(1.04);
     }
   }

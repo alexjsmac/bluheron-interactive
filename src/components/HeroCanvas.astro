@@ -454,16 +454,31 @@ for (let row = 0; row < ROWS; row++) {
       band.classList.toggle('is-animating', !userPaused);
     };
 
-    toggle.hidden = false;
-    toggle.addEventListener('click', () => {
-      userPaused = !userPaused;
-      try {
-        localStorage.setItem('hero-motion', userPaused ? 'off' : 'on');
-      } catch {}
+    const apply = (paused: boolean) => {
+      userPaused = paused;
       if (userPaused) stop();
       else start();
       paint();
+    };
+
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => {
+      apply(!userPaused);
+      try {
+        localStorage.setItem('hero-motion', userPaused ? 'off' : 'on');
+      } catch {}
+      // One motion setting for the whole page: the homepage project loops
+      // listen for this, and their own toggle sends it back.
+      document.dispatchEvent(
+        new CustomEvent('site-motion', { detail: { paused: userPaused, from: 'hero' } })
+      );
     });
+
+    const onSiteMotion = (e: Event) => {
+      const { paused, from } = (e as CustomEvent<{ paused: boolean; from: string }>).detail;
+      if (from !== 'hero' && paused !== userPaused) apply(paused);
+    };
+    document.addEventListener('site-motion', onSiteMotion);
 
     band.addEventListener('pointermove', (e) => {
       const rect = band.getBoundingClientRect();
@@ -509,6 +524,7 @@ for (let row = 0; row < ROWS; row++) {
       stop();
       io.disconnect();
       window.removeEventListener('resize', resize);
+      document.removeEventListener('site-motion', onSiteMotion);
     };
   }
 

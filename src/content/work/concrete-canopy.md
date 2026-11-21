@@ -9,6 +9,7 @@ medium: Projection mapping · TouchDesigner · custom web app · generative audi
 youtube: 4ILKOoMnx8w
 hero: ../../assets/work/concrete-canopy-facade.jpg
 heroAlt: The Kingsmill's façade at night, three storeys washed in magenta and green foliage, with two people watching from the street below.
+loop: /loops/concrete-canopy.mp4
 gallery:
   - src: ../../assets/work/concrete-canopy-phone.jpg
     alt: Two visitors on the sidewalk holding up a phone, looking up at the projection as they take their turn at the controls.

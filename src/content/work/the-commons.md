@@ -9,6 +9,7 @@ medium: Body tracking · quadraphonic sound · LED · TouchDesigner · Bitwig
 youtube: dxsPJuB8cak
 hero: ../../assets/work/commons-room.jpg
 heroAlt: Visitors with their hands raised between two rows of glowing LED columns in the underground garage, lit in cyan, white and magenta, speakers on stands at either side.
+loop: /loops/the-commons.mp4
 gallery:
   - src: ../../assets/work/commons-columns.jpg
     alt: A row of hanging white light tubes in front of four visitors, arms stretched out and raised, everyone looking up at the light.
