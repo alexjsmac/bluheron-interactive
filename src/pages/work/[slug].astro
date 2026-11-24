@@ -26,6 +26,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 const clipPoster = d.video
   ? await getImage({ src: d.video.poster, width: d.video.vertical ? 720 : 1280, format: 'jpeg' })
   : undefined;
+const paired = !!(d.quote && d.video?.vertical && clipPoster);
 
 const all = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const idx = all.findIndex((p) => p.id === project.id);
@@ -130,18 +131,42 @@ const next = all[(idx + 1) % all.length];
     </aside>
   </section>
 
-  {
-    d.quote && (
-      <figure class="wrap quote reveal">
-        <blockquote>
-          <p>&ldquo;{d.quote.text}&rdquo;</p>
-        </blockquote>
-        <figcaption>
-          <span class="who">{d.quote.name}</span>, {d.quote.role}
-        </figcaption>
-      </figure>
-    )
-  }
+  {/* A curator's quote and a phone-shot video pair up side by side: the
+      video column is narrow, the quote fills the rest. Either one alone
+      renders full width. */}
+  <div class:list={paired ? 'wrap pair reveal' : 'unpaired'}>
+    {
+      d.quote && (
+        <figure class:list={['quote', { 'wrap reveal': !paired }]}>
+          <blockquote>
+            <p>&ldquo;{d.quote.text}&rdquo;</p>
+          </blockquote>
+          <figcaption>
+            <span class="who">{d.quote.name}</span>, {d.quote.role}
+          </figcaption>
+        </figure>
+      )
+    }
+    {
+      d.video && clipPoster && (
+        <figure class:list={['clip', { vertical: d.video.vertical, 'wrap reveal': !paired }]}>
+          <video
+            src={withBase(d.video.src)}
+            poster={clipPoster.src}
+            controls
+            playsinline
+            preload="none"
+            aria-label={`${d.video.title} — ${d.title}`}
+          />
+          <figcaption>
+            <p class="kicker">Video</p>
+            <p class="clip-title">{d.video.title}</p>
+            {d.video.credit && <p class="clip-credit">{d.video.credit}</p>}
+          </figcaption>
+        </figure>
+      )
+    }
+  </div>
 
   {
     (d.vimeo || d.youtube) && d.hero && (
@@ -154,26 +179,6 @@ const next = all[(idx + 1) % all.length];
           title={d.title}
         />
       </section>
-    )
-  }
-
-  {
-    d.video && clipPoster && (
-      <figure class:list={['wrap clip reveal', { vertical: d.video.vertical }]}>
-        <video
-          src={withBase(d.video.src)}
-          poster={clipPoster.src}
-          controls
-          playsinline
-          preload="none"
-          aria-label={`${d.video.title} — ${d.title}`}
-        />
-        <figcaption>
-          <p class="kicker">Video</p>
-          <p class="clip-title">{d.video.title}</p>
-          {d.video.credit && <p class="clip-credit">{d.video.credit}</p>}
-        </figcaption>
-      </figure>
     )
   }
 
@@ -475,6 +480,75 @@ const next = all[(idx + 1) % all.length];
   .clip-credit {
     font-size: 0.95rem;
     color: var(--ink-2);
+  }
+
+  .unpaired {
+    display: contents;
+  }
+
+  /* Quote + vertical video. Small screens: the quote reads first, then the
+     video. Wide screens: the video takes a phone-width column on the left
+     and the quote, set larger, centres against it on the right. */
+  .pair {
+    display: grid;
+    gap: 40px;
+    margin-block: 0 clamp(56px, 8vw, 88px);
+  }
+
+  .pair .quote,
+  .pair .clip {
+    margin: 0;
+  }
+
+  .pair .clip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .pair .clip video {
+    width: min(100%, 360px);
+  }
+
+  .pair .clip figcaption {
+    gap: 2px;
+  }
+
+  .pair .clip .kicker {
+    display: none;
+  }
+
+  .pair .clip-title {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .pair .clip-credit {
+    font-size: 0.85rem;
+  }
+
+  @media (min-width: 860px) {
+    .pair {
+      grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(48px, 7vw, 112px);
+    }
+
+    .pair .clip {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .pair .quote {
+      grid-column: 2;
+      grid-row: 1;
+      max-width: 640px;
+    }
+
+    .pair .quote blockquote p {
+      font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+    }
   }
 
   .how {
