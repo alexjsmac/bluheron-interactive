@@ -3,6 +3,10 @@ title: The Portal of Positive Energy
 kicker: Interactive installation · City of Cambridge
 tagline: Walk through, and a 200-year-old oak answers in light.
 summary: A glowing portal in the Cambridge Sculpture Garden that turned every passing gesture into light and sound in the branches of an ancient oak.
+location:
+  locality: Cambridge
+  region: Ontario
+year: 2025
 partner: City of Cambridge
 occasion: Unsilent Night, Winterfest · December 2025
 medium: Motion sensing · laser projection · directional audio · LED

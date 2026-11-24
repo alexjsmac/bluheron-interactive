@@ -3,6 +3,11 @@ title: Concrete Canopy
 kicker: Projection mapping · Nuit Blanche London
 tagline: Thirty seconds each, and the building grows.
 summary: A heritage façade turned into a living digital organism — and a queue of strangers taking turns shaping it from their phones.
+location:
+  venue: "Kingsmill's"
+  locality: London
+  region: Ontario
+year: 2025
 partner: Nuit Blanche London
 occasion: Kingsmill's façade · September 20, 2025
 medium: Projection mapping · TouchDesigner · custom web app · generative audio

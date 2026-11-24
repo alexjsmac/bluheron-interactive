@@ -3,6 +3,9 @@ title: Jump Around
 kicker: Public art research · City of Hamilton
 tagline: A public consultation you could dance to.
 summary: The City of Hamilton needed community input for its Public Art Master Plan — so we asked the questions inside a disco game show.
+location:
+  locality: Hamilton
+  region: Ontario
 partner: City of Hamilton — Public Art Department
 occasion: Public Art Master Plan consultation
 medium: Live game show · public consultation · music

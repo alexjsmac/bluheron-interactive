@@ -176,6 +176,25 @@ video {
   color: var(--clay);
 }
 
+/* Section labels that are real headings keep the kicker look. */
+h2.kicker {
+  font-family: var(--font-body);
+  line-height: inherit;
+}
+
+/* Visible to screen readers and search, not on screen. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .kicker.on-dark {
   color: var(--cyan-bright);
 }
