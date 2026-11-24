@@ -8,6 +8,12 @@ occasion: Museum Strathroy-Caradoc · Summer 2026
 medium: Interactive exhibits · creative coding with students · TouchDesigner · p5.js · Arduino sensors
 hero: ../../assets/work/strathroy-piano.jpg
 heroAlt: A visitor plays a keyboard beside an old upright piano; a student animation glows on a screen set into the piano, with streaks of projected light across the wall behind it.
+video:
+  src: /video/strathroy-immersed.mp4
+  poster: ../../assets/work/strathroy-video-poster.jpg
+  title: A walk through the exhibition
+  credit: Video by the Municipality of Strathroy-Caradoc
+  vertical: true
 gallery:
   - src: ../../assets/work/strathroy-dance-crowd.jpg
     alt: Visitors watch the Dance Dance Arthur screen, a glowing blue vortex with a step arrow, above a lit display case of First World War artifacts.
