@@ -28,36 +28,80 @@ const clipPoster = d.video
   : undefined;
 const paired = !!(d.quote && d.video?.vertical && clipPoster);
 
+// Search: say what the project is in the title (the kicker's first part,
+// e.g. "Interactive museum exhibition"), and keep the snippet short.
+const kind = d.kicker.split(' · ')[0];
+const pageTitle = `${d.title} — ${kind} | BluHeron Interactive`;
+const pageDescription = d.description ?? d.summary;
+// Town and province only: the venue is usually already in Occasion or
+// Partner, so it goes to structured data but not on screen.
+const place = d.location ? `${d.location.locality}, ${d.location.region}` : undefined;
+
+// Structured data. Partners are contributors (several, split on " · "),
+// funders come from `funders` plus any funder logos under `support`.
+const org = (name: string) => ({ '@type': 'Organization', name });
+const partners = d.partner ? d.partner.split(' · ') : [];
+const funders = [...new Set([...d.funders, ...(d.support?.logos.map((l) => l.name) ?? [])])];
+const abs = (path: string) => new URL(path, Astro.site).href;
+const studio = {
+  '@type': 'Organization',
+  name: 'BluHeron Interactive',
+  url: 'https://bluheroninteractive.com',
+};
+const workLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: d.title,
+  headline: d.tagline,
+  description: d.summary,
+  url: canonical.href,
+  ...(share ? { image: abs(share.src) } : {}),
+  creator: studio,
+  ...(partners.length ? { contributor: partners.map(org) } : {}),
+  ...(funders.length ? { funder: funders.map(org) } : {}),
+  ...(d.location
+    ? {
+        locationCreated: {
+          '@type': 'Place',
+          ...(d.location.venue ? { name: d.location.venue } : {}),
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: d.location.locality,
+            addressRegion: d.location.region,
+            addressCountry: d.location.country,
+          },
+        },
+      }
+    : {}),
+  ...(d.year ? { dateCreated: String(d.year) } : {}),
+  genre: kind,
+  ...(d.tags.length ? { keywords: d.tags.join(', ') } : {}),
+};
+const videoLd =
+  d.video && clipPoster
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'VideoObject',
+        name: `${d.title}: ${d.video.title}`,
+        description: pageDescription,
+        thumbnailUrl: abs(clipPoster.src),
+        uploadDate: d.video.uploaded.toISOString().slice(0, 10),
+        duration: `PT${d.video.seconds}S`,
+        contentUrl: abs(withBase(d.video.src)),
+        ...(d.video.creator ? { creator: org(d.video.creator) } : {}),
+        ...(d.video.transcript ? { transcript: d.video.transcript } : {}),
+        about: { '@type': 'CreativeWork', name: d.title, url: canonical.href },
+      }
+    : undefined;
+
 const all = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const idx = all.findIndex((p) => p.id === project.id);
 const next = all[(idx + 1) % all.length];
 ---
 
-<Base
-  title={`${d.title} — BluHeron Interactive`}
-  description={d.summary}
-  image={share?.src}
->
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'CreativeWork',
-      name: d.title,
-      headline: d.tagline,
-      description: d.summary,
-      url: canonical.href,
-      ...(share ? { image: new URL(share.src, Astro.site).href } : {}),
-      creator: {
-        '@type': 'Organization',
-        name: 'BluHeron Interactive',
-        url: 'https://bluheroninteractive.com',
-      },
-      ...(d.partner ? { sponsor: { '@type': 'Organization', name: d.partner } } : {}),
-      ...(d.tags.length ? { keywords: d.tags.join(', ') } : {}),
-    })}
-  />
+<Base title={pageTitle} description={pageDescription} image={share?.src} type="article">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(workLd)} />
+  {videoLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(videoLd)} />}
   <div class:list={['hero', { 'has-photo': !!d.hero }]}>
     {
       d.hero ? (
@@ -86,9 +130,18 @@ const next = all[(idx + 1) % all.length];
 
   <section class="wrap context">
     <div class="prose reveal">
+      <h2 class="kicker">About the project</h2>
       <Content />
     </div>
     <aside class="meta" aria-label="Project details">
+      {
+        place && (
+          <div>
+            <p class="label">Where</p>
+            <p>{place}</p>
+          </div>
+        )
+      }
       {
         d.partner && (
           <div>
@@ -162,6 +215,12 @@ const next = all[(idx + 1) % all.length];
             <p class="kicker">Video</p>
             <p class="clip-title">{d.video.title}</p>
             {d.video.credit && <p class="clip-credit">{d.video.credit}</p>}
+          {d.video.transcript && (
+            <details class="transcript">
+              <summary>Transcript</summary>
+              <p>{d.video.transcript}</p>
+            </details>
+          )}
           </figcaption>
         </figure>
       )
@@ -186,14 +245,14 @@ const next = all[(idx + 1) % all.length];
     d.howItWorks.length > 0 && (
       <section class="band how">
         <div class="wrap inner">
-          <p class="kicker">How it works</p>
+          <h2 class="kicker">How it works</h2>
           <ol role="list" class="stagger">
             {d.howItWorks.map((step, i) => (
               <li class="reveal">
                 <span class="num" aria-hidden="true">
                   {i + 1}
                 </span>
-                <h2>{step.title}</h2>
+                <h3>{step.title}</h3>
                 <p>{step.text}</p>
               </li>
             ))}
@@ -205,7 +264,10 @@ const next = all[(idx + 1) % all.length];
 
   {
     d.gallery.length > 0 && (
-      <section class="wrap gallery">
+      <section class="wrap gallery" aria-labelledby="photos-heading">
+        <h2 id="photos-heading" class="sr-only">
+          Photos
+        </h2>
         {d.gallery.map((g) => (
           <Image
             src={g.src}
@@ -224,7 +286,7 @@ const next = all[(idx + 1) % all.length];
       <section class="credits-band">
         <div class="wrap inner">
           <div class="credits">
-            <p class="kicker">Credits</p>
+            <h2 class="kicker">Credits</h2>
             <ul role="list">
               {d.credits.map((c) => (
                 <li>
@@ -482,6 +544,26 @@ const next = all[(idx + 1) % all.length];
     color: var(--ink-2);
   }
 
+  /* Collapsed by default so the player stays the focus; the text is in
+     the HTML either way, for search and screen readers. */
+  .transcript {
+    margin-top: 10px;
+    max-width: 360px;
+    font-size: 0.85rem;
+    color: var(--ink-2);
+  }
+
+  .transcript summary {
+    cursor: pointer;
+    color: var(--link);
+    width: fit-content;
+  }
+
+  .transcript p {
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
   .unpaired {
     display: contents;
   }
@@ -588,7 +670,7 @@ const next = all[(idx + 1) % all.length];
     color: var(--cyan);
   }
 
-  .how h2 {
+  .how h3 {
     font-family: var(--font-body);
     font-size: 1.2rem;
     font-weight: 500;

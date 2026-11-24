@@ -3,6 +3,11 @@ title: The Polar Vault
 kicker: Immersive photobooth · Covent Garden Market
 tagline: A shipping container, a snow globe, and a queue that runs itself.
 summary: A standard shipping container transformed into a glowing, interactive winter wonderland you steer from your own phone.
+location:
+  venue: "Covent Garden Market"
+  locality: London
+  region: Ontario
+year: 2025
 partner: Covent Garden Market, London, Ontario
 occasion: Winter 2025
 medium: Projection · touch-responsive walls · web app · Three.js · Firebase

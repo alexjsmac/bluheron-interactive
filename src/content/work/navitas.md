@@ -3,6 +3,9 @@ title: Navitas
 kicker: Interactive sculpture · City of Hamilton
 tagline: Two thousand LEDs, one lake, and the work it takes to bring water home.
 summary: A hand-powered pop-up sculpture that moves participants through the journey of Hamilton's drinking water.
+location:
+  locality: Hamilton
+  region: Ontario
 partner: City of Hamilton
 occasion: Hamilton Water public engagement
 medium: Kinetic sculpture · 2,000 LEDs · reclaimed materials

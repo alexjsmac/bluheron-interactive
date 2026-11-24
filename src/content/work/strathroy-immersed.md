@@ -3,6 +3,14 @@ title: Strathroy Immersed
 kicker: Interactive museum exhibition · Museum Strathroy-Caradoc
 tagline: Local history you can dance, turn, and play your way into.
 summary: A community-built interactive exhibition — Holy Cross students in ArtTech, History, and Construction made the stories, music, animation, and builds, and we taught the creative coding, planned the exhibit with the museum, and installed it to run on its own.
+location:
+  venue: "Museum Strathroy-Caradoc"
+  locality: Strathroy
+  region: Ontario
+year: 2026
+description: "An interactive museum exhibition in Strathroy, Ontario, made with Holy Cross students: local history you play on a dance pad, a clock hand, and more."
+funders:
+  - Municipality of Strathroy-Caradoc
 partner: Museum Strathroy-Caradoc · Holy Cross Catholic Secondary School
 occasion: Museum Strathroy-Caradoc · Summer 2026
 medium: Interactive exhibits · creative coding with students · TouchDesigner · p5.js · Arduino sensors
@@ -13,7 +21,21 @@ video:
   poster: ../../assets/work/strathroy-video-poster.jpg
   title: A walk through the exhibition
   credit: Video by the Municipality of Strathroy-Caradoc
+  creator: Municipality of Strathroy-Caradoc
   vertical: true
+  uploaded: 2026-07-03
+  seconds: 39
+  transcript: >-
+    Come with me to the first ever Strathroy Immersed exhibit, featuring over
+    eight interactive installations. This one-of-a-kind exhibit was imagined by
+    the talented students at Holy Cross Catholic Secondary School. Through
+    sound, touch, and sight, each installation transports you back in time,
+    bringing the rich history of Strathroy-Caradoc to life in a whole new way.
+    Every piece invites you to explore and connect with the past like never
+    before. This exhibit also gives homage to the Wright family and their
+    musical contributions. Visit Strathroy Immersed from now until September
+    30th. Don't miss your chance to experience it for yourself at Museum
+    Strathroy-Caradoc, located at 34 Frank Street, Strathroy.
 gallery:
   - src: ../../assets/work/strathroy-dance-crowd.jpg
     alt: Visitors watch the Dance Dance Arthur screen, a glowing blue vortex with a step arrow, above a lit display case of First World War artifacts.
@@ -56,8 +78,8 @@ order: 2
 featured: false
 ---
 
-Strathroy Immersed brought Museum Strathroy-Caradoc's local history off the
-wall and into visitors' hands. The museum wanted an exhibition that young
+Strathroy Immersed, at Museum Strathroy-Caradoc in Strathroy, Ontario, brought
+the town's local history off the wall and into visitors' hands. The museum wanted an exhibition that young
 people would help make, not just visit, so the content came from students and
 teachers in the ArtTech, History, and Construction programs at Holy Cross
 Catholic Secondary School, and BluHeron's job was to turn their research,

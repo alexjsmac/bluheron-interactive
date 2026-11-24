@@ -10,6 +10,23 @@ const work = defineCollection({
       tagline: z.string(), // poetic one-liner under the title
       summary: z.string(), // card + meta description
       partner: z.string().optional(),
+      // Search snippet, when the summary runs past ~155 characters (Google
+      // truncates there). Falls back to the summary.
+      description: z.string().max(160).optional(),
+      // Where the work was shown. Shown as "Where" and used in structured
+      // data, so search and AI answers can place it (e.g. "in Ontario").
+      location: z
+        .object({
+          venue: z.string().optional(),
+          locality: z.string(),
+          region: z.string(),
+          country: z.string().default('CA'),
+        })
+        .optional(),
+      year: z.number().int().optional(),
+      // Organisations that funded the project, for structured data. Funders
+      // listed under `support` are included automatically.
+      funders: z.array(z.string()).default([]),
       occasion: z.string().optional(),
       medium: z.string().optional(),
       vimeo: z.string().url().optional(),
@@ -31,7 +48,15 @@ const work = defineCollection({
           poster: image(),
           title: z.string(),
           credit: z.string().optional(),
+          // The organisation that made the video, for structured data.
+          creator: z.string().optional(),
           vertical: z.boolean().default(false),
+          // Required by Google for video results.
+          uploaded: z.coerce.date(),
+          seconds: z.number().int().positive(),
+          // What's said in the video, shown under the player for screen
+          // readers, search, and anyone watching muted.
+          transcript: z.string().optional(),
         })
         .optional(),
       gallery: z

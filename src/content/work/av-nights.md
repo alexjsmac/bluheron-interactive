@@ -3,6 +3,9 @@ title: A/V Nights
 kicker: Curation & production · London, Ontario
 tagline: A room where the region's audiovisual artists finally met each other.
 summary: An immersive art showcase we founded and produce — two nights, fourteen paid artists, and about 180 people in rooms that were never meant to be venues.
+location:
+  locality: London
+  region: Ontario
 partner: Forest City Gallery · Nuit Blanche London
 occasion: XUUX Artists Studio, 2025 · Honey Dip + DoughEV, 2026
 medium: Curation · event production · live audiovisual performance · installation · experimental film

@@ -3,6 +3,11 @@ title: Murmuration
 kicker: Live visual installation · Avant Mutek
 tagline: A hundred phones, one organism.
 summary: A live visual installation with no author on the night — everyone in the room joins from their own phone, and the projected scene is the sum of them.
+location:
+  venue: "Mooi Space"
+  locality: Toronto
+  region: Ontario
+year: 2026
 occasion: Avant Mutek · Mooi Space, Toronto · May 30, 2026
 medium: Live visual installation · custom web app · real-time co-creation
 youtube: H8nsqBQeO9E

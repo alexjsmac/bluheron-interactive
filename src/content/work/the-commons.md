@@ -3,6 +3,11 @@ title: The Commons
 kicker: Interactive A/V installation · Lumen Festival, Waterloo
 tagline: An atmosphere that belongs to everyone inside it, and to no one.
 summary: A shared room of light and four-channel sound where every raised hand roughens the air for everyone, and nobody can bring the calm back alone.
+location:
+  venue: "Waterloo City Centre"
+  locality: Waterloo
+  region: Ontario
+year: 2026
 partner: City of Waterloo
 occasion: Lumen 2026, Waterloo City Centre · September 19, 2026
 medium: Body tracking · quadraphonic sound · LED · TouchDesigner · Bitwig
