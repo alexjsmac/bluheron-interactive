@@ -11,6 +11,7 @@ year: 2026
 description: "An interactive museum exhibition in Strathroy, Ontario, made with Holy Cross students: local history you play on a dance pad, a clock hand, and more."
 funders:
   - Municipality of Strathroy-Caradoc
+  - Wright Family Performing Arts and Entertainment Centre Foundation
 partner: Museum Strathroy-Caradoc · Holy Cross Catholic Secondary School
 occasion: Museum Strathroy-Caradoc · Summer 2026
 medium: Interactive exhibits · creative coding with students · TouchDesigner · p5.js · Arduino sensors
@@ -65,6 +66,8 @@ credits:
     name: Students and teachers of Holy Cross Catholic Secondary School (ArtTech, History, and Construction)
   - role: Supported by
     name: Municipality of Strathroy-Caradoc — Progress Through Partnership program
+  - role: Sponsored by
+    name: The Wright Foundation (Wright Family Performing Arts and Entertainment Centre Foundation)
   - role: Built with
     name: TouchDesigner · p5.js · Arduino
 quote:
@@ -85,7 +88,8 @@ teachers in the ArtTech, History, and Construction programs at Holy Cross
 Catholic Secondary School, and BluHeron's job was to turn their research,
 writing, music, animation, and builds into exhibits a visitor could play. The
 Municipality of Strathroy-Caradoc supported it through its Progress Through
-Partnership program.
+Partnership program, and the Wright Foundation, which supports the arts in
+Strathroy-Caradoc, sponsored it.
 
 That meant teaching first. Alex worked with the students on creative coding
 and digital storytelling, then planned the exhibit with the museum: which
