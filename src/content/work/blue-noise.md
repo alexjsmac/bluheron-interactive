@@ -3,6 +3,11 @@ title: Blue Noise
 kicker: AV installation · Ocean Week Canada
 tagline: What does the ocean sound like when we stop shouting over it?
 summary: Move your hands, hear the ocean change — a visceral encounter with noise pollution.
+location:
+  venue: "100 Kellogg Lane"
+  locality: London
+  region: Ontario
+year: 2024
 partner: Canadian Ocean Literacy Coalition
 occasion: Ocean Week Canada · 100 Kellogg Lane, London · 2024
 medium: Projection · TouchDesigner · MediaPipe hand tracking · generative sound
