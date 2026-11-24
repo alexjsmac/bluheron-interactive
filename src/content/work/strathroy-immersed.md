@@ -12,7 +12,7 @@ video:
   src: /video/strathroy-immersed.mp4
   poster: ../../assets/work/strathroy-video-poster.jpg
   title: A walk through the exhibition
-  credit: Video by Museum Strathroy-Caradoc
+  credit: Video by the Municipality of Strathroy-Caradoc
   vertical: true
 gallery:
   - src: ../../assets/work/strathroy-dance-crowd.jpg
