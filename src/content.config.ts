@@ -22,6 +22,18 @@ const work = defineCollection({
       // Short silent loop (a public/ path, e.g. /loops/x.mp4) played over the
       // card image on the homepage. Keep it ~4s, 960x600, no audio.
       loop: z.string().optional(),
+      // A self-hosted video with sound (a public/ path), shown in its own
+      // player on the case study. For short vertical clips that don't
+      // warrant Vimeo/YouTube. `credit` names who made it when it isn't us.
+      video: z
+        .object({
+          src: z.string(),
+          poster: image(),
+          title: z.string(),
+          credit: z.string().optional(),
+          vertical: z.boolean().default(false),
+        })
+        .optional(),
       gallery: z
         .array(z.object({ src: image(), alt: z.string() }))
         .default([]),

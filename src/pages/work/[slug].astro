@@ -23,6 +23,10 @@ const share = d.hero
   : undefined;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
+const clipPoster = d.video
+  ? await getImage({ src: d.video.poster, width: d.video.vertical ? 720 : 1280, format: 'jpeg' })
+  : undefined;
+
 const all = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const idx = all.findIndex((p) => p.id === project.id);
 const next = all[(idx + 1) % all.length];
@@ -150,6 +154,26 @@ const next = all[(idx + 1) % all.length];
           title={d.title}
         />
       </section>
+    )
+  }
+
+  {
+    d.video && clipPoster && (
+      <figure class:list={['wrap clip reveal', { vertical: d.video.vertical }]}>
+        <video
+          src={withBase(d.video.src)}
+          poster={clipPoster.src}
+          controls
+          playsinline
+          preload="none"
+          aria-label={`${d.video.title} — ${d.title}`}
+        />
+        <figcaption>
+          <p class="kicker">Video</p>
+          <p class="clip-title">{d.video.title}</p>
+          {d.video.credit && <p class="clip-credit">{d.video.credit}</p>}
+        </figcaption>
+      </figure>
     )
   }
 
@@ -404,6 +428,53 @@ const next = all[(idx + 1) % all.length];
 
   .film {
     padding-block: 0 clamp(40px, 6vw, 64px);
+  }
+
+  /* Self-hosted clip. Vertical (phone) video sits beside its caption on
+     wide screens and stays phone-sized, never stretched to the column. */
+  .clip {
+    margin-block: 0 clamp(56px, 8vw, 88px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .clip video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    background: var(--band);
+  }
+
+  .clip.vertical video {
+    width: min(100%, 380px);
+    aspect-ratio: 9 / 16;
+  }
+
+  @media (min-width: 720px) {
+    .clip.vertical {
+      flex-direction: row;
+      align-items: flex-end;
+      gap: clamp(28px, 4vw, 48px);
+    }
+  }
+
+  .clip figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .clip-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+    line-height: 1.2;
+  }
+
+  .clip-credit {
+    font-size: 0.95rem;
+    color: var(--ink-2);
   }
 
   .how {
